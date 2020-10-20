@@ -1,0 +1,98 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-team-heading" jhiTranslate="betmanageApp.team.home.createOrEditLabel">Create or edit a Team</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.teamName" for="field_teamName">Team Name</label>
+                    <input type="text" class="form-control" name="teamName" id="field_teamName"
+                           formControlName="teamName"/>
+                    <div *ngIf="editForm.get('teamName')!.invalid && (editForm.get('teamName')!.dirty || editForm.get('teamName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('teamName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.shortCode" for="field_shortCode">Short Code</label>
+                    <input type="text" class="form-control" name="shortCode" id="field_shortCode"
+                           formControlName="shortCode"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.isNationalTeam" for="field_isNationalTeam">Is National Team</label>
+                    <input type="checkbox" class="form-control" name="isNationalTeam" id="field_isNationalTeam"
+                           formControlName="isNationalTeam"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.teamLogo" for="field_teamLogo">Team Logo</label>
+                    <div>
+                        <div *ngIf="editForm.get('teamLogo')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('teamLogoContentType')!.value, editForm.get('teamLogo')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('teamLogoContentType')!.value }}, {{ byteSize(editForm.get('teamLogo')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({teamLogo: null});editForm.patchValue({teamLogoContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_teamLogo" (change)="setFileData($event, 'teamLogo', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="teamLogo" id="field_teamLogo"
+                           formControlName="teamLogo"/>
+                    <input type="hidden" class="form-control" name="teamLogoContentType" id="field_teamLogoContentType"
+                           formControlName="teamLogoContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.teamId" for="field_teamId">Team Id</label>
+                    <input type="number" class="form-control" name="teamId" id="field_teamId"
+                           formControlName="teamId"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" formControlName="country">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="betmanageApp.team.matchPreview" for="field_matchPreviews">Match Preview</label>
+                    <select class="form-control" id="field_matchPreviews" multiple name="matchPreviews" formControlName="matchPreviews">
+                        <option [ngValue]="getSelected(editForm.get('matchPreviews')!.value, matchPreviewOption)" *ngFor="let matchPreviewOption of matchpreviews; trackBy: trackById">{{ matchPreviewOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.team.competition" for="field_competition">Competition</label>
+                    <select class="form-control" id="field_competition" name="competition" formControlName="competition">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="competitionOption.id === editForm.get('competition')!.value?.id ? editForm.get('competition')!.value : competitionOption" *ngFor="let competitionOption of competitions; trackBy: trackById">{{ competitionOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "team": {
+      "home": {
+        "title": "Teams",
+        "createLabel": "创建新 Team",
+        "createOrEditLabel": "创建或编辑 Team",
+        "search": "查找 Team",
+        "notFound": "No Teams found"
+      },
+      "created": "Team {{ param }} 创建成功",
+      "updated": "Team {{ param }} 更新成功",
+      "deleted": "Team {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Team {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Team"
+      },
+      "teamName": "Team Name",
+      "shortCode": "Short Code",
+      "isNationalTeam": "Is National Team",
+      "teamLogo": "Team Logo",
+      "teamId": "Team Id",
+      "country": "Country",
+      "socialMedia": "Social Media",
+      "matchPreview": "Match Preview",
+      "competition": "Competition"
+    }
+  }
+}

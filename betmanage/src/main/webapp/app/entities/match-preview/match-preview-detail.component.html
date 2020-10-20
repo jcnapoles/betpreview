@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="matchPreview">
+            <h2><span jhiTranslate="betmanageApp.matchPreview.detail.title">Match Preview</span> {{ matchPreview.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureId">Fixture Id</span></dt>
+                <dd>
+                    <span>{{ matchPreview.fixtureId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.blurbFull">Blurb Full</span></dt>
+                <dd>
+                    <span>{{ matchPreview.blurbFull }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.hometeamId">Hometeam Id</span></dt>
+                <dd>
+                    <span>{{ matchPreview.hometeamId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.visitorteamId">Visitorteam Id</span></dt>
+                <dd>
+                    <span>{{ matchPreview.visitorteamId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.hometeamName">Hometeam Name</span></dt>
+                <dd>
+                    <span>{{ matchPreview.hometeamName }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.visitorteamName">Visitorteam Name</span></dt>
+                <dd>
+                    <span>{{ matchPreview.visitorteamName }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.leagueId">League Id</span></dt>
+                <dd>
+                    <span>{{ matchPreview.leagueId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.league">League</span></dt>
+                <dd>
+                    <span>{{ matchPreview.league }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span></dt>
+                <dd>
+                    <span>{{ matchPreview.formationImg }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureImg">Fixture Img</span></dt>
+                <dd>
+                    <span>{{ matchPreview.fixtureImg }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.country">
+                        <a [routerLink]="['/country', matchPreview.country?.id, 'view']">{{ matchPreview.country?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/match-preview', matchPreview.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

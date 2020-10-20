@@ -1,0 +1,89 @@
+{
+  "name": "MatchPreview",
+  "fields": [
+    {
+      "fieldName": "fixtureId",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "blurbFull",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hometeamId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "visitorteamId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "hometeamName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "visitorteamName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leagueId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "league",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "formationImg",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fixtureImg",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "country",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "title",
+      "otherEntityRelationshipName": "quickItems",
+      "relationshipName": "title"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "paragraphs",
+      "otherEntityRelationshipName": "blurbSplit",
+      "relationshipName": "paragraphs"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "team",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20201020215603",
+  "entityTableName": "match_preview",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

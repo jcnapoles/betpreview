@@ -1,0 +1,24 @@
+{
+  "betmanageApp": {
+    "sport": {
+      "home": {
+        "title": "Sports",
+        "createLabel": "创建新 Sport",
+        "createOrEditLabel": "创建或编辑 Sport",
+        "search": "查找 Sport",
+        "notFound": "No Sports found"
+      },
+      "created": "Sport {{ param }} 创建成功",
+      "updated": "Sport {{ param }} 更新成功",
+      "deleted": "Sport {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Sport {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Sport"
+      },
+      "sportName": "Sport Name",
+      "competition": "Competition"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "team": {
+      "home": {
+        "title": "Teams",
+        "createLabel": "Team を追加",
+        "createOrEditLabel": "Teamを追加または編集",
+        "search": "Search for Team",
+        "notFound": "No Teams found"
+      },
+      "created": "A new Team is created with identifier {{ param }}",
+      "updated": "A Team is updated with identifier {{ param }}",
+      "deleted": "A Team is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Team {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Team"
+      },
+      "teamName": "Team Name",
+      "shortCode": "Short Code",
+      "isNationalTeam": "Is National Team",
+      "teamLogo": "Team Logo",
+      "teamId": "Team Id",
+      "country": "Country",
+      "socialMedia": "Social Media",
+      "matchPreview": "Match Preview",
+      "competition": "Competition"
+    }
+  }
+}

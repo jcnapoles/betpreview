@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "team": {
+      "home": {
+        "title": "Teams",
+        "createLabel": "Crear nuevo Team",
+        "createOrEditLabel": "Crear o editar Team",
+        "search": "Buscar Team",
+        "notFound": "Ningún Teams encontrado"
+      },
+      "created": "Un nuevo Team ha sido creado con el identificador {{ param }}",
+      "updated": "Un Team ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Team ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Team {{ id }}?"
+      },
+      "detail": {
+        "title": "Team"
+      },
+      "teamName": "Team Name",
+      "shortCode": "Short Code",
+      "isNationalTeam": "Is National Team",
+      "teamLogo": "Team Logo",
+      "teamId": "Team Id",
+      "country": "Country",
+      "socialMedia": "Social Media",
+      "matchPreview": "Match Preview",
+      "competition": "Competition"
+    }
+  }
+}

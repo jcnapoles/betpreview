@@ -1,0 +1,24 @@
+{
+  "betmanageApp": {
+    "title": {
+      "home": {
+        "title": "Titles",
+        "createLabel": "Title を追加",
+        "createOrEditLabel": "Titleを追加または編集",
+        "search": "Search for Title",
+        "notFound": "No Titles found"
+      },
+      "created": "A new Title is created with identifier {{ param }}",
+      "updated": "A Title is updated with identifier {{ param }}",
+      "deleted": "A Title is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Title {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Title"
+      },
+      "titleText": "Title Text",
+      "quickItems": "Quick Items"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-match-preview-heading" jhiTranslate="betmanageApp.matchPreview.home.createOrEditLabel">Create or edit a Match Preview</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.fixtureId" for="field_fixtureId">Fixture Id</label>
+                    <input type="number" class="form-control" name="fixtureId" id="field_fixtureId"
+                           formControlName="fixtureId"/>
+                    <div *ngIf="editForm.get('fixtureId')!.invalid && (editForm.get('fixtureId')!.dirty || editForm.get('fixtureId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fixtureId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('fixtureId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.blurbFull" for="field_blurbFull">Blurb Full</label>
+                    <input type="text" class="form-control" name="blurbFull" id="field_blurbFull"
+                           formControlName="blurbFull"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.hometeamId" for="field_hometeamId">Hometeam Id</label>
+                    <input type="number" class="form-control" name="hometeamId" id="field_hometeamId"
+                           formControlName="hometeamId"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.visitorteamId" for="field_visitorteamId">Visitorteam Id</label>
+                    <input type="number" class="form-control" name="visitorteamId" id="field_visitorteamId"
+                           formControlName="visitorteamId"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.hometeamName" for="field_hometeamName">Hometeam Name</label>
+                    <input type="text" class="form-control" name="hometeamName" id="field_hometeamName"
+                           formControlName="hometeamName"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.visitorteamName" for="field_visitorteamName">Visitorteam Name</label>
+                    <input type="text" class="form-control" name="visitorteamName" id="field_visitorteamName"
+                           formControlName="visitorteamName"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.leagueId" for="field_leagueId">League Id</label>
+                    <input type="number" class="form-control" name="leagueId" id="field_leagueId"
+                           formControlName="leagueId"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.league" for="field_league">League</label>
+                    <input type="text" class="form-control" name="league" id="field_league"
+                           formControlName="league"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.formationImg" for="field_formationImg">Formation Img</label>
+                    <input type="text" class="form-control" name="formationImg" id="field_formationImg"
+                           formControlName="formationImg"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.fixtureImg" for="field_fixtureImg">Fixture Img</label>
+                    <input type="text" class="form-control" name="fixtureImg" id="field_fixtureImg"
+                           formControlName="fixtureImg"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" formControlName="country">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

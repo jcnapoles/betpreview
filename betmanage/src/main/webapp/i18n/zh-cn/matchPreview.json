@@ -1,0 +1,36 @@
+{
+  "betmanageApp": {
+    "matchPreview": {
+      "home": {
+        "title": "Match Previews",
+        "createLabel": "创建新 Match Preview",
+        "createOrEditLabel": "创建或编辑 Match Preview",
+        "search": "查找 Match Preview",
+        "notFound": "No Match Previews found"
+      },
+      "created": "Match Preview {{ param }} 创建成功",
+      "updated": "Match Preview {{ param }} 更新成功",
+      "deleted": "Match Preview {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Match Preview {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Match Preview"
+      },
+      "fixtureId": "Fixture Id",
+      "blurbFull": "Blurb Full",
+      "hometeamId": "Hometeam Id",
+      "visitorteamId": "Visitorteam Id",
+      "hometeamName": "Hometeam Name",
+      "visitorteamName": "Visitorteam Name",
+      "leagueId": "League Id",
+      "league": "League",
+      "formationImg": "Formation Img",
+      "fixtureImg": "Fixture Img",
+      "country": "Country",
+      "title": "Title",
+      "paragraphs": "Paragraphs",
+      "team": "Team"
+    }
+  }
+}

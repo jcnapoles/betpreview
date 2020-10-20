@@ -1,0 +1,35 @@
+{
+  "name": "SocialMedia",
+  "fields": [
+    {
+      "fieldName": "tag",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "platform",
+      "fieldType": "PlatformEnum",
+      "fieldValues": "TWITTER,INSTAGRAM"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "socialMedia",
+      "relationshipName": "team",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201020215803",
+  "javadoc": "Task entity.\\n@author The JHipster team.",
+  "entityTableName": "social_media",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

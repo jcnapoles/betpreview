@@ -1,0 +1,9 @@
+{
+  "betmanageApp": {
+    "PlatformEnum": {
+      "null": "",
+      "TWITTER": "TWITTER",
+      "INSTAGRAM": "INSTAGRAM"
+    }
+  }
+}

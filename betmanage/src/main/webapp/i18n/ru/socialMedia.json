@@ -1,0 +1,25 @@
+{
+  "betmanageApp": {
+    "socialMedia": {
+      "home": {
+        "title": "Social Medias",
+        "createLabel": "Создать новый Social Media",
+        "createOrEditLabel": "Создать или отредактировать Social Media",
+        "search": "Найти Social Media",
+        "notFound": "No Social Medias found"
+      },
+      "created": "Новый Social Media создан с идентификатором {{ param }}",
+      "updated": "Social Media обновлен с идентификатором {{ param }}",
+      "deleted": "Social Media удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Social Media {{ id }}?"
+      },
+      "detail": {
+        "title": "Social Media"
+      },
+      "tag": "Tag",
+      "platform": "Platform",
+      "team": "Team"
+    }
+  }
+}

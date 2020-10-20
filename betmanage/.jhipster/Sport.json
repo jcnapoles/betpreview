@@ -1,0 +1,32 @@
+{
+  "name": "Sport",
+  "fields": [
+    {
+      "fieldName": "sportName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "competition",
+      "otherEntityRelationshipName": "sport",
+      "relationshipName": "competition"
+    }
+  ],
+  "changelogDate": "20201020215903",
+  "javadoc": "The Sport entity.",
+  "entityTableName": "sport",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,24 @@
+{
+  "betmanageApp": {
+    "sport": {
+      "home": {
+        "title": "Sports",
+        "createLabel": "Genera un nuovo Sport",
+        "createOrEditLabel": "Genera o modifica un Sport",
+        "search": "Cerca Sport",
+        "notFound": "No Sports found"
+      },
+      "created": "&Egrave; stato generato un nuovo Sport con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Sport identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Sport con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Sport {{ id }}?"
+      },
+      "detail": {
+        "title": "Sport"
+      },
+      "sportName": "Sport Name",
+      "competition": "Competition"
+    }
+  }
+}

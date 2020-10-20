@@ -1,0 +1,103 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="betmanageApp.matchPreview.home.title">Match Previews</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-match-preview" [routerLink]="['/match-preview/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="betmanageApp.matchPreview.home.createLabel">
+            Create a new Match Preview
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'betmanageApp.matchPreview.home.search' | translate }}">
+
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon icon="search"></fa-icon>
+                    </button>
+
+                    <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+                        <fa-icon icon="trash-alt"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="matchPreviews?.length === 0">
+        <span jhiTranslate="betmanageApp.matchPreview.home.notFound">No matchPreviews found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="matchPreviews && matchPreviews.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fixtureId"><span jhiTranslate="betmanageApp.matchPreview.fixtureId">Fixture Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="blurbFull"><span jhiTranslate="betmanageApp.matchPreview.blurbFull">Blurb Full</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="hometeamId"><span jhiTranslate="betmanageApp.matchPreview.hometeamId">Hometeam Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="visitorteamId"><span jhiTranslate="betmanageApp.matchPreview.visitorteamId">Visitorteam Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="hometeamName"><span jhiTranslate="betmanageApp.matchPreview.hometeamName">Hometeam Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="visitorteamName"><span jhiTranslate="betmanageApp.matchPreview.visitorteamName">Visitorteam Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="leagueId"><span jhiTranslate="betmanageApp.matchPreview.leagueId">League Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="league"><span jhiTranslate="betmanageApp.matchPreview.league">League</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="formationImg"><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fixtureImg"><span jhiTranslate="betmanageApp.matchPreview.fixtureImg">Fixture Img</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.matchPreview.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let matchPreview of matchPreviews ;trackBy: trackId">
+                    <td><a [routerLink]="['/match-preview', matchPreview.id, 'view']">{{ matchPreview.id }}</a></td>
+                    <td>{{ matchPreview.fixtureId }}</td>
+                    <td>{{ matchPreview.blurbFull }}</td>
+                    <td>{{ matchPreview.hometeamId }}</td>
+                    <td>{{ matchPreview.visitorteamId }}</td>
+                    <td>{{ matchPreview.hometeamName }}</td>
+                    <td>{{ matchPreview.visitorteamName }}</td>
+                    <td>{{ matchPreview.leagueId }}</td>
+                    <td>{{ matchPreview.league }}</td>
+                    <td>{{ matchPreview.formationImg }}</td>
+                    <td>{{ matchPreview.fixtureImg }}</td>
+                    <td>
+                        <div *ngIf="matchPreview.country">
+                            <a [routerLink]="['/country', matchPreview.country?.id, 'view']" >{{ matchPreview.country?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/match-preview', matchPreview.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/match-preview', matchPreview.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(matchPreview)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

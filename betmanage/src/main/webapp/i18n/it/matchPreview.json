@@ -1,0 +1,36 @@
+{
+  "betmanageApp": {
+    "matchPreview": {
+      "home": {
+        "title": "MatchPreviews",
+        "createLabel": "Genera un nuovo Match Preview",
+        "createOrEditLabel": "Genera o modifica un Match Preview",
+        "search": "Cerca Match Preview",
+        "notFound": "No Match Previews found"
+      },
+      "created": "&Egrave; stato generato un nuovo Match Preview con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Match Preview identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Match Preview con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Match Preview {{ id }}?"
+      },
+      "detail": {
+        "title": "Match Preview"
+      },
+      "fixtureId": "Fixture Id",
+      "blurbFull": "Blurb Full",
+      "hometeamId": "Hometeam Id",
+      "visitorteamId": "Visitorteam Id",
+      "hometeamName": "Hometeam Name",
+      "visitorteamName": "Visitorteam Name",
+      "leagueId": "League Id",
+      "league": "League",
+      "formationImg": "Formation Img",
+      "fixtureImg": "Fixture Img",
+      "country": "Country",
+      "title": "Title",
+      "paragraphs": "Paragraphs",
+      "team": "Team"
+    }
+  }
+}

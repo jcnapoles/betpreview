@@ -1,0 +1,29 @@
+{
+  "name": "Paragraphs",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "paragraphs",
+      "relationshipName": "blurbSplit",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201020215703",
+  "entityTableName": "paragraphs",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

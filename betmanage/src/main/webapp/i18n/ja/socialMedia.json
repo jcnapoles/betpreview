@@ -1,0 +1,25 @@
+{
+  "betmanageApp": {
+    "socialMedia": {
+      "home": {
+        "title": "SocialMedias",
+        "createLabel": "Social Media を追加",
+        "createOrEditLabel": "Social Mediaを追加または編集",
+        "search": "Search for Social Media",
+        "notFound": "No Social Medias found"
+      },
+      "created": "A new Social Media is created with identifier {{ param }}",
+      "updated": "A Social Media is updated with identifier {{ param }}",
+      "deleted": "A Social Media is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Social Media {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Social Media"
+      },
+      "tag": "Tag",
+      "platform": "Platform",
+      "team": "Team"
+    }
+  }
+}

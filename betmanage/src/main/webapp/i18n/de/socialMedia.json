@@ -1,0 +1,25 @@
+{
+  "betmanageApp": {
+    "socialMedia": {
+      "home": {
+        "title": "Social Medias",
+        "createLabel": "Social Media erstellen",
+        "createOrEditLabel": "Social Media erstellen oder bearbeiten",
+        "search": "Suche nach Social Media",
+        "notFound": "No Social Medias found"
+      },
+      "created": "Social Media erstellt mit ID {{ param }}",
+      "updated": "Social Media aktualisiert mit ID {{ param }}",
+      "deleted": "Social Media gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Social Media {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Social Media"
+      },
+      "tag": "Tag",
+      "platform": "Platform",
+      "team": "Team"
+    }
+  }
+}

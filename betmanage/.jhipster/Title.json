@@ -1,0 +1,29 @@
+{
+  "name": "Title",
+  "fields": [
+    {
+      "fieldName": "titleText",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "title",
+      "relationshipName": "quickItems",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201020220103",
+  "entityTableName": "title",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

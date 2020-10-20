@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="competition">
+            <h2><span jhiTranslate="betmanageApp.competition.detail.title">Competition</span> {{ competition.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.competition.competitionName">Competition Name</span></dt>
+                <dd>
+                    <span>{{ competition.competitionName }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.competitionLogo">Competition Logo</span></dt>
+                <dd>
+                    <div *ngIf="competition.competitionLogo">
+                        <a (click)="openFile(competition.competitionLogoContentType, competition.competitionLogo)" jhiTranslate="entity.action.open">open</a>
+                        {{ competition.competitionLogoContentType }}, {{ byteSize(competition.competitionLogo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.isCup">Is Cup</span></dt>
+                <dd>
+                    <span>{{ competition.isCup }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.active">Active</span></dt>
+                <dd>
+                    <span>{{ competition.active }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'betmanageApp.TypeCompetition.' + competition.type }}">{{ competition.type }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.sportscribeId">Sportscribe Id</span></dt>
+                <dd>
+                    <span>{{ competition.sportscribeId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="competition.country">
+                        <a [routerLink]="['/country', competition.country?.id, 'view']">{{ competition.country?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.sport">Sport</span></dt>
+                <dd>
+                    <div *ngIf="competition.sport">
+                        <a [routerLink]="['/sport', competition.sport?.id, 'view']">{{ competition.sport?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/competition', competition.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

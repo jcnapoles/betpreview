@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "competition": {
+      "home": {
+        "title": "Competitions",
+        "createLabel": "Создать новый Competition",
+        "createOrEditLabel": "Создать или отредактировать Competition",
+        "search": "Найти Competition",
+        "notFound": "No Competitions found"
+      },
+      "created": "Новый Competition создан с идентификатором {{ param }}",
+      "updated": "Competition обновлен с идентификатором {{ param }}",
+      "deleted": "Competition удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Competition {{ id }}?"
+      },
+      "detail": {
+        "title": "Competition"
+      },
+      "competitionName": "Competition Name",
+      "competitionLogo": "Competition Logo",
+      "isCup": "Is Cup",
+      "active": "Active",
+      "type": "Type",
+      "sportscribeId": "Sportscribe Id",
+      "country": "Country",
+      "team": "Team",
+      "sport": "Sport"
+    }
+  }
+}

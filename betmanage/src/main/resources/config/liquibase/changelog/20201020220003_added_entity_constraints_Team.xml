@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Team.
+    -->
+    <changeSet id="20201020220003-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="team"
+                                 constraintName="fk_team_country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
+
+        <addForeignKeyConstraint baseColumnNames="team_id"
+                                 baseTableName="team_match_preview"
+                                 constraintName="fk_team_match_preview_team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+
+        <addForeignKeyConstraint baseColumnNames="match_preview_id"
+                                 baseTableName="team_match_preview"
+                                 constraintName="fk_team_match_preview_match_preview_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_preview"/>
+        
+        <addForeignKeyConstraint baseColumnNames="competition_id"
+                                 baseTableName="team"
+                                 constraintName="fk_team_competition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="competition"/>
+
+    </changeSet>
+</databaseChangeLog>

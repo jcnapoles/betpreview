@@ -1,0 +1,24 @@
+{
+  "betmanageApp": {
+    "paragraphs": {
+      "home": {
+        "title": "Paragraphs",
+        "createLabel": "Genera un nuovo Paragraphs",
+        "createOrEditLabel": "Genera o modifica un Paragraphs",
+        "search": "Cerca Paragraphs",
+        "notFound": "No Paragraphs found"
+      },
+      "created": "&Egrave; stato generato un nuovo Paragraphs con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Paragraphs identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Paragraphs con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Paragraphs {{ id }}?"
+      },
+      "detail": {
+        "title": "Paragraphs"
+      },
+      "content": "Content",
+      "blurbSplit": "Blurb Split"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.betpreview.betmanage",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.4",
+    "applicationType": "monolith",
+    "baseName": "betmanage",
+    "packageName": "com.betpreview.betmanage",
+    "packageFolder": "com/betpreview/betmanage",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "OGVlNmFiYjZmZDIyMmU5ZjMzOWZhZGZhZmNjYWY3NTgxZjk3MTRkNmZjOTY5MjU3Yzc0MGVmMmI2YWE5ZmU5NjQ1MTc1ZWM0YzgzYjg0ZThjN2E2ODE3YjkzOGI0Y2RjNjg3NjgzZmVmZjk1ZjJlNDc3MTliMzljODc3N2MzZmY=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1603224177403,
+    "testFrameworks": ["cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "ca", "zh-cn", "de", "it", "ja", "ru", "es"],
+    "blueprints": []
+  }
+}

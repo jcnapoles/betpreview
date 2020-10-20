@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "competition": {
+      "home": {
+        "title": "Competitions",
+        "createLabel": "Competition を追加",
+        "createOrEditLabel": "Competitionを追加または編集",
+        "search": "Search for Competition",
+        "notFound": "No Competitions found"
+      },
+      "created": "A new Competition is created with identifier {{ param }}",
+      "updated": "A Competition is updated with identifier {{ param }}",
+      "deleted": "A Competition is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Competition {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Competition"
+      },
+      "competitionName": "Competition Name",
+      "competitionLogo": "Competition Logo",
+      "isCup": "Is Cup",
+      "active": "Active",
+      "type": "Type",
+      "sportscribeId": "Sportscribe Id",
+      "country": "Country",
+      "team": "Team",
+      "sport": "Sport"
+    }
+  }
+}

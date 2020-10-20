@@ -1,0 +1,24 @@
+{
+  "betmanageApp": {
+    "title": {
+      "home": {
+        "title": "Titles",
+        "createLabel": "Genera un nuovo Title",
+        "createOrEditLabel": "Genera o modifica un Title",
+        "search": "Cerca Title",
+        "notFound": "No Titles found"
+      },
+      "created": "&Egrave; stato generato un nuovo Title con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Title identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Title con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Title {{ id }}?"
+      },
+      "detail": {
+        "title": "Title"
+      },
+      "titleText": "Title Text",
+      "quickItems": "Quick Items"
+    }
+  }
+}

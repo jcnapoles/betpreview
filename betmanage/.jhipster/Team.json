@@ -1,0 +1,71 @@
+{
+  "name": "Team",
+  "fields": [
+    {
+      "fieldName": "teamName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "shortCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isNationalTeam",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "teamLogo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "teamId",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "country",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "socialMedia",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "socialMedia"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "matchPreview",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "competition",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "competition",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201020220003",
+  "entityTableName": "team",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,11 @@
+id;competition_name;competition_logo;competition_logo_content_type;is_cup;active;type;sportscribe_id
+1;transitional Intelligent Lake;../fake-data/blob/hipster.png;image/png;true;false;CUP_INTERNATIONAL;58514
+2;Tools;../fake-data/blob/hipster.png;image/png;true;true;CUP_INTERNATIONAL;53184
+3;card Home;../fake-data/blob/hipster.png;image/png;true;true;DOMESTIC_CUP;11411
+4;Unbranded;../fake-data/blob/hipster.png;image/png;false;false;DOMESTIC_CUP;66645
+5;partnerships Ergonomic;../fake-data/blob/hipster.png;image/png;true;false;DOMESTIC;32842
+6;solution-oriented Shoes deploy;../fake-data/blob/hipster.png;image/png;true;true;DOMESTIC;38439
+7;benchmark ubiquitous quantifying;../fake-data/blob/hipster.png;image/png;false;true;DOMESTIC_CUP;68236
+8;EXE synthesizing;../fake-data/blob/hipster.png;image/png;false;true;DOMESTIC;75699
+9;Spurs Chips Parkways;../fake-data/blob/hipster.png;image/png;false;true;CUP_INTERNATIONAL;45925
+10;Avon Optimization;../fake-data/blob/hipster.png;image/png;false;false;DOMESTIC_CUP;28943

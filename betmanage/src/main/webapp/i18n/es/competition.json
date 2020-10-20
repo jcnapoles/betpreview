@@ -1,0 +1,31 @@
+{
+  "betmanageApp": {
+    "competition": {
+      "home": {
+        "title": "Competitions",
+        "createLabel": "Crear nuevo Competition",
+        "createOrEditLabel": "Crear o editar Competition",
+        "search": "Buscar Competition",
+        "notFound": "Ningún Competitions encontrado"
+      },
+      "created": "Un nuevo Competition ha sido creado con el identificador {{ param }}",
+      "updated": "Un Competition ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Competition ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Competition {{ id }}?"
+      },
+      "detail": {
+        "title": "Competition"
+      },
+      "competitionName": "Competition Name",
+      "competitionLogo": "Competition Logo",
+      "isCup": "Is Cup",
+      "active": "Active",
+      "type": "Type",
+      "sportscribeId": "Sportscribe Id",
+      "country": "Country",
+      "team": "Team",
+      "sport": "Sport"
+    }
+  }
+}

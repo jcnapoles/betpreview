@@ -1,0 +1,25 @@
+{
+  "betmanageApp": {
+    "socialMedia": {
+      "home": {
+        "title": "Social Medias",
+        "createLabel": "创建新 Social Media",
+        "createOrEditLabel": "创建或编辑 Social Media",
+        "search": "查找 Social Media",
+        "notFound": "No Social Medias found"
+      },
+      "created": "Social Media {{ param }} 创建成功",
+      "updated": "Social Media {{ param }} 更新成功",
+      "deleted": "Social Media {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Social Media {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Social Media"
+      },
+      "tag": "Tag",
+      "platform": "Platform",
+      "team": "Team"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="socialMedia">
+            <h2><span jhiTranslate="betmanageApp.socialMedia.detail.title">Social Media</span> {{ socialMedia.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.socialMedia.tag">Tag</span></dt>
+                <dd>
+                    <span>{{ socialMedia.tag }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.socialMedia.platform">Platform</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'betmanageApp.PlatformEnum.' + socialMedia.platform }}">{{ socialMedia.platform }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.socialMedia.team">Team</span></dt>
+                <dd>
+                    <div *ngIf="socialMedia.team">
+                        <a [routerLink]="['/team', socialMedia.team?.id, 'view']">{{ socialMedia.team?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/social-media', socialMedia.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

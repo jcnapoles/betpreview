@@ -1,0 +1,68 @@
+{
+  "name": "Competition",
+  "fields": [
+    {
+      "fieldName": "competitionName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "competitionLogo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "isCup",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypeCompetition",
+      "fieldValues": "DOMESTIC,DOMESTIC_CUP,CUP_INTERNATIONAL"
+    },
+    {
+      "fieldName": "sportscribeId",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "competition",
+      "relationshipName": "country",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "competition",
+      "relationshipName": "team"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sport",
+      "otherEntityRelationshipName": "competition",
+      "relationshipName": "sport",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201020215403",
+  "entityTableName": "competition",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

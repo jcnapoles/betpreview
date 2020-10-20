@@ -1,0 +1,10 @@
+{
+  "betmanageApp": {
+    "TypeCompetition": {
+      "null": "",
+      "DOMESTIC": "DOMESTIC",
+      "DOMESTIC_CUP": "DOMESTIC_CUP",
+      "CUP_INTERNATIONAL": "CUP_INTERNATIONAL"
+    }
+  }
+}

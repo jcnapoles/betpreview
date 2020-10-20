@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="team">
+            <h2><span jhiTranslate="betmanageApp.team.detail.title">Team</span> {{ team.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.team.teamName">Team Name</span></dt>
+                <dd>
+                    <span>{{ team.teamName }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.shortCode">Short Code</span></dt>
+                <dd>
+                    <span>{{ team.shortCode }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.isNationalTeam">Is National Team</span></dt>
+                <dd>
+                    <span>{{ team.isNationalTeam }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.teamLogo">Team Logo</span></dt>
+                <dd>
+                    <div *ngIf="team.teamLogo">
+                        <a (click)="openFile(team.teamLogoContentType, team.teamLogo)" jhiTranslate="entity.action.open">open</a>
+                        {{ team.teamLogoContentType }}, {{ byteSize(team.teamLogo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.teamId">Team Id</span></dt>
+                <dd>
+                    <span>{{ team.teamId }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="team.country">
+                        <a [routerLink]="['/country', team.country?.id, 'view']">{{ team.country?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.matchPreview">Match Preview</span></dt>
+                <dd>
+                    <span *ngFor="let matchPreview of team.matchPreviews; let last = last">
+                        <a [routerLink]="['/match-preview', matchPreview?.id, 'view']">{{ matchPreview.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.competition">Competition</span></dt>
+                <dd>
+                    <div *ngIf="team.competition">
+                        <a [routerLink]="['/competition', team.competition?.id, 'view']">{{ team.competition?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/team', team.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
