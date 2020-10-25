@@ -69,4 +69,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Page<Competition> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Competitions for query {}", query);
         return competitionSearchRepository.search(queryStringQuery(query), pageable);    }
+
+	@Override
+	public Optional<Competition> findOneBySportscribeId(Integer sportscribeId) {
+		 log.debug("Request to get Competition by SportscribeId: {}", sportscribeId);
+		return competitionRepository.findOneBySportscribeId(sportscribeId);
+	}
 }

@@ -81,4 +81,16 @@ export const competitionRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+	{
+    path: 'load',
+    component: CompetitionUpdateComponent,
+    resolve: {
+      competition: CompetitionResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'betmanageApp.competition.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];

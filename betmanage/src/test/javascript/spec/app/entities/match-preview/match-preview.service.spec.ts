@@ -20,7 +20,21 @@ describe('Service Tests', () => {
       service = injector.get(MatchPreviewService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new MatchPreview(0, 0, 'AAAAAAA', 0, 0, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new MatchPreview(
+        0,
+        0,
+        'AAAAAAA',
+        0,
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        0,
+        'AAAAAAA',
+        'image/png',
+        'AAAAAAA',
+        'image/png',
+        'AAAAAAA'
+      );
     });
 
     describe('Service methods', () => {

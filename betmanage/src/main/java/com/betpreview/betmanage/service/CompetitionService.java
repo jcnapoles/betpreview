@@ -1,11 +1,11 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.Competition;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import com.betpreview.betmanage.domain.Competition;
 
 /**
  * Service Interface for managing {@link Competition}.
@@ -53,4 +53,7 @@ public interface CompetitionService {
      * @return the list of entities.
      */
     Page<Competition> search(String query, Pageable pageable);
+    
+    
+    Optional<Competition> findOneBySportscribeId(Integer sportscribeId);
 }

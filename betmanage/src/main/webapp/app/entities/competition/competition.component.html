@@ -8,6 +8,12 @@
             Create a new Competition
             </span>
         </button>
+         <button class="btn btn-success float-right jh-load-entity mr-2" (click)="loadAPICompetitions()">
+            <fa-icon icon="plus"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="betmanageApp.competition.home.loadCompetitionLabel">
+            Create a new Competition
+            </span>
+        </button>
     </h2>
 
     <jhi-alert-error></jhi-alert-error>
@@ -110,5 +116,5 @@
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
         </div>
-    </div>
+    </div>    
 </div>

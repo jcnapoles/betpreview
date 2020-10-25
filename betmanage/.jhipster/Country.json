@@ -9,7 +9,14 @@
       ]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "competition",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "competition"
+    }
+  ],
   "changelogDate": "20201020215503",
   "entityTableName": "country",
   "dto": "no",

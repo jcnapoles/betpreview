@@ -5,9 +5,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { IMatchPreview, MatchPreview } from 'app/shared/model/match-preview.model';
 import { MatchPreviewService } from './match-preview.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country/country.service';
 
@@ -30,11 +32,15 @@ export class MatchPreviewUpdateComponent implements OnInit {
     leagueId: [],
     league: [],
     formationImg: [],
+    formationImgContentType: [],
     fixtureImg: [],
+    fixtureImgContentType: [],
     country: [],
   });
 
   constructor(
+    protected dataUtils: JhiDataUtils,
+    protected eventManager: JhiEventManager,
     protected matchPreviewService: MatchPreviewService,
     protected countryService: CountryService,
     protected activatedRoute: ActivatedRoute,
@@ -81,8 +87,26 @@ export class MatchPreviewUpdateComponent implements OnInit {
       leagueId: matchPreview.leagueId,
       league: matchPreview.league,
       formationImg: matchPreview.formationImg,
+      formationImgContentType: matchPreview.formationImgContentType,
       fixtureImg: matchPreview.fixtureImg,
+      fixtureImgContentType: matchPreview.fixtureImgContentType,
       country: matchPreview.country,
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(contentType: string, base64String: string): void {
+    this.dataUtils.openFile(contentType, base64String);
+  }
+
+  setFileData(event: any, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe(null, (err: JhiFileLoadError) => {
+      this.eventManager.broadcast(
+        new JhiEventWithContent<AlertError>('betmanageApp.error', { ...err, key: 'error.file.' + err.key })
+      );
     });
   }
 
@@ -112,7 +136,9 @@ export class MatchPreviewUpdateComponent implements OnInit {
       visitorteamName: this.editForm.get(['visitorteamName'])!.value,
       leagueId: this.editForm.get(['leagueId'])!.value,
       league: this.editForm.get(['league'])!.value,
+      formationImgContentType: this.editForm.get(['formationImgContentType'])!.value,
       formationImg: this.editForm.get(['formationImg'])!.value,
+      fixtureImgContentType: this.editForm.get(['fixtureImgContentType'])!.value,
       fixtureImg: this.editForm.get(['fixtureImg'])!.value,
       country: this.editForm.get(['country'])!.value,
     };

@@ -70,18 +70,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.competition.country" for="field_country">Country</label>
-                    <select class="form-control" id="field_country" name="country" formControlName="country">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.competition.sport" for="field_sport">Sport</label>
                     <select class="form-control" id="field_sport" name="sport" formControlName="sport">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="sportOption.id === editForm.get('sport')!.value?.id ? editForm.get('sport')!.value : sportOption" *ngFor="let sportOption of sports; trackBy: trackById">{{ sportOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.competition.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" formControlName="country">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
                     </select>
                 </div>
             </div>

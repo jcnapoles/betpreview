@@ -364,7 +364,16 @@
             <artifactId>cucumber-spring</artifactId>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>com.betpreview</groupId>
+			<artifactId>SportScribeWS</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -38,11 +38,13 @@
     },
     {
       "fieldName": "formationImg",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
     },
     {
       "fieldName": "fixtureImg",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
     }
   ],
   "relationships": [

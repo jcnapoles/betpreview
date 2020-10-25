@@ -73,4 +73,10 @@ public class SportServiceImpl implements SportService {
             .stream(sportSearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	@Override
+	public Optional<Sport> findOneBySportName(String sportName) {
+		log.debug("Request to get Sport by sportName: {}", sportName);
+		return sportRepository.findOneBySportName(sportName);
+	}
 }

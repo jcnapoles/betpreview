@@ -186,3 +186,7 @@ jhipster:
 # ===================================================================
 
 # application:
+sportscribe:  
+  url:  https://api.sportscribe.co/v1_0/
+  keyName:  x-api-key
+  keyValue: G0dSJy8KSc38kklmmLmmP8ZSFkkMg4wj46rrnZqM

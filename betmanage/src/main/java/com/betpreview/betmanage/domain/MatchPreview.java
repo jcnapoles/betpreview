@@ -52,11 +52,19 @@ public class MatchPreview implements Serializable {
     @Column(name = "league")
     private String league;
 
+    @Lob
     @Column(name = "formation_img")
-    private String formationImg;
+    private byte[] formationImg;
 
+    @Column(name = "formation_img_content_type")
+    private String formationImgContentType;
+
+    @Lob
     @Column(name = "fixture_img")
-    private String fixtureImg;
+    private byte[] fixtureImg;
+
+    @Column(name = "fixture_img_content_type")
+    private String fixtureImgContentType;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -188,30 +196,56 @@ public class MatchPreview implements Serializable {
         this.league = league;
     }
 
-    public String getFormationImg() {
+    public byte[] getFormationImg() {
         return formationImg;
     }
 
-    public MatchPreview formationImg(String formationImg) {
+    public MatchPreview formationImg(byte[] formationImg) {
         this.formationImg = formationImg;
         return this;
     }
 
-    public void setFormationImg(String formationImg) {
+    public void setFormationImg(byte[] formationImg) {
         this.formationImg = formationImg;
     }
 
-    public String getFixtureImg() {
+    public String getFormationImgContentType() {
+        return formationImgContentType;
+    }
+
+    public MatchPreview formationImgContentType(String formationImgContentType) {
+        this.formationImgContentType = formationImgContentType;
+        return this;
+    }
+
+    public void setFormationImgContentType(String formationImgContentType) {
+        this.formationImgContentType = formationImgContentType;
+    }
+
+    public byte[] getFixtureImg() {
         return fixtureImg;
     }
 
-    public MatchPreview fixtureImg(String fixtureImg) {
+    public MatchPreview fixtureImg(byte[] fixtureImg) {
         this.fixtureImg = fixtureImg;
         return this;
     }
 
-    public void setFixtureImg(String fixtureImg) {
+    public void setFixtureImg(byte[] fixtureImg) {
         this.fixtureImg = fixtureImg;
+    }
+
+    public String getFixtureImgContentType() {
+        return fixtureImgContentType;
+    }
+
+    public MatchPreview fixtureImgContentType(String fixtureImgContentType) {
+        this.fixtureImgContentType = fixtureImgContentType;
+        return this;
+    }
+
+    public void setFixtureImgContentType(String fixtureImgContentType) {
+        this.fixtureImgContentType = fixtureImgContentType;
     }
 
     public Country getCountry() {
@@ -333,7 +367,9 @@ public class MatchPreview implements Serializable {
             ", leagueId=" + getLeagueId() +
             ", league='" + getLeague() + "'" +
             ", formationImg='" + getFormationImg() + "'" +
+            ", formationImgContentType='" + getFormationImgContentType() + "'" +
             ", fixtureImg='" + getFixtureImg() + "'" +
+            ", fixtureImgContentType='" + getFixtureImgContentType() + "'" +
             "}";
     }
 }

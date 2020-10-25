@@ -35,16 +35,16 @@
                 <dd>
                     <span>{{ competition.sportscribeId }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.competition.country">Country</span></dt>
-                <dd>
-                    <div *ngIf="competition.country">
-                        <a [routerLink]="['/country', competition.country?.id, 'view']">{{ competition.country?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.competition.sport">Sport</span></dt>
                 <dd>
                     <div *ngIf="competition.sport">
                         <a [routerLink]="['/sport', competition.sport?.id, 'view']">{{ competition.sport?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.competition.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="competition.country">
+                        <a [routerLink]="['/country', competition.country?.id, 'view']">{{ competition.country?.id }}</a>
                     </div>
                 </dd>
             </dl>

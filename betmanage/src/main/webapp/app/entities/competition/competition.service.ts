@@ -41,4 +41,8 @@ export class CompetitionService {
     const options = createRequestOption(req);
     return this.http.get<ICompetition[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
+
+ load(): Observable<EntityArrayResponseType> {
+	return this.http.get<ICompetition[]>(`${this.resourceUrl}/load`,{ observe: 'response' });
+  }
 }

@@ -73,4 +73,10 @@ public class CountryServiceImpl implements CountryService {
             .stream(countrySearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	@Override
+	public Optional<Country> findOneByCountryName(String countryName) {
+		log.debug("Request to get Country by countryName : {}", countryName);
+		return countryRepository.findOneCountryName(countryName);
+	}
 }

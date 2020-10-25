@@ -16,6 +16,7 @@ import { CompetitionDeleteDialogComponent } from './competition-delete-dialog.co
   templateUrl: './competition.component.html',
 })
 export class CompetitionComponent implements OnInit, OnDestroy {
+  tempCompetitions?: any;	
   competitions?: ICompetition[];
   eventSubscriber?: Subscription;
   currentSearch: string;
@@ -101,6 +102,15 @@ export class CompetitionComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadAPICompetitions(): void{
+		this.competitionService.load()
+			.subscribe(
+				response => {
+					this.tempCompetitions = response;
+				}
+			);
+	}
+
   trackId(index: number, item: ICompetition): number {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
@@ -152,4 +162,5 @@ export class CompetitionComponent implements OnInit, OnDestroy {
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
+
 }

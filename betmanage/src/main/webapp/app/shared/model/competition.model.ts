@@ -1,6 +1,6 @@
-import { ICountry } from 'app/shared/model/country.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISport } from 'app/shared/model/sport.model';
+import { ICountry } from 'app/shared/model/country.model';
 import { TypeCompetition } from 'app/shared/model/enumerations/type-competition.model';
 
 export interface ICompetition {
@@ -12,9 +12,9 @@ export interface ICompetition {
   active?: boolean;
   type?: TypeCompetition;
   sportscribeId?: number;
-  country?: ICountry;
   teams?: ITeam[];
   sport?: ISport;
+  country?: ICountry;
 }
 
 export class Competition implements ICompetition {
@@ -27,9 +27,9 @@ export class Competition implements ICompetition {
     public active?: boolean,
     public type?: TypeCompetition,
     public sportscribeId?: number,
-    public country?: ICountry,
     public teams?: ITeam[],
-    public sport?: ISport
+    public sport?: ISport,
+    public country?: ICountry
   ) {
     this.isCup = this.isCup || false;
     this.active = this.active || false;

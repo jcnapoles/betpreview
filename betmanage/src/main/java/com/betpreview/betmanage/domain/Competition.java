@@ -53,10 +53,6 @@ public class Competition implements Serializable {
     @Column(name = "sportscribe_id")
     private Integer sportscribeId;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Country country;
-
     @OneToMany(mappedBy = "competition")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Team> teams = new HashSet<>();
@@ -64,6 +60,10 @@ public class Competition implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "competitions", allowSetters = true)
     private Sport sport;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "competitions", allowSetters = true)
+    private Country country;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -165,19 +165,6 @@ public class Competition implements Serializable {
         this.sportscribeId = sportscribeId;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public Competition country(Country country) {
-        this.country = country;
-        return this;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Set<Team> getTeams() {
         return teams;
     }
@@ -214,6 +201,19 @@ public class Competition implements Serializable {
 
     public void setSport(Sport sport) {
         this.sport = sport;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Competition country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -49,4 +49,6 @@ public interface SportService {
      * @return the list of entities.
      */
     List<Sport> search(String query);
+    
+    Optional<Sport> findOneBySportName(String sportName);
 }

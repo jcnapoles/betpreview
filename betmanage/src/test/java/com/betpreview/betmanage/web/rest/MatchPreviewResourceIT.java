@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
@@ -64,11 +65,15 @@ public class MatchPreviewResourceIT {
     private static final String DEFAULT_LEAGUE = "AAAAAAAAAA";
     private static final String UPDATED_LEAGUE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_FORMATION_IMG = "AAAAAAAAAA";
-    private static final String UPDATED_FORMATION_IMG = "BBBBBBBBBB";
+    private static final byte[] DEFAULT_FORMATION_IMG = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_FORMATION_IMG = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_FORMATION_IMG_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_FORMATION_IMG_CONTENT_TYPE = "image/png";
 
-    private static final String DEFAULT_FIXTURE_IMG = "AAAAAAAAAA";
-    private static final String UPDATED_FIXTURE_IMG = "BBBBBBBBBB";
+    private static final byte[] DEFAULT_FIXTURE_IMG = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_FIXTURE_IMG = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_FIXTURE_IMG_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_FIXTURE_IMG_CONTENT_TYPE = "image/png";
 
     @Autowired
     private MatchPreviewRepository matchPreviewRepository;
@@ -109,7 +114,9 @@ public class MatchPreviewResourceIT {
             .leagueId(DEFAULT_LEAGUE_ID)
             .league(DEFAULT_LEAGUE)
             .formationImg(DEFAULT_FORMATION_IMG)
-            .fixtureImg(DEFAULT_FIXTURE_IMG);
+            .formationImgContentType(DEFAULT_FORMATION_IMG_CONTENT_TYPE)
+            .fixtureImg(DEFAULT_FIXTURE_IMG)
+            .fixtureImgContentType(DEFAULT_FIXTURE_IMG_CONTENT_TYPE);
         return matchPreview;
     }
     /**
@@ -129,7 +136,9 @@ public class MatchPreviewResourceIT {
             .leagueId(UPDATED_LEAGUE_ID)
             .league(UPDATED_LEAGUE)
             .formationImg(UPDATED_FORMATION_IMG)
-            .fixtureImg(UPDATED_FIXTURE_IMG);
+            .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
+            .fixtureImg(UPDATED_FIXTURE_IMG)
+            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
         return matchPreview;
     }
 
@@ -161,7 +170,9 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getLeagueId()).isEqualTo(DEFAULT_LEAGUE_ID);
         assertThat(testMatchPreview.getLeague()).isEqualTo(DEFAULT_LEAGUE);
         assertThat(testMatchPreview.getFormationImg()).isEqualTo(DEFAULT_FORMATION_IMG);
+        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(DEFAULT_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getFixtureImg()).isEqualTo(DEFAULT_FIXTURE_IMG);
+        assertThat(testMatchPreview.getFixtureImgContentType()).isEqualTo(DEFAULT_FIXTURE_IMG_CONTENT_TYPE);
 
         // Validate the MatchPreview in Elasticsearch
         verify(mockMatchPreviewSearchRepository, times(1)).save(testMatchPreview);
@@ -228,8 +239,10 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].visitorteamName").value(hasItem(DEFAULT_VISITORTEAM_NAME)))
             .andExpect(jsonPath("$.[*].leagueId").value(hasItem(DEFAULT_LEAGUE_ID)))
             .andExpect(jsonPath("$.[*].league").value(hasItem(DEFAULT_LEAGUE)))
-            .andExpect(jsonPath("$.[*].formationImg").value(hasItem(DEFAULT_FORMATION_IMG)))
-            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(DEFAULT_FIXTURE_IMG)));
+            .andExpect(jsonPath("$.[*].formationImgContentType").value(hasItem(DEFAULT_FORMATION_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
+            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))));
     }
     
     @Test
@@ -251,8 +264,10 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.visitorteamName").value(DEFAULT_VISITORTEAM_NAME))
             .andExpect(jsonPath("$.leagueId").value(DEFAULT_LEAGUE_ID))
             .andExpect(jsonPath("$.league").value(DEFAULT_LEAGUE))
-            .andExpect(jsonPath("$.formationImg").value(DEFAULT_FORMATION_IMG))
-            .andExpect(jsonPath("$.fixtureImg").value(DEFAULT_FIXTURE_IMG));
+            .andExpect(jsonPath("$.formationImgContentType").value(DEFAULT_FORMATION_IMG_CONTENT_TYPE))
+            .andExpect(jsonPath("$.formationImg").value(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG)))
+            .andExpect(jsonPath("$.fixtureImgContentType").value(DEFAULT_FIXTURE_IMG_CONTENT_TYPE))
+            .andExpect(jsonPath("$.fixtureImg").value(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG)));
     }
     @Test
     @Transactional
@@ -284,7 +299,9 @@ public class MatchPreviewResourceIT {
             .leagueId(UPDATED_LEAGUE_ID)
             .league(UPDATED_LEAGUE)
             .formationImg(UPDATED_FORMATION_IMG)
-            .fixtureImg(UPDATED_FIXTURE_IMG);
+            .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
+            .fixtureImg(UPDATED_FIXTURE_IMG)
+            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
 
         restMatchPreviewMockMvc.perform(put("/api/match-previews")
             .contentType(MediaType.APPLICATION_JSON)
@@ -304,7 +321,9 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getLeagueId()).isEqualTo(UPDATED_LEAGUE_ID);
         assertThat(testMatchPreview.getLeague()).isEqualTo(UPDATED_LEAGUE);
         assertThat(testMatchPreview.getFormationImg()).isEqualTo(UPDATED_FORMATION_IMG);
+        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(UPDATED_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getFixtureImg()).isEqualTo(UPDATED_FIXTURE_IMG);
+        assertThat(testMatchPreview.getFixtureImgContentType()).isEqualTo(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
 
         // Validate the MatchPreview in Elasticsearch
         verify(mockMatchPreviewSearchRepository, times(2)).save(testMatchPreview);
@@ -372,7 +391,9 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].visitorteamName").value(hasItem(DEFAULT_VISITORTEAM_NAME)))
             .andExpect(jsonPath("$.[*].leagueId").value(hasItem(DEFAULT_LEAGUE_ID)))
             .andExpect(jsonPath("$.[*].league").value(hasItem(DEFAULT_LEAGUE)))
-            .andExpect(jsonPath("$.[*].formationImg").value(hasItem(DEFAULT_FORMATION_IMG)))
-            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(DEFAULT_FIXTURE_IMG)));
+            .andExpect(jsonPath("$.[*].formationImgContentType").value(hasItem(DEFAULT_FORMATION_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
+            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))));
     }
 }

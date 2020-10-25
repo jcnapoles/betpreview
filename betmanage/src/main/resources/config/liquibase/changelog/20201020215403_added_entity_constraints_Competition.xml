@@ -8,17 +8,17 @@
     -->
     <changeSet id="20201020215403-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="country_id"
-                                 baseTableName="competition"
-                                 constraintName="fk_competition_country_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="country"/>
-
         <addForeignKeyConstraint baseColumnNames="sport_id"
                                  baseTableName="competition"
                                  constraintName="fk_competition_sport_id"
                                  referencedColumnNames="id"
                                  referencedTableName="sport"/>
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="competition"
+                                 constraintName="fk_competition_country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
 
     </changeSet>
 </databaseChangeLog>

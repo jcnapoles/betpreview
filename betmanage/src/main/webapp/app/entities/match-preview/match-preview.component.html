@@ -66,8 +66,14 @@
                     <td>{{ matchPreview.visitorteamName }}</td>
                     <td>{{ matchPreview.leagueId }}</td>
                     <td>{{ matchPreview.league }}</td>
-                    <td>{{ matchPreview.formationImg }}</td>
-                    <td>{{ matchPreview.fixtureImg }}</td>
+                    <td>
+                        <a *ngIf="matchPreview.formationImg" (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="matchPreview.formationImg">{{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}</span>
+                    </td>
+                    <td>
+                        <a *ngIf="matchPreview.fixtureImg" (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="matchPreview.fixtureImg">{{ matchPreview.fixtureImgContentType }}, {{ byteSize(matchPreview.fixtureImg) }}</span>
+                    </td>
                     <td>
                         <div *ngIf="matchPreview.country">
                             <a [routerLink]="['/country', matchPreview.country?.id, 'view']" >{{ matchPreview.country?.id }}</a>

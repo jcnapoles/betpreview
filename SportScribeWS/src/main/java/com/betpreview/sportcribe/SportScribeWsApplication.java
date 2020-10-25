@@ -26,13 +26,13 @@ public class SportScribeWsApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(SportScribeWsApplication.class);	
 	
-	private static List<League> leagues = new ArrayList<League>();
+	private  static List<League> leagues = new ArrayList<League>();
 	
-	private static List<Team> teams = new ArrayList<Team>();
+	private  static List<Team> teams = new ArrayList<Team>();
 	
-	private static Preview preview = new Preview();
+	private  static Preview preview = new Preview();
 	
-	private static List<Preview> previews = new ArrayList<Preview>();
+	private  static List<Preview> previews = new ArrayList<Preview>();
 
 	public static void main(String[] args) {		
 		String SPORTSCRIBE_URL = args[0];
@@ -50,7 +50,9 @@ public class SportScribeWsApplication {
 		}
 	}
 	
-	private static void execute(String SPORTSCRIBE_URL, String keyName, String key, String method, String param, String language) throws URISyntaxException {	
+	
+	
+	public static void execute(String SPORTSCRIBE_URL, String keyName, String key, String method, String param, String language) throws URISyntaxException {	
 		log.info("Getting data from API SpotScribe");
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -106,33 +108,49 @@ public class SportScribeWsApplication {
 	    log.info("SpotScribe API data has been got");
 	}
 
+
+
 	public static List<League> getLeagues() {
 		return leagues;
 	}
+
+
 
 	public static void setLeagues(List<League> leagues) {
 		SportScribeWsApplication.leagues = leagues;
 	}
 
+
+
 	public static List<Team> getTeams() {
 		return teams;
 	}
+
+
 
 	public static void setTeams(List<Team> teams) {
 		SportScribeWsApplication.teams = teams;
 	}
 
+
+
 	public static Preview getPreview() {
 		return preview;
 	}
+
+
 
 	public static void setPreview(Preview preview) {
 		SportScribeWsApplication.preview = preview;
 	}
 
+
+
 	public static List<Preview> getPreviews() {
 		return previews;
 	}
+
+
 
 	public static void setPreviews(List<Preview> previews) {
 		SportScribeWsApplication.previews = previews;

@@ -13,8 +13,10 @@ export interface IMatchPreview {
   visitorteamName?: string;
   leagueId?: number;
   league?: string;
-  formationImg?: string;
-  fixtureImg?: string;
+  formationImgContentType?: string;
+  formationImg?: any;
+  fixtureImgContentType?: string;
+  fixtureImg?: any;
   country?: ICountry;
   titles?: ITitle[];
   paragraphs?: IParagraphs[];
@@ -32,8 +34,10 @@ export class MatchPreview implements IMatchPreview {
     public visitorteamName?: string,
     public leagueId?: number,
     public league?: string,
-    public formationImg?: string,
-    public fixtureImg?: string,
+    public formationImgContentType?: string,
+    public formationImg?: any,
+    public fixtureImgContentType?: string,
+    public fixtureImg?: any,
     public country?: ICountry,
     public titles?: ITitle[],
     public paragraphs?: IParagraphs[],

@@ -42,11 +42,17 @@
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span></dt>
                 <dd>
-                    <span>{{ matchPreview.formationImg }}</span>
+                    <div *ngIf="matchPreview.formationImg">
+                        <a (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
+                        {{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}
+                    </div>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureImg">Fixture Img</span></dt>
                 <dd>
-                    <span>{{ matchPreview.fixtureImg }}</span>
+                    <div *ngIf="matchPreview.fixtureImg">
+                        <a (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)" jhiTranslate="entity.action.open">open</a>
+                        {{ matchPreview.fixtureImgContentType }}, {{ byteSize(matchPreview.fixtureImg) }}
+                    </div>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>
                 <dd>

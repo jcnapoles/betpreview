@@ -4,18 +4,17 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { ICompetition, Competition } from 'app/shared/model/competition.model';
 import { CompetitionService } from './competition.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
-import { ICountry } from 'app/shared/model/country.model';
-import { CountryService } from 'app/entities/country/country.service';
 import { ISport } from 'app/shared/model/sport.model';
 import { SportService } from 'app/entities/sport/sport.service';
+import { ICountry } from 'app/shared/model/country.model';
+import { CountryService } from 'app/entities/country/country.service';
 
-type SelectableEntity = ICountry | ISport;
+type SelectableEntity = ISport | ICountry;
 
 @Component({
   selector: 'jhi-competition-update',
@@ -23,8 +22,8 @@ type SelectableEntity = ICountry | ISport;
 })
 export class CompetitionUpdateComponent implements OnInit {
   isSaving = false;
-  countries: ICountry[] = [];
   sports: ISport[] = [];
+  countries: ICountry[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -35,16 +34,16 @@ export class CompetitionUpdateComponent implements OnInit {
     active: [],
     type: [],
     sportscribeId: [],
-    country: [],
     sport: [],
+    country: [],
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected competitionService: CompetitionService,
-    protected countryService: CountryService,
     protected sportService: SportService,
+    protected countryService: CountryService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -53,29 +52,9 @@ export class CompetitionUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ competition }) => {
       this.updateForm(competition);
 
-      this.countryService
-        .query({ filter: 'competition-is-null' })
-        .pipe(
-          map((res: HttpResponse<ICountry[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICountry[]) => {
-          if (!competition.country || !competition.country.id) {
-            this.countries = resBody;
-          } else {
-            this.countryService
-              .find(competition.country.id)
-              .pipe(
-                map((subRes: HttpResponse<ICountry>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICountry[]) => (this.countries = concatRes));
-          }
-        });
-
       this.sportService.query().subscribe((res: HttpResponse<ISport[]>) => (this.sports = res.body || []));
+
+      this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
   }
 
@@ -89,8 +68,8 @@ export class CompetitionUpdateComponent implements OnInit {
       active: competition.active,
       type: competition.type,
       sportscribeId: competition.sportscribeId,
-      country: competition.country,
       sport: competition.sport,
+      country: competition.country,
     });
   }
 
@@ -135,8 +114,8 @@ export class CompetitionUpdateComponent implements OnInit {
       active: this.editForm.get(['active'])!.value,
       type: this.editForm.get(['type'])!.value,
       sportscribeId: this.editForm.get(['sportscribeId'])!.value,
-      country: this.editForm.get(['country'])!.value,
       sport: this.editForm.get(['sport'])!.value,
+      country: this.editForm.get(['country'])!.value,
     };
   }
 

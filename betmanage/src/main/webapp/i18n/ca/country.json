@@ -17,7 +17,8 @@
       "detail": {
         "title": "Country"
       },
-      "countryName": "Country Name"
+      "countryName": "Country Name",
+      "competition": "Competition"
     }
   }
 }

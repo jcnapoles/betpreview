@@ -1,7 +1,11 @@
 package com.betpreview.betmanage.web.rest;
 
+import com.betpreview.betmanage.config.ApplicationProperties;
 import com.betpreview.betmanage.domain.Competition;
+import com.betpreview.betmanage.integration.SportScribeAPI;
 import com.betpreview.betmanage.service.CompetitionService;
+import com.betpreview.betmanage.service.CountryService;
+import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -9,8 +13,11 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,6 +49,15 @@ public class CompetitionResource {
     private String applicationName;
 
     private final CompetitionService competitionService;
+    
+    @Autowired
+    private Environment environment;
+    
+    @Autowired
+    private SportService sportService;
+    
+    @Autowired
+    private CountryService countryService;
 
     public CompetitionResource(CompetitionService competitionService) {
         this.competitionService = competitionService;
@@ -142,4 +158,27 @@ public class CompetitionResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
         }
+    
+    /**
+     * {@code GET  /competitions} : get all the competitions.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of competitions in body.
+     */
+    @GetMapping("/competitions/load")
+    public ResponseEntity<List<Competition>> loadAllCompetitions(Pageable pageable) {
+        log.debug("REST request to get a page of Competitions");
+        
+        String url = environment.getProperty("sportscribe.url");
+        String keyName = environment.getProperty("sportscribe.keyName");
+        String keyValue = environment.getProperty("sportscribe.keyValue");
+        String method = "leagues";
+        String language = "en";
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, method, null, language, competitionService, sportService, countryService);
+        List<Competition> competitionList = sportScribeAPI.getAllCompetition();
+        
+        Page<Competition> page = new PageImpl<Competition>(competitionList);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

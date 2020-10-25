@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Country.
@@ -27,6 +29,10 @@ public class Country implements Serializable {
     @NotNull
     @Column(name = "country_name", nullable = false)
     private String countryName;
+
+    @OneToMany(mappedBy = "country")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Competition> competitions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -48,6 +54,31 @@ public class Country implements Serializable {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    public Set<Competition> getCompetitions() {
+        return competitions;
+    }
+
+    public Country competitions(Set<Competition> competitions) {
+        this.competitions = competitions;
+        return this;
+    }
+
+    public Country addCompetition(Competition competition) {
+        this.competitions.add(competition);
+        competition.setCountry(this);
+        return this;
+    }
+
+    public Country removeCompetition(Competition competition) {
+        this.competitions.remove(competition);
+        competition.setCountry(null);
+        return this;
+    }
+
+    public void setCompetitions(Set<Competition> competitions) {
+        this.competitions = competitions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

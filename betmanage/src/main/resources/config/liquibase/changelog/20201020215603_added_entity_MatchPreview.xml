@@ -40,10 +40,16 @@
             <column name="league" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="formation_img" type="varchar(255)">
+            <column name="formation_img" type="longblob">
                 <constraints nullable="true" />
             </column>
-            <column name="fixture_img" type="varchar(255)">
+            <column name="formation_img_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fixture_img" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="fixture_img_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="country_id" type="bigint">
@@ -80,8 +86,10 @@
             <column name="visitorteam_name" type="string"/>
             <column name="league_id" type="numeric"/>
             <column name="league" type="string"/>
-            <column name="formation_img" type="string"/>
-            <column name="fixture_img" type="string"/>
+            <column name="formation_img" type="blob"/>
+            <column name="formation_img_content_type" type="string"/>
+            <column name="fixture_img" type="blob"/>
+            <column name="fixture_img_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
