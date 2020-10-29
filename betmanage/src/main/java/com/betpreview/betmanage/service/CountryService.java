@@ -1,9 +1,9 @@
 package com.betpreview.betmanage.service;
 
+import com.betpreview.betmanage.domain.Country;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.betpreview.betmanage.domain.Country;
 
 /**
  * Service Interface for managing {@link Country}.

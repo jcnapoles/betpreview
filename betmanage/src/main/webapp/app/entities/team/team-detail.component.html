@@ -31,12 +31,6 @@
                 <dd>
                     <span>{{ team.teamId }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.team.country">Country</span></dt>
-                <dd>
-                    <div *ngIf="team.country">
-                        <a [routerLink]="['/country', team.country?.id, 'view']">{{ team.country?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.team.matchPreview">Match Preview</span></dt>
                 <dd>
                     <span *ngFor="let matchPreview of team.matchPreviews; let last = last">
@@ -47,6 +41,12 @@
                 <dd>
                     <div *ngIf="team.competition">
                         <a [routerLink]="['/competition', team.competition?.id, 'view']">{{ team.competition?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.team.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="team.country">
+                        <a [routerLink]="['/country', team.country?.id, 'view']">{{ team.country?.id }}</a>
                     </div>
                 </dd>
             </dl>

@@ -73,4 +73,10 @@ public class TeamServiceImpl implements TeamService {
     public Page<Team> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Teams for query {}", query);
         return teamSearchRepository.search(queryStringQuery(query), pageable);    }
+
+	@Override
+	public Optional<Team> findOneBySportscribeId(Integer sportscribeId) {
+		log.debug("Request to get Team by sportscribeId: {}", sportscribeId);
+		return teamRepository.findOneBySportscribeId(sportscribeId);
+	}
 }

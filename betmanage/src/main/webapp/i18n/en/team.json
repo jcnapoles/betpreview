@@ -22,10 +22,10 @@
       "isNationalTeam": "Is National Team",
       "teamLogo": "Team Logo",
       "teamId": "Team Id",
-      "country": "Country",
       "socialMedia": "Social Media",
       "matchPreview": "Match Preview",
-      "competition": "Competition"
+      "competition": "Competition",
+      "country": "Country"
     }
   }
 }

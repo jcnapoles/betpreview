@@ -1,11 +1,11 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.Team;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import com.betpreview.betmanage.domain.Team;
 
 /**
  * Service Interface for managing {@link Team}.
@@ -60,4 +60,6 @@ public interface TeamService {
      * @return the list of entities.
      */
     Page<Team> search(String query, Pageable pageable);
+    
+    Optional<Team> findOneBySportscribeId(Integer sportscribeId);
 }

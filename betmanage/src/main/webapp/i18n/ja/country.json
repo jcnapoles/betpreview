@@ -18,7 +18,8 @@
         "title": "Country"
       },
       "countryName": "Country Name",
-      "competition": "Competition"
+      "competition": "Competition",
+      "team": "Team"
     }
   }
 }

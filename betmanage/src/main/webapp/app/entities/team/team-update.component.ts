@@ -4,20 +4,19 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { ITeam, Team } from 'app/shared/model/team.model';
 import { TeamService } from './team.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
-import { ICountry } from 'app/shared/model/country.model';
-import { CountryService } from 'app/entities/country/country.service';
 import { IMatchPreview } from 'app/shared/model/match-preview.model';
 import { MatchPreviewService } from 'app/entities/match-preview/match-preview.service';
 import { ICompetition } from 'app/shared/model/competition.model';
 import { CompetitionService } from 'app/entities/competition/competition.service';
+import { ICountry } from 'app/shared/model/country.model';
+import { CountryService } from 'app/entities/country/country.service';
 
-type SelectableEntity = ICountry | IMatchPreview | ICompetition;
+type SelectableEntity = IMatchPreview | ICompetition | ICountry;
 
 @Component({
   selector: 'jhi-team-update',
@@ -25,9 +24,9 @@ type SelectableEntity = ICountry | IMatchPreview | ICompetition;
 })
 export class TeamUpdateComponent implements OnInit {
   isSaving = false;
-  countries: ICountry[] = [];
   matchpreviews: IMatchPreview[] = [];
   competitions: ICompetition[] = [];
+  countries: ICountry[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -37,18 +36,18 @@ export class TeamUpdateComponent implements OnInit {
     teamLogo: [],
     teamLogoContentType: [],
     teamId: [],
-    country: [],
     matchPreviews: [],
     competition: [],
+    country: [],
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected teamService: TeamService,
-    protected countryService: CountryService,
     protected matchPreviewService: MatchPreviewService,
     protected competitionService: CompetitionService,
+    protected countryService: CountryService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -57,31 +56,11 @@ export class TeamUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ team }) => {
       this.updateForm(team);
 
-      this.countryService
-        .query({ filter: 'team-is-null' })
-        .pipe(
-          map((res: HttpResponse<ICountry[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICountry[]) => {
-          if (!team.country || !team.country.id) {
-            this.countries = resBody;
-          } else {
-            this.countryService
-              .find(team.country.id)
-              .pipe(
-                map((subRes: HttpResponse<ICountry>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICountry[]) => (this.countries = concatRes));
-          }
-        });
-
       this.matchPreviewService.query().subscribe((res: HttpResponse<IMatchPreview[]>) => (this.matchpreviews = res.body || []));
 
       this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
+
+      this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
   }
 
@@ -94,9 +73,9 @@ export class TeamUpdateComponent implements OnInit {
       teamLogo: team.teamLogo,
       teamLogoContentType: team.teamLogoContentType,
       teamId: team.teamId,
-      country: team.country,
       matchPreviews: team.matchPreviews,
       competition: team.competition,
+      country: team.country,
     });
   }
 
@@ -140,9 +119,9 @@ export class TeamUpdateComponent implements OnInit {
       teamLogoContentType: this.editForm.get(['teamLogoContentType'])!.value,
       teamLogo: this.editForm.get(['teamLogo'])!.value,
       teamId: this.editForm.get(['teamId'])!.value,
-      country: this.editForm.get(['country'])!.value,
       matchPreviews: this.editForm.get(['matchPreviews'])!.value,
       competition: this.editForm.get(['competition'])!.value,
+      country: this.editForm.get(['country'])!.value,
     };
   }
 

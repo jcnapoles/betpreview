@@ -29,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.betpreview.betmanage.domain.Competition;
+import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.integration.SportScribeAPI;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
+import com.betpreview.betmanage.service.MatchPreviewService;
 import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.service.TeamService;
 import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
@@ -67,6 +69,9 @@ public class CompetitionResource {
     
     @Autowired
     private TeamService teamService;
+    
+    @Autowired
+    private MatchPreviewService matchPreviewService;
 
     public CompetitionResource(CompetitionService competitionService) {
         this.competitionService = competitionService;
@@ -182,7 +187,7 @@ public class CompetitionResource {
         String keyName = environment.getProperty("sportscribe.keyName");
         String keyValue = environment.getProperty("sportscribe.keyValue");       
         String language = "en";
-        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService);
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService, matchPreviewService);
         List<Competition> competitionList = sportScribeAPI.getAllCompetition();
         
         Page<Competition> page = new PageImpl<Competition>(competitionList);

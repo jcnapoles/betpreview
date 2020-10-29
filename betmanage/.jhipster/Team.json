@@ -28,14 +28,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "country",
-      "otherEntityRelationshipName": "team",
-      "relationshipName": "country",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "socialMedia",
       "otherEntityRelationshipName": "team",
@@ -54,6 +46,13 @@
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "team",
       "relationshipName": "competition",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "country",
       "otherEntityField": "id"
     }
   ],

@@ -1,11 +1,11 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.MatchPreview;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import com.betpreview.betmanage.domain.MatchPreview;
 
 /**
  * Service Interface for managing {@link MatchPreview}.
@@ -53,4 +53,6 @@ public interface MatchPreviewService {
      * @return the list of entities.
      */
     Page<MatchPreview> search(String query, Pageable pageable);
+    
+    Optional<MatchPreview> findOneByFixtureId(Integer fixtureId);
 }

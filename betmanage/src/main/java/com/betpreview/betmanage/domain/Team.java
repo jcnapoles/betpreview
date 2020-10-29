@@ -1,28 +1,16 @@
 package com.betpreview.betmanage.domain;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Team.
@@ -59,10 +47,6 @@ public class Team implements Serializable {
     @Column(name = "team_id")
     private Integer teamId;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Country country;
-
     @OneToMany(mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<SocialMedia> socialMedias = new HashSet<>();
@@ -77,6 +61,10 @@ public class Team implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
     private Competition competition;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "teams", allowSetters = true)
+    private Country country;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -165,19 +153,6 @@ public class Team implements Serializable {
         this.teamId = teamId;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public Team country(Country country) {
-        this.country = country;
-        return this;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Set<SocialMedia> getSocialMedias() {
         return socialMedias;
     }
@@ -239,6 +214,19 @@ public class Team implements Serializable {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Team country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

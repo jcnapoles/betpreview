@@ -69,4 +69,10 @@ public class MatchPreviewServiceImpl implements MatchPreviewService {
     public Page<MatchPreview> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of MatchPreviews for query {}", query);
         return matchPreviewSearchRepository.search(queryStringQuery(query), pageable);    }
+
+	@Override
+	public Optional<MatchPreview> findOneByFixtureId(Integer fixtureId) {
+		log.debug("Request to get MatchPreview by fixtureId: {}", fixtureId);
+		return matchPreviewRepository.findOneByFixtureId(fixtureId);
+	}
 }

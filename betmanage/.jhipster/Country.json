@@ -15,6 +15,12 @@
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "country",
       "relationshipName": "competition"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "team"
     }
   ],
   "changelogDate": "20201020215503",

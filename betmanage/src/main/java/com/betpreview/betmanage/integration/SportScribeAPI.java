@@ -14,15 +14,18 @@ import org.apache.commons.io.IOUtils;
 
 import com.betpreview.betmanage.domain.Competition;
 import com.betpreview.betmanage.domain.Country;
+import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.domain.Sport;
 import com.betpreview.betmanage.domain.Team;
 import com.betpreview.betmanage.domain.enumeration.TypeCompetition;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
+import com.betpreview.betmanage.service.MatchPreviewService;
 import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.service.TeamService;
 import com.betpreview.sportcribe.SportScribeWsApplication;
 import com.betpreview.sportscribe.domain.League;
+import com.betpreview.sportscribe.domain.Preview;
 
 public class SportScribeAPI {
 	
@@ -42,8 +45,10 @@ public class SportScribeAPI {
 	
 	private TeamService teamService;
 	
+	private MatchPreviewService matchPreviewService;
 	
-	public SportScribeAPI(String url, String keyName, String keyValue, String language, CompetitionService competitionService, SportService sportService, CountryService countryService, TeamService teamService) {
+	
+	public SportScribeAPI(String url, String keyName, String keyValue, String language, CompetitionService competitionService, SportService sportService, CountryService countryService, TeamService teamService, MatchPreviewService matchPreviewService) {
 		super();
 		this.url = url;
 		this.keyName = keyName;
@@ -53,6 +58,7 @@ public class SportScribeAPI {
 		this.sportService = sportService;
 		this.countryService = countryService;
 		this.teamService = teamService;
+		this.matchPreviewService = matchPreviewService;
 	}
 
 
@@ -77,7 +83,10 @@ public class SportScribeAPI {
 			}
 			
 			competition.setActive(league.getActive());
-			byte[] competitionLogo = urlStringToByte(league.getLogo());
+			byte[] competitionLogo = null;
+			if (league.getLogo() != null) {
+				competitionLogo = urlStringToByte(league.getLogo());
+			}			
 			competition.setCompetitionLogo(competitionLogo);
 			//competition.setCompetitionLogoContentType(league.);
 			competition.setCompetitionName(league.getName());			
@@ -127,12 +136,20 @@ public class SportScribeAPI {
 		}
 		List<com.betpreview.sportscribe.domain.Team> teamListSportscribe = SportScribeWsApplication.getTeams();
 		for (com.betpreview.sportscribe.domain.Team teamSportscribe : teamListSportscribe) {
+			Integer sportscribeId = teamSportscribe.getId();
+			Optional<Team> teamOptional = teamService.findOneBySportscribeId(sportscribeId);
 			Team team = new Team();
-			team.setTeamId(teamSportscribe.getId());
+			if (!teamOptional.isEmpty()) {
+				team = teamOptional.get();
+			}			
+			team.setTeamId(sportscribeId);
 			team.setTeamName(teamSportscribe.getName());
 			team.setShortCode(teamSportscribe.getShort_code());
 			team.setIsNationalTeam(teamSportscribe.getIs_national_team());
-			byte[] teamLogo = urlStringToByte(teamSportscribe.getLogo());
+			byte[] teamLogo = null;
+			if (teamSportscribe.getLogo() != null) {
+				teamLogo = urlStringToByte(teamSportscribe.getLogo());
+			}			
 			team.setTeamLogo(teamLogo);
 			
 			/*Create or Load Country*/
@@ -149,6 +166,57 @@ public class SportScribeAPI {
 			teamList.add(team);
 		}
 		return teamList;
+	}
+	
+	public MatchPreview getMatchPreviewByTeamId(Integer teamId) {
+		MatchPreview matchPreview = new MatchPreview();
+		String method = "matchPreview";
+		String parameter = teamId.toString();
+		try {
+			SportScribeWsApplication.execute(url, keyName, keyValue, method, parameter, language);
+		} catch (URISyntaxException e) {			
+			e.printStackTrace();
+		}
+		Preview preview = SportScribeWsApplication.getPreview();
+		Integer fixture_id = preview.getFixture_id();
+		Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOneByFixtureId(fixture_id);
+		if (!matchPreviewOptional.isEmpty()) {
+			matchPreview = matchPreviewOptional.get();
+		}
+		matchPreview.setBlurbFull(preview.getBlurb_full());
+		
+		/*Create or Load Country*/
+		Optional<Country> countryOptional = countryService.findOneByCountryName(preview.getCountry());
+		Country country = new Country();
+		if (!countryOptional.isEmpty()) {
+			country = countryOptional.get();				
+		} 
+		country.setCountryName(preview.getCountry());
+		countryService.save(country);
+		matchPreview.setCountry(country);
+		matchPreview.setFixtureId(fixture_id);
+		byte[] matchPreviewLogo = null;
+		if (preview.getFixture_img() != null) {
+			matchPreviewLogo = urlStringToByte(preview.getFixture_img());
+		}	
+		matchPreview.setFixtureImg(matchPreviewLogo);
+		//matchPreview.setFixtureImgContentType(preview.);
+		byte[] formationImg = null;
+		if (preview.getFormation_img() != null) {
+			formationImg = urlStringToByte(preview.getFormation_img());
+		}
+		matchPreview.setFormationImg(formationImg);
+		//matchPreview.setFormationImgContentType(formationImgContentType);
+		matchPreview.setHometeamId(preview.getHometeam_id());
+		matchPreview.setHometeamName(preview.getHometeam_name());
+		matchPreview.setLeague(preview.getLeague());
+		matchPreview.setLeagueId(preview.getLeague_id());
+		//matchPreview.set
+		
+		
+		
+		
+		return matchPreview;
 	}
 
 	public byte[] urlStringToByte(String urlString) {

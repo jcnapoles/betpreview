@@ -34,6 +34,10 @@ public class Country implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Competition> competitions = new HashSet<>();
 
+    @OneToMany(mappedBy = "country")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Team> teams = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -79,6 +83,31 @@ public class Country implements Serializable {
 
     public void setCompetitions(Set<Competition> competitions) {
         this.competitions = competitions;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public Country teams(Set<Team> teams) {
+        this.teams = teams;
+        return this;
+    }
+
+    public Country addTeam(Team team) {
+        this.teams.add(team);
+        team.setCountry(this);
+        return this;
+    }
+
+    public Country removeTeam(Team team) {
+        this.teams.remove(team);
+        team.setCountry(null);
+        return this;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
