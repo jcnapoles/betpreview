@@ -5,18 +5,22 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 
 import com.betpreview.betmanage.domain.Competition;
 import com.betpreview.betmanage.domain.Country;
 import com.betpreview.betmanage.domain.Sport;
+import com.betpreview.betmanage.domain.Team;
 import com.betpreview.betmanage.domain.enumeration.TypeCompetition;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
 import com.betpreview.betmanage.service.SportService;
+import com.betpreview.betmanage.service.TeamService;
 import com.betpreview.sportcribe.SportScribeWsApplication;
 import com.betpreview.sportscribe.domain.League;
 
@@ -28,11 +32,7 @@ public class SportScribeAPI {
 	
 	private  String keyValue;
 	
-	private String method;
-	
-	private String language;
-	
-	private String parameter;
+	private String language;	
 	
 	private CompetitionService competitionService;
 	
@@ -40,24 +40,27 @@ public class SportScribeAPI {
 	
 	private CountryService countryService;
 	
+	private TeamService teamService;
 	
-	public SportScribeAPI(String url, String keyName, String keyValue, String method, String parameter, String language, CompetitionService competitionService, SportService sportService, CountryService countryService) {
+	
+	public SportScribeAPI(String url, String keyName, String keyValue, String language, CompetitionService competitionService, SportService sportService, CountryService countryService, TeamService teamService) {
 		super();
 		this.url = url;
 		this.keyName = keyName;
-		this.keyValue = keyValue;
-		this.method = method;
-		this.parameter = parameter;
+		this.keyValue = keyValue;		
 		this.language = language;
 		this.competitionService = competitionService;
 		this.sportService = sportService;
 		this.countryService = countryService;
+		this.teamService = teamService;
 	}
 
 
 
 	public List<Competition> getAllCompetition(){		
 		List<Competition> competitionList = new ArrayList<Competition>();
+		String method = "leagues";
+		String parameter = null;		
 		try {
 			SportScribeWsApplication.execute(url, keyName, keyValue, method, parameter, language);
 		} catch (URISyntaxException e) {			
@@ -102,6 +105,8 @@ public class SportScribeAPI {
 			countryService.save(country);
 			competition.setCountry(country);
 			
+			Set<Team> teams = new HashSet<>(getTeamsByLeagueId(competition.getSportscribeId()));
+			competition.setTeams(teams);
 			
 			competitionService.save(competition);
 			competitionList.add(competition);
@@ -109,6 +114,41 @@ public class SportScribeAPI {
 		
 		
 		return competitionList;
+	}
+	
+	public List<Team> getTeamsByLeagueId(Integer leagueId){
+		List<Team> teamList = new ArrayList<Team>();
+		String method = "teams";
+		String parameter = leagueId.toString();
+		try {
+			SportScribeWsApplication.execute(url, keyName, keyValue, method, parameter, language);
+		} catch (URISyntaxException e) {			
+			e.printStackTrace();
+		}
+		List<com.betpreview.sportscribe.domain.Team> teamListSportscribe = SportScribeWsApplication.getTeams();
+		for (com.betpreview.sportscribe.domain.Team teamSportscribe : teamListSportscribe) {
+			Team team = new Team();
+			team.setTeamId(teamSportscribe.getId());
+			team.setTeamName(teamSportscribe.getName());
+			team.setShortCode(teamSportscribe.getShort_code());
+			team.setIsNationalTeam(teamSportscribe.getIs_national_team());
+			byte[] teamLogo = urlStringToByte(teamSportscribe.getLogo());
+			team.setTeamLogo(teamLogo);
+			
+			/*Create or Load Country*/
+			Optional<Country> countryOptional = countryService.findOneByCountryName(teamSportscribe.getCountry());
+			Country country = new Country();
+			if (!countryOptional.isEmpty()) {
+				country = countryOptional.get();				
+			} 
+			country.setCountryName(teamSportscribe.getCountry());
+			countryService.save(country);
+			team.setCountry(country);	
+			
+			teamService.save(team);
+			teamList.add(team);
+		}
+		return teamList;
 	}
 
 	public byte[] urlStringToByte(String urlString) {

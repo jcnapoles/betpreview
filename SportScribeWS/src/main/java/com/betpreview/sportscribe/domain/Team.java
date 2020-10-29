@@ -18,6 +18,8 @@ public class Team {
 	private String logo;
 	
 	private Boolean is_national_team;
+	
+	private String country;
 
 	public Integer getId() {
 		return id;
@@ -67,11 +69,21 @@ public class Team {
 		this.is_national_team = is_national_team;
 	}
 
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", name=" + name + ", short_code=" + short_code + ", social_media=" + social_media
-				+ ", logo=" + logo + ", is_national_team=" + is_national_team + "]";
+				+ ", logo=" + logo + ", is_national_team=" + is_national_team + ", country=" + country + "]";
 	}
+
+	
 	
 	
 	

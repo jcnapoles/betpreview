@@ -101,6 +101,9 @@ public class SportScribeWsApplication {
 			
 			
 			break;
+		case "videos":
+			//implementar videos
+			break;
 		default:
 			break;
 		}

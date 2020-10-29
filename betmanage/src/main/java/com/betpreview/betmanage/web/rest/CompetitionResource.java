@@ -1,16 +1,12 @@
 package com.betpreview.betmanage.web.rest;
 
-import com.betpreview.betmanage.config.ApplicationProperties;
-import com.betpreview.betmanage.domain.Competition;
-import com.betpreview.betmanage.integration.SportScribeAPI;
-import com.betpreview.betmanage.service.CompetitionService;
-import com.betpreview.betmanage.service.CountryService;
-import com.betpreview.betmanage.service.SportService;
-import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +16,29 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
+import com.betpreview.betmanage.domain.Competition;
+import com.betpreview.betmanage.integration.SportScribeAPI;
+import com.betpreview.betmanage.service.CompetitionService;
+import com.betpreview.betmanage.service.CountryService;
+import com.betpreview.betmanage.service.SportService;
+import com.betpreview.betmanage.service.TeamService;
+import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.betpreview.betmanage.domain.Competition}.
@@ -58,6 +64,9 @@ public class CompetitionResource {
     
     @Autowired
     private CountryService countryService;
+    
+    @Autowired
+    private TeamService teamService;
 
     public CompetitionResource(CompetitionService competitionService) {
         this.competitionService = competitionService;
@@ -171,10 +180,9 @@ public class CompetitionResource {
         
         String url = environment.getProperty("sportscribe.url");
         String keyName = environment.getProperty("sportscribe.keyName");
-        String keyValue = environment.getProperty("sportscribe.keyValue");
-        String method = "leagues";
+        String keyValue = environment.getProperty("sportscribe.keyValue");       
         String language = "en";
-        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, method, null, language, competitionService, sportService, countryService);
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService);
         List<Competition> competitionList = sportScribeAPI.getAllCompetition();
         
         Page<Competition> page = new PageImpl<Competition>(competitionList);
