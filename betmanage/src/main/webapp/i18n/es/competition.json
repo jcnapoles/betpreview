@@ -24,9 +24,10 @@
       "active": "Active",
       "type": "Type",
       "sportscribeId": "Sportscribe Id",
-      "country": "Country",
       "team": "Team",
-      "sport": "Sport"
+      "matchPreview": "Match Preview",
+      "sport": "Sport",
+      "country": "Country"
     }
   }
 }

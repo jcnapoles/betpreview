@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-parts-heading" jhiTranslate="betmanageApp.parts.home.createOrEditLabel">Create or edit a Parts</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.intro" for="field_intro">Intro</label>
+                    <input type="text" class="form-control" name="intro" id="field_intro"
+                           formControlName="intro"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.weather" for="field_weather">Weather</label>
+                    <input type="text" class="form-control" name="weather" id="field_weather"
+                           formControlName="weather"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.homeLastResult" for="field_homeLastResult">Home Last Result</label>
+                    <input type="text" class="form-control" name="homeLastResult" id="field_homeLastResult"
+                           formControlName="homeLastResult"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.visitorLastResult" for="field_visitorLastResult">Visitor Last Result</label>
+                    <input type="text" class="form-control" name="visitorLastResult" id="field_visitorLastResult"
+                           formControlName="visitorLastResult"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.homeScorers" for="field_homeScorers">Home Scorers</label>
+                    <input type="text" class="form-control" name="homeScorers" id="field_homeScorers"
+                           formControlName="homeScorers"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.visitorScorers" for="field_visitorScorers">Visitor Scorers</label>
+                    <input type="text" class="form-control" name="visitorScorers" id="field_visitorScorers"
+                           formControlName="visitorScorers"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.lastMeetingResult" for="field_lastMeetingResult">Last Meeting Result</label>
+                    <input type="text" class="form-control" name="lastMeetingResult" id="field_lastMeetingResult"
+                           formControlName="lastMeetingResult"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.lastMeetingScoring" for="field_lastMeetingScoring">Last Meeting Scoring</label>
+                    <input type="text" class="form-control" name="lastMeetingScoring" id="field_lastMeetingScoring"
+                           formControlName="lastMeetingScoring"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.homeSidelined" for="field_homeSidelined">Home Sidelined</label>
+                    <input type="text" class="form-control" name="homeSidelined" id="field_homeSidelined"
+                           formControlName="homeSidelined"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.visitorSidelined" for="field_visitorSidelined">Visitor Sidelined</label>
+                    <input type="text" class="form-control" name="visitorSidelined" id="field_visitorSidelined"
+                           formControlName="visitorSidelined"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.parts.parts" for="field_parts">Parts</label>
+                    <select class="form-control" id="field_parts" name="parts" formControlName="parts">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="matchPreviewOption.id === editForm.get('parts')!.value?.id ? editForm.get('parts')!.value : matchPreviewOption" *ngFor="let matchPreviewOption of matchpreviews; trackBy: trackById">{{ matchPreviewOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -40,6 +40,7 @@ export const teamRoute: Routes = [
     component: TeamComponent,
     data: {
       authorities: [Authority.USER],
+      defaultSort: 'id,asc',
       pageTitle: 'betmanageApp.team.home.title',
     },
     canActivate: [UserRouteAccessService],

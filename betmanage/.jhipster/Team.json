@@ -59,7 +59,7 @@
   "changelogDate": "20201020220003",
   "entityTableName": "team",
   "dto": "no",
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

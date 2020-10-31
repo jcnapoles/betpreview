@@ -1,0 +1,33 @@
+{
+  "betmanageApp": {
+    "parts": {
+      "home": {
+        "title": "Parts",
+        "createLabel": "Genera un nuovo Parts",
+        "createOrEditLabel": "Genera o modifica un Parts",
+        "search": "Cerca Parts",
+        "notFound": "No Parts found"
+      },
+      "created": "&Egrave; stato generato un nuovo Parts con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Parts identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Parts con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Parts {{ id }}?"
+      },
+      "detail": {
+        "title": "Parts"
+      },
+      "intro": "Intro",
+      "weather": "Weather",
+      "homeLastResult": "Home Last Result",
+      "visitorLastResult": "Visitor Last Result",
+      "homeScorers": "Home Scorers",
+      "visitorScorers": "Visitor Scorers",
+      "lastMeetingResult": "Last Meeting Result",
+      "lastMeetingScoring": "Last Meeting Scoring",
+      "homeSidelined": "Home Sidelined",
+      "visitorSidelined": "Visitor Sidelined",
+      "parts": "Parts"
+    }
+  }
+}

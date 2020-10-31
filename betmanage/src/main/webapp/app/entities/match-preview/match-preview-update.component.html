@@ -12,6 +12,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.blurbFull" for="field_blurbFull">Blurb Full</label>
+                    <input type="text" class="form-control" name="blurbFull" id="field_blurbFull"
+                           formControlName="blurbFull"/>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.fixtureId" for="field_fixtureId">Fixture Id</label>
                     <input type="number" class="form-control" name="fixtureId" id="field_fixtureId"
                            formControlName="fixtureId"/>
@@ -25,12 +31,6 @@
                             This field should be a number.
                         </small>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.blurbFull" for="field_blurbFull">Blurb Full</label>
-                    <input type="text" class="form-control" name="blurbFull" id="field_blurbFull"
-                           formControlName="blurbFull"/>
                 </div>
 
                 <div class="form-group">
@@ -70,25 +70,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.formationImg" for="field_formationImg">Formation Img</label>
-                    <div>
-                        <div *ngIf="editForm.get('formationImg')!.value" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(editForm.get('formationImgContentType')!.value, editForm.get('formationImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
-                            <span class="pull-left">{{ editForm.get('formationImgContentType')!.value }}, {{ byteSize(editForm.get('formationImg')!.value) }}</span>
-                            <button type="button" (click)="editForm.patchValue({formationImg: null});editForm.patchValue({formationImgContentType: null});"
-                                    class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon icon="times"></fa-icon>
-                            </button>
-                        </div>
-                        <input type="file" id="file_formationImg" (change)="setFileData($event, 'formationImg', false)" jhiTranslate="entity.action.addblob"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="formationImg" id="field_formationImg"
-                           formControlName="formationImg"/>
-                    <input type="hidden" class="form-control" name="formationImgContentType" id="field_formationImgContentType"
-                           formControlName="formationImgContentType" />
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.fixtureImg" for="field_fixtureImg">Fixture Img</label>
                     <div>
                         <div *ngIf="editForm.get('fixtureImg')!.value" class="form-text text-danger clearfix">
@@ -108,10 +89,124 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.formationImg" for="field_formationImg">Formation Img</label>
+                    <div>
+                        <div *ngIf="editForm.get('formationImg')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('formationImgContentType')!.value, editForm.get('formationImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('formationImgContentType')!.value }}, {{ byteSize(editForm.get('formationImg')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({formationImg: null});editForm.patchValue({formationImgContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_formationImg" (change)="setFileData($event, 'formationImg', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="formationImg" id="field_formationImg"
+                           formControlName="formationImg"/>
+                    <input type="hidden" class="form-control" name="formationImgContentType" id="field_formationImgContentType"
+                           formControlName="formationImgContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.startUtcTimestamp" for="field_startUtcTimestamp">Start Utc Timestamp</label>
+                    <div class="d-flex">
+                        <input id="field_startUtcTimestamp" type="datetime-local" class="form-control" name="startUtcTimestamp" formControlName="startUtcTimestamp" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.venueName" for="field_venueName">Venue Name</label>
+                    <input type="text" class="form-control" name="venueName" id="field_venueName"
+                           formControlName="venueName"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.matchImg" for="field_matchImg">Match Img</label>
+                    <div>
+                        <div *ngIf="editForm.get('matchImg')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('matchImgContentType')!.value, editForm.get('matchImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('matchImgContentType')!.value }}, {{ byteSize(editForm.get('matchImg')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({matchImg: null});editForm.patchValue({matchImgContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_matchImg" (change)="setFileData($event, 'matchImg', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="matchImg" id="field_matchImg"
+                           formControlName="matchImg"/>
+                    <input type="hidden" class="form-control" name="matchImgContentType" id="field_matchImgContentType"
+                           formControlName="matchImgContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.matchImaTxt" for="field_matchImaTxt">Match Ima Txt</label>
+                    <input type="text" class="form-control" name="matchImaTxt" id="field_matchImaTxt"
+                           formControlName="matchImaTxt"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.headline" for="field_headline">Headline</label>
+                    <input type="text" class="form-control" name="headline" id="field_headline"
+                           formControlName="headline"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.date" for="field_date">Date</label>
+                    <div class="input-group">
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" formControlName="date"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.language" for="field_language">Language</label>
+                    <select class="form-control" name="language" formControlName="language" id="field_language">
+                        <option value="EN">{{ 'betmanageApp.LanguageEnum.EN' | translate }}</option>
+                        <option value="ES">{{ 'betmanageApp.LanguageEnum.ES' | translate }}</option>
+                        <option value="DE">{{ 'betmanageApp.LanguageEnum.DE' | translate }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.country" for="field_country">Country</label>
                     <select class="form-control" id="field_country" name="country" formControlName="country">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.homeTeam" for="field_homeTeam">Home Team</label>
+                    <select class="form-control" id="field_homeTeam" name="homeTeam" formControlName="homeTeam">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="teamOption.id === editForm.get('homeTeam')!.value?.id ? editForm.get('homeTeam')!.value : teamOption" *ngFor="let teamOption of hometeams; trackBy: trackById">{{ teamOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.visitorTeam" for="field_visitorTeam">Visitor Team</label>
+                    <select class="form-control" id="field_visitorTeam" name="visitorTeam" formControlName="visitorTeam">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="teamOption.id === editForm.get('visitorTeam')!.value?.id ? editForm.get('visitorTeam')!.value : teamOption" *ngFor="let teamOption of visitorteams; trackBy: trackById">{{ teamOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.social" for="field_social">Social</label>
+                    <select class="form-control" id="field_social" name="social" formControlName="social">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="teamSocialOption.id === editForm.get('social')!.value?.id ? editForm.get('social')!.value : teamSocialOption" *ngFor="let teamSocialOption of socials; trackBy: trackById">{{ teamSocialOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.competition" for="field_competition">Competition</label>
+                    <select class="form-control" id="field_competition" name="competition" formControlName="competition">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="competitionOption.id === editForm.get('competition')!.value?.id ? editForm.get('competition')!.value : competitionOption" *ngFor="let competitionOption of competitions; trackBy: trackById">{{ competitionOption.id }}</option>
                     </select>
                 </div>
             </div>

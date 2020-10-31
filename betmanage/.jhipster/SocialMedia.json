@@ -18,6 +18,13 @@
       "otherEntityRelationshipName": "socialMedia",
       "relationshipName": "team",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "teamSocial",
+      "otherEntityRelationshipName": "socialMediaMatch",
+      "relationshipName": "teamSocial",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20201020215803",

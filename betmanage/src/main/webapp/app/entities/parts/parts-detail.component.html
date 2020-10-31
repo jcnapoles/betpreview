@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="parts">
+            <h2><span jhiTranslate="betmanageApp.parts.detail.title">Parts</span> {{ parts.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.parts.intro">Intro</span></dt>
+                <dd>
+                    <span>{{ parts.intro }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.weather">Weather</span></dt>
+                <dd>
+                    <span>{{ parts.weather }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.homeLastResult">Home Last Result</span></dt>
+                <dd>
+                    <span>{{ parts.homeLastResult }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.visitorLastResult">Visitor Last Result</span></dt>
+                <dd>
+                    <span>{{ parts.visitorLastResult }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.homeScorers">Home Scorers</span></dt>
+                <dd>
+                    <span>{{ parts.homeScorers }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.visitorScorers">Visitor Scorers</span></dt>
+                <dd>
+                    <span>{{ parts.visitorScorers }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.lastMeetingResult">Last Meeting Result</span></dt>
+                <dd>
+                    <span>{{ parts.lastMeetingResult }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.lastMeetingScoring">Last Meeting Scoring</span></dt>
+                <dd>
+                    <span>{{ parts.lastMeetingScoring }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.homeSidelined">Home Sidelined</span></dt>
+                <dd>
+                    <span>{{ parts.homeSidelined }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.visitorSidelined">Visitor Sidelined</span></dt>
+                <dd>
+                    <span>{{ parts.visitorSidelined }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.parts.parts">Parts</span></dt>
+                <dd>
+                    <div *ngIf="parts.parts">
+                        <a [routerLink]="['/match-preview', parts.parts?.id, 'view']">{{ parts.parts?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/parts', parts.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

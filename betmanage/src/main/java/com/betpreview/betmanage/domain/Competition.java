@@ -57,6 +57,10 @@ public class Competition implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Team> teams = new HashSet<>();
 
+    @OneToMany(mappedBy = "competition")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<MatchPreview> matchPreviews = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = "competitions", allowSetters = true)
     private Sport sport;
@@ -188,6 +192,31 @@ public class Competition implements Serializable {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    public Set<MatchPreview> getMatchPreviews() {
+        return matchPreviews;
+    }
+
+    public Competition matchPreviews(Set<MatchPreview> matchPreviews) {
+        this.matchPreviews = matchPreviews;
+        return this;
+    }
+
+    public Competition addMatchPreview(MatchPreview matchPreview) {
+        this.matchPreviews.add(matchPreview);
+        matchPreview.setCompetition(this);
+        return this;
+    }
+
+    public Competition removeMatchPreview(MatchPreview matchPreview) {
+        this.matchPreviews.remove(matchPreview);
+        matchPreview.setCompetition(null);
+        return this;
+    }
+
+    public void setMatchPreviews(Set<MatchPreview> matchPreviews) {
+        this.matchPreviews = matchPreviews;
     }
 
     public Sport getSport() {

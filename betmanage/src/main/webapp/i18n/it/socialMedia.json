@@ -19,7 +19,8 @@
       },
       "tag": "Tag",
       "platform": "Platform",
-      "team": "Team"
+      "team": "Team",
+      "teamSocial": "Team Social"
     }
   }
 }

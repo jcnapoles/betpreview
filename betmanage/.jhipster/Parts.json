@@ -1,0 +1,65 @@
+{
+  "name": "Parts",
+  "fields": [
+    {
+      "fieldName": "intro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "weather",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "homeLastResult",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "visitorLastResult",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "homeScorers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "visitorScorers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastMeetingResult",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastMeetingScoring",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "homeSidelined",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "visitorSidelined",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "parts",
+      "relationshipName": "parts",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201031143332",
+  "entityTableName": "parts",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -16,11 +16,11 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="fixture_id" type="integer">
-                <constraints nullable="false" />
-            </column>
             <column name="blurb_full" type="varchar(255)">
                 <constraints nullable="true" />
+            </column>
+            <column name="fixture_id" type="integer">
+                <constraints nullable="false" />
             </column>
             <column name="hometeam_id" type="integer">
                 <constraints nullable="true" />
@@ -40,23 +40,60 @@
             <column name="league" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="formation_img" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="formation_img_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="fixture_img" type="longblob">
                 <constraints nullable="true" />
             </column>
             <column name="fixture_img_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="formation_img" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="formation_img_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="start_utc_timestamp" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="venue_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="match_img" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="match_img_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="match_ima_txt" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="headline" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="language" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="country_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_country_id" />
             </column>
+            <column name="home_team_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_home_team_id" />
+            </column>
+            <column name="visitor_team_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_visitor_team_id" />
+            </column>
+            <column name="social_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_social_id" />
+            </column>
+            <column name="competition_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="match_preview" columnName="start_utc_timestamp" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20201020215603-1-relations" author="jhipster">
@@ -78,18 +115,26 @@
                   separator=";"
                   tableName="match_preview">
             <column name="id" type="numeric"/>
-            <column name="fixture_id" type="numeric"/>
             <column name="blurb_full" type="string"/>
+            <column name="fixture_id" type="numeric"/>
             <column name="hometeam_id" type="numeric"/>
             <column name="visitorteam_id" type="numeric"/>
             <column name="hometeam_name" type="string"/>
             <column name="visitorteam_name" type="string"/>
             <column name="league_id" type="numeric"/>
             <column name="league" type="string"/>
-            <column name="formation_img" type="blob"/>
-            <column name="formation_img_content_type" type="string"/>
             <column name="fixture_img" type="blob"/>
             <column name="fixture_img_content_type" type="string"/>
+            <column name="formation_img" type="blob"/>
+            <column name="formation_img_content_type" type="string"/>
+            <column name="start_utc_timestamp" type="datetime"/>
+            <column name="venue_name" type="string"/>
+            <column name="match_img" type="blob"/>
+            <column name="match_img_content_type" type="string"/>
+            <column name="match_ima_txt" type="string"/>
+            <column name="headline" type="string"/>
+            <column name="date" type="date"/>
+            <column name="language" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

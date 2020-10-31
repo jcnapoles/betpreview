@@ -1,0 +1,36 @@
+{
+  "name": "TeamSocial",
+  "fields": [
+    {
+      "fieldName": "home",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "visitor",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "match",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "socialMedia",
+      "otherEntityRelationshipName": "teamSocial",
+      "relationshipName": "socialMediaMatch"
+    }
+  ],
+  "changelogDate": "20201031143432",
+  "entityTableName": "team_social",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

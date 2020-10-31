@@ -1,6 +1,7 @@
 package com.betpreview.betmanage.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,8 +10,12 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
 
 /**
  * A MatchPreview.
@@ -27,12 +32,12 @@ public class MatchPreview implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "blurb_full")
+    private String blurbFull;
+
     @NotNull
     @Column(name = "fixture_id", nullable = false)
     private Integer fixtureId;
-
-    @Column(name = "blurb_full")
-    private String blurbFull;
 
     @Column(name = "hometeam_id")
     private Integer hometeamId;
@@ -53,22 +58,60 @@ public class MatchPreview implements Serializable {
     private String league;
 
     @Lob
-    @Column(name = "formation_img")
-    private byte[] formationImg;
-
-    @Column(name = "formation_img_content_type")
-    private String formationImgContentType;
-
-    @Lob
     @Column(name = "fixture_img")
     private byte[] fixtureImg;
 
     @Column(name = "fixture_img_content_type")
     private String fixtureImgContentType;
 
+    @Lob
+    @Column(name = "formation_img")
+    private byte[] formationImg;
+
+    @Column(name = "formation_img_content_type")
+    private String formationImgContentType;
+
+    @Column(name = "start_utc_timestamp")
+    private Instant startUtcTimestamp;
+
+    @Column(name = "venue_name")
+    private String venueName;
+
+    @Lob
+    @Column(name = "match_img")
+    private byte[] matchImg;
+
+    @Column(name = "match_img_content_type")
+    private String matchImgContentType;
+
+    @Column(name = "match_ima_txt")
+    private String matchImaTxt;
+
+    @Column(name = "headline")
+    private String headline;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "language")
+    private LanguageEnum language;
+
     @OneToOne
     @JoinColumn(unique = true)
     private Country country;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Team homeTeam;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Team visitorTeam;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private TeamSocial social;
 
     @OneToMany(mappedBy = "quickItems")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -77,6 +120,14 @@ public class MatchPreview implements Serializable {
     @OneToMany(mappedBy = "blurbSplit")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Paragraphs> paragraphs = new HashSet<>();
+
+    @OneToMany(mappedBy = "parts")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Parts> parts = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
+    private Competition competition;
 
     @ManyToMany(mappedBy = "matchPreviews")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -92,19 +143,6 @@ public class MatchPreview implements Serializable {
         this.id = id;
     }
 
-    public Integer getFixtureId() {
-        return fixtureId;
-    }
-
-    public MatchPreview fixtureId(Integer fixtureId) {
-        this.fixtureId = fixtureId;
-        return this;
-    }
-
-    public void setFixtureId(Integer fixtureId) {
-        this.fixtureId = fixtureId;
-    }
-
     public String getBlurbFull() {
         return blurbFull;
     }
@@ -116,6 +154,19 @@ public class MatchPreview implements Serializable {
 
     public void setBlurbFull(String blurbFull) {
         this.blurbFull = blurbFull;
+    }
+
+    public Integer getFixtureId() {
+        return fixtureId;
+    }
+
+    public MatchPreview fixtureId(Integer fixtureId) {
+        this.fixtureId = fixtureId;
+        return this;
+    }
+
+    public void setFixtureId(Integer fixtureId) {
+        this.fixtureId = fixtureId;
     }
 
     public Integer getHometeamId() {
@@ -196,32 +247,6 @@ public class MatchPreview implements Serializable {
         this.league = league;
     }
 
-    public byte[] getFormationImg() {
-        return formationImg;
-    }
-
-    public MatchPreview formationImg(byte[] formationImg) {
-        this.formationImg = formationImg;
-        return this;
-    }
-
-    public void setFormationImg(byte[] formationImg) {
-        this.formationImg = formationImg;
-    }
-
-    public String getFormationImgContentType() {
-        return formationImgContentType;
-    }
-
-    public MatchPreview formationImgContentType(String formationImgContentType) {
-        this.formationImgContentType = formationImgContentType;
-        return this;
-    }
-
-    public void setFormationImgContentType(String formationImgContentType) {
-        this.formationImgContentType = formationImgContentType;
-    }
-
     public byte[] getFixtureImg() {
         return fixtureImg;
     }
@@ -248,6 +273,136 @@ public class MatchPreview implements Serializable {
         this.fixtureImgContentType = fixtureImgContentType;
     }
 
+    public byte[] getFormationImg() {
+        return formationImg;
+    }
+
+    public MatchPreview formationImg(byte[] formationImg) {
+        this.formationImg = formationImg;
+        return this;
+    }
+
+    public void setFormationImg(byte[] formationImg) {
+        this.formationImg = formationImg;
+    }
+
+    public String getFormationImgContentType() {
+        return formationImgContentType;
+    }
+
+    public MatchPreview formationImgContentType(String formationImgContentType) {
+        this.formationImgContentType = formationImgContentType;
+        return this;
+    }
+
+    public void setFormationImgContentType(String formationImgContentType) {
+        this.formationImgContentType = formationImgContentType;
+    }
+
+    public Instant getStartUtcTimestamp() {
+        return startUtcTimestamp;
+    }
+
+    public MatchPreview startUtcTimestamp(Instant startUtcTimestamp) {
+        this.startUtcTimestamp = startUtcTimestamp;
+        return this;
+    }
+
+    public void setStartUtcTimestamp(Instant startUtcTimestamp) {
+        this.startUtcTimestamp = startUtcTimestamp;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public MatchPreview venueName(String venueName) {
+        this.venueName = venueName;
+        return this;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
+    public byte[] getMatchImg() {
+        return matchImg;
+    }
+
+    public MatchPreview matchImg(byte[] matchImg) {
+        this.matchImg = matchImg;
+        return this;
+    }
+
+    public void setMatchImg(byte[] matchImg) {
+        this.matchImg = matchImg;
+    }
+
+    public String getMatchImgContentType() {
+        return matchImgContentType;
+    }
+
+    public MatchPreview matchImgContentType(String matchImgContentType) {
+        this.matchImgContentType = matchImgContentType;
+        return this;
+    }
+
+    public void setMatchImgContentType(String matchImgContentType) {
+        this.matchImgContentType = matchImgContentType;
+    }
+
+    public String getMatchImaTxt() {
+        return matchImaTxt;
+    }
+
+    public MatchPreview matchImaTxt(String matchImaTxt) {
+        this.matchImaTxt = matchImaTxt;
+        return this;
+    }
+
+    public void setMatchImaTxt(String matchImaTxt) {
+        this.matchImaTxt = matchImaTxt;
+    }
+
+    public String getHeadline() {
+        return headline;
+    }
+
+    public MatchPreview headline(String headline) {
+        this.headline = headline;
+        return this;
+    }
+
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public MatchPreview date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LanguageEnum getLanguage() {
+        return language;
+    }
+
+    public MatchPreview language(LanguageEnum language) {
+        this.language = language;
+        return this;
+    }
+
+    public void setLanguage(LanguageEnum language) {
+        this.language = language;
+    }
+
     public Country getCountry() {
         return country;
     }
@@ -259,6 +414,45 @@ public class MatchPreview implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public MatchPreview homeTeam(Team team) {
+        this.homeTeam = team;
+        return this;
+    }
+
+    public void setHomeTeam(Team team) {
+        this.homeTeam = team;
+    }
+
+    public Team getVisitorTeam() {
+        return visitorTeam;
+    }
+
+    public MatchPreview visitorTeam(Team team) {
+        this.visitorTeam = team;
+        return this;
+    }
+
+    public void setVisitorTeam(Team team) {
+        this.visitorTeam = team;
+    }
+
+    public TeamSocial getSocial() {
+        return social;
+    }
+
+    public MatchPreview social(TeamSocial teamSocial) {
+        this.social = teamSocial;
+        return this;
+    }
+
+    public void setSocial(TeamSocial teamSocial) {
+        this.social = teamSocial;
     }
 
     public Set<Title> getTitles() {
@@ -311,6 +505,44 @@ public class MatchPreview implements Serializable {
         this.paragraphs = paragraphs;
     }
 
+    public Set<Parts> getParts() {
+        return parts;
+    }
+
+    public MatchPreview parts(Set<Parts> parts) {
+        this.parts = parts;
+        return this;
+    }
+
+    public MatchPreview addParts(Parts parts) {
+        this.parts.add(parts);
+        parts.setParts(this);
+        return this;
+    }
+
+    public MatchPreview removeParts(Parts parts) {
+        this.parts.remove(parts);
+        parts.setParts(null);
+        return this;
+    }
+
+    public void setParts(Set<Parts> parts) {
+        this.parts = parts;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public MatchPreview competition(Competition competition) {
+        this.competition = competition;
+        return this;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
+    }
+
     public Set<Team> getTeams() {
         return teams;
     }
@@ -358,18 +590,26 @@ public class MatchPreview implements Serializable {
     public String toString() {
         return "MatchPreview{" +
             "id=" + getId() +
-            ", fixtureId=" + getFixtureId() +
             ", blurbFull='" + getBlurbFull() + "'" +
+            ", fixtureId=" + getFixtureId() +
             ", hometeamId=" + getHometeamId() +
             ", visitorteamId=" + getVisitorteamId() +
             ", hometeamName='" + getHometeamName() + "'" +
             ", visitorteamName='" + getVisitorteamName() + "'" +
             ", leagueId=" + getLeagueId() +
             ", league='" + getLeague() + "'" +
-            ", formationImg='" + getFormationImg() + "'" +
-            ", formationImgContentType='" + getFormationImgContentType() + "'" +
             ", fixtureImg='" + getFixtureImg() + "'" +
             ", fixtureImgContentType='" + getFixtureImgContentType() + "'" +
+            ", formationImg='" + getFormationImg() + "'" +
+            ", formationImgContentType='" + getFormationImgContentType() + "'" +
+            ", startUtcTimestamp='" + getStartUtcTimestamp() + "'" +
+            ", venueName='" + getVenueName() + "'" +
+            ", matchImg='" + getMatchImg() + "'" +
+            ", matchImgContentType='" + getMatchImgContentType() + "'" +
+            ", matchImaTxt='" + getMatchImaTxt() + "'" +
+            ", headline='" + getHeadline() + "'" +
+            ", date='" + getDate() + "'" +
+            ", language='" + getLanguage() + "'" +
             "}";
     }
 }

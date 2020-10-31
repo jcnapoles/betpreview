@@ -8,13 +8,13 @@
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureId">Fixture Id</span></dt>
-                <dd>
-                    <span>{{ matchPreview.fixtureId }}</span>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.blurbFull">Blurb Full</span></dt>
                 <dd>
                     <span>{{ matchPreview.blurbFull }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureId">Fixture Id</span></dt>
+                <dd>
+                    <span>{{ matchPreview.fixtureId }}</span>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.hometeamId">Hometeam Id</span></dt>
                 <dd>
@@ -40,13 +40,6 @@
                 <dd>
                     <span>{{ matchPreview.league }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span></dt>
-                <dd>
-                    <div *ngIf="matchPreview.formationImg">
-                        <a (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
-                        {{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureImg">Fixture Img</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.fixtureImg">
@@ -54,10 +47,72 @@
                         {{ matchPreview.fixtureImgContentType }}, {{ byteSize(matchPreview.fixtureImg) }}
                     </div>
                 </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.formationImg">
+                        <a (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
+                        {{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.startUtcTimestamp">Start Utc Timestamp</span></dt>
+                <dd>
+                    <span>{{ matchPreview.startUtcTimestamp }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.venueName">Venue Name</span></dt>
+                <dd>
+                    <span>{{ matchPreview.venueName }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.matchImg">Match Img</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.matchImg">
+                        <a (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)" jhiTranslate="entity.action.open">open</a>
+                        {{ matchPreview.matchImgContentType }}, {{ byteSize(matchPreview.matchImg) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.matchImaTxt">Match Ima Txt</span></dt>
+                <dd>
+                    <span>{{ matchPreview.matchImaTxt }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.headline">Headline</span></dt>
+                <dd>
+                    <span>{{ matchPreview.headline }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.date">Date</span></dt>
+                <dd>
+                    <span>{{ matchPreview.date }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.language">Language</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'betmanageApp.LanguageEnum.' + matchPreview.language }}">{{ matchPreview.language }}</span>
+                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.country">
                         <a [routerLink]="['/country', matchPreview.country?.id, 'view']">{{ matchPreview.country?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.homeTeam">
+                        <a [routerLink]="['/team', matchPreview.homeTeam?.id, 'view']">{{ matchPreview.homeTeam?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.visitorTeam">Visitor Team</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.visitorTeam">
+                        <a [routerLink]="['/team', matchPreview.visitorTeam?.id, 'view']">{{ matchPreview.visitorTeam?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.social">Social</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.social">
+                        <a [routerLink]="['/team-social', matchPreview.social?.id, 'view']">{{ matchPreview.social?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.competition">Competition</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.competition">
+                        <a [routerLink]="['/competition', matchPreview.competition?.id, 'view']">{{ matchPreview.competition?.id }}</a>
                     </div>
                 </dd>
             </dl>

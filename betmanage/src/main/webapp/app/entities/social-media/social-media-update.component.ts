@@ -9,6 +9,10 @@ import { ISocialMedia, SocialMedia } from 'app/shared/model/social-media.model';
 import { SocialMediaService } from './social-media.service';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team/team.service';
+import { ITeamSocial } from 'app/shared/model/team-social.model';
+import { TeamSocialService } from 'app/entities/team-social/team-social.service';
+
+type SelectableEntity = ITeam | ITeamSocial;
 
 @Component({
   selector: 'jhi-social-media-update',
@@ -17,17 +21,20 @@ import { TeamService } from 'app/entities/team/team.service';
 export class SocialMediaUpdateComponent implements OnInit {
   isSaving = false;
   teams: ITeam[] = [];
+  teamsocials: ITeamSocial[] = [];
 
   editForm = this.fb.group({
     id: [],
     tag: [],
     platform: [],
     team: [],
+    teamSocial: [],
   });
 
   constructor(
     protected socialMediaService: SocialMediaService,
     protected teamService: TeamService,
+    protected teamSocialService: TeamSocialService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -37,6 +44,8 @@ export class SocialMediaUpdateComponent implements OnInit {
       this.updateForm(socialMedia);
 
       this.teamService.query().subscribe((res: HttpResponse<ITeam[]>) => (this.teams = res.body || []));
+
+      this.teamSocialService.query().subscribe((res: HttpResponse<ITeamSocial[]>) => (this.teamsocials = res.body || []));
     });
   }
 
@@ -46,6 +55,7 @@ export class SocialMediaUpdateComponent implements OnInit {
       tag: socialMedia.tag,
       platform: socialMedia.platform,
       team: socialMedia.team,
+      teamSocial: socialMedia.teamSocial,
     });
   }
 
@@ -70,6 +80,7 @@ export class SocialMediaUpdateComponent implements OnInit {
       tag: this.editForm.get(['tag'])!.value,
       platform: this.editForm.get(['platform'])!.value,
       team: this.editForm.get(['team'])!.value,
+      teamSocial: this.editForm.get(['teamSocial'])!.value,
     };
   }
 
@@ -89,7 +100,7 @@ export class SocialMediaUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: ITeam): any {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

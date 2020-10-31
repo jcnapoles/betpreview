@@ -22,6 +22,12 @@
                         <a [routerLink]="['/team', socialMedia.team?.id, 'view']">{{ socialMedia.team?.id }}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="betmanageApp.socialMedia.teamSocial">Team Social</span></dt>
+                <dd>
+                    <div *ngIf="socialMedia.teamSocial">
+                        <a [routerLink]="['/team-social', socialMedia.teamSocial?.id, 'view']">{{ socialMedia.teamSocial?.id }}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

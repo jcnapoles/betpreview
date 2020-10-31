@@ -39,6 +39,10 @@ public class SocialMedia implements Serializable {
     @JsonIgnoreProperties(value = "socialMedias", allowSetters = true)
     private Team team;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "socialMediaMatches", allowSetters = true)
+    private TeamSocial teamSocial;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -85,6 +89,19 @@ public class SocialMedia implements Serializable {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public TeamSocial getTeamSocial() {
+        return teamSocial;
+    }
+
+    public SocialMedia teamSocial(TeamSocial teamSocial) {
+        this.teamSocial = teamSocial;
+        return this;
+    }
+
+    public void setTeamSocial(TeamSocial teamSocial) {
+        this.teamSocial = teamSocial;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

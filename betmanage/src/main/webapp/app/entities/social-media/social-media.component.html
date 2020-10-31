@@ -44,6 +44,7 @@
                     <th scope="col" ><span jhiTranslate="betmanageApp.socialMedia.tag">Tag</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.socialMedia.platform">Platform</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.socialMedia.team">Team</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.socialMedia.teamSocial">Team Social</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -55,6 +56,11 @@
                     <td>
                         <div *ngIf="socialMedia.team">
                             <a [routerLink]="['/team', socialMedia.team?.id, 'view']" >{{ socialMedia.team?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="socialMedia.teamSocial">
+                            <a [routerLink]="['/team-social', socialMedia.teamSocial?.id, 'view']" >{{ socialMedia.teamSocial?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

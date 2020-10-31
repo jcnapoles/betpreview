@@ -1,5 +1,7 @@
 package com.betpreview.sportscribe.domain;
 
+import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -30,6 +32,26 @@ public class Preview {
 	private String fixture_img;
 	
 	private String[] quick_items;
+	
+	private String start_utc_timestamp;
+	
+	private String venue_name;
+	
+	private String venue_city;
+	
+	private String match_img;
+	
+	private String match_img_txt;
+	
+	private String headline;
+	
+	private String date;
+	
+	private Object social;
+	
+	private String language;
+	
+	private PartPreview parts; 
 
 	public String getBlurb_full() {
 		return blurb_full;
@@ -137,14 +159,98 @@ public class Preview {
 		this.quick_items = quick_items;
 	}
 
+	public String getStart_utc_timestamp() {
+		return start_utc_timestamp;
+	}
+
+	public void setStart_utc_timestamp(String start_utc_timestamp) {
+		this.start_utc_timestamp = start_utc_timestamp;
+	}
+
+	public String getVenue_name() {
+		return venue_name;
+	}
+
+	public void setVenue_name(String venue_name) {
+		this.venue_name = venue_name;
+	}
+
+	public String getVenue_city() {
+		return venue_city;
+	}
+
+	public void setVenue_city(String venue_city) {
+		this.venue_city = venue_city;
+	}
+
+	public String getMatch_img() {
+		return match_img;
+	}
+
+	public void setMatch_img(String match_img) {
+		this.match_img = match_img;
+	}
+
+	public String getMatch_img_txt() {
+		return match_img_txt;
+	}
+
+	public void setMatch_img_txt(String match_img_txt) {
+		this.match_img_txt = match_img_txt;
+	}
+
+	public String getHeadline() {
+		return headline;
+	}
+
+	public void setHeadline(String headline) {
+		this.headline = headline;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Object getSocial() {
+		return social;
+	}
+
+	public void setSocial(Object social) {
+		this.social = social;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public PartPreview getParts() {
+		return parts;
+	}
+
+	public void setParts(PartPreview parts) {
+		this.parts = parts;
+	}
+
 	@Override
 	public String toString() {
-		return "Preview [blurb_full=" + blurb_full + ", blurb_split=" + blurb_split + ", fixture_id=" + fixture_id
-				+ ", hometeam_id=" + hometeam_id + ", hometeam_name=" + hometeam_name + ", visitorteam_id="
+		return "Preview [blurb_full=" + blurb_full + ", blurb_split=" + Arrays.toString(blurb_split) + ", fixture_id="
+				+ fixture_id + ", hometeam_id=" + hometeam_id + ", hometeam_name=" + hometeam_name + ", visitorteam_id="
 				+ visitorteam_id + ", visitorteam_name=" + visitorteam_name + ", league_id=" + league_id + ", league="
 				+ league + ", country=" + country + ", formation_img=" + formation_img + ", fixture_img=" + fixture_img
-				+ ", quick_items=" + quick_items + "]";
+				+ ", quick_items=" + Arrays.toString(quick_items) + ", start_utc_timestamp=" + start_utc_timestamp
+				+ ", venue_name=" + venue_name + ", venue_city=" + venue_city + ", match_img=" + match_img
+				+ ", match_img_txt=" + match_img_txt + ", headline=" + headline + ", date=" + date + ", social="
+				+ social + ", language=" + language + ", parts=" + parts + "]";
 	}
+
 	
 	
 }

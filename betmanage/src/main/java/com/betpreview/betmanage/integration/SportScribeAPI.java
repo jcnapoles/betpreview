@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -184,6 +187,13 @@ public class SportScribeAPI {
 			matchPreview = matchPreviewOptional.get();
 		}
 		matchPreview.setBlurbFull(preview.getBlurb_full());
+		matchPreview.setFixtureId(fixture_id);
+		matchPreview.setHometeamId(preview.getHometeam_id());
+		matchPreview.setHometeamName(preview.getHometeam_name());
+		matchPreview.setVisitorteamId(preview.getVisitorteam_id());
+		matchPreview.setVisitorteamName(preview.getVisitorteam_name());
+		matchPreview.setLeague(preview.getLeague());
+		matchPreview.setLeagueId(preview.getLeague_id());
 		
 		/*Create or Load Country*/
 		Optional<Country> countryOptional = countryService.findOneByCountryName(preview.getCountry());
@@ -194,7 +204,7 @@ public class SportScribeAPI {
 		country.setCountryName(preview.getCountry());
 		countryService.save(country);
 		matchPreview.setCountry(country);
-		matchPreview.setFixtureId(fixture_id);
+		
 		byte[] matchPreviewLogo = null;
 		if (preview.getFixture_img() != null) {
 			matchPreviewLogo = urlStringToByte(preview.getFixture_img());
@@ -206,12 +216,21 @@ public class SportScribeAPI {
 			formationImg = urlStringToByte(preview.getFormation_img());
 		}
 		matchPreview.setFormationImg(formationImg);
-		//matchPreview.setFormationImgContentType(formationImgContentType);
-		matchPreview.setHometeamId(preview.getHometeam_id());
-		matchPreview.setHometeamName(preview.getHometeam_name());
-		matchPreview.setLeague(preview.getLeague());
-		matchPreview.setLeagueId(preview.getLeague_id());
-		//matchPreview.set
+		//matchPreview.setFormationImgContentType(formationImgContentType);	
+		
+		if (preview.getStart_utc_timestamp() != null) {
+			try {
+			    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			    Date parsedDate = dateFormat.parse(preview.getStart_utc_timestamp());
+			    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+			    matchPreview.setStartUtcTimestamp(timestamp.toInstant());
+			} catch(Exception e) { //this generic but you can control another types of exception
+				 e.printStackTrace ();
+			}
+			
+		}
+		matchPreview.setVenueName(preview.getVenue_name());
+		//matchPrevie
 		
 		
 		

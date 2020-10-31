@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { IMatchPreview, MatchPreview } from 'app/shared/model/match-preview.model';
@@ -12,6 +14,14 @@ import { MatchPreviewService } from './match-preview.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country/country.service';
+import { ITeam } from 'app/shared/model/team.model';
+import { TeamService } from 'app/entities/team/team.service';
+import { ITeamSocial } from 'app/shared/model/team-social.model';
+import { TeamSocialService } from 'app/entities/team-social/team-social.service';
+import { ICompetition } from 'app/shared/model/competition.model';
+import { CompetitionService } from 'app/entities/competition/competition.service';
+
+type SelectableEntity = ICountry | ITeam | ITeamSocial | ICompetition;
 
 @Component({
   selector: 'jhi-match-preview-update',
@@ -20,22 +30,39 @@ import { CountryService } from 'app/entities/country/country.service';
 export class MatchPreviewUpdateComponent implements OnInit {
   isSaving = false;
   countries: ICountry[] = [];
+  hometeams: ITeam[] = [];
+  visitorteams: ITeam[] = [];
+  socials: ITeamSocial[] = [];
+  competitions: ICompetition[] = [];
+  dateDp: any;
 
   editForm = this.fb.group({
     id: [],
-    fixtureId: [null, [Validators.required]],
     blurbFull: [],
+    fixtureId: [null, [Validators.required]],
     hometeamId: [],
     visitorteamId: [],
     hometeamName: [],
     visitorteamName: [],
     leagueId: [],
     league: [],
-    formationImg: [],
-    formationImgContentType: [],
     fixtureImg: [],
     fixtureImgContentType: [],
+    formationImg: [],
+    formationImgContentType: [],
+    startUtcTimestamp: [],
+    venueName: [],
+    matchImg: [],
+    matchImgContentType: [],
+    matchImaTxt: [],
+    headline: [],
+    date: [],
+    language: [],
     country: [],
+    homeTeam: [],
+    visitorTeam: [],
+    social: [],
+    competition: [],
   });
 
   constructor(
@@ -43,12 +70,20 @@ export class MatchPreviewUpdateComponent implements OnInit {
     protected eventManager: JhiEventManager,
     protected matchPreviewService: MatchPreviewService,
     protected countryService: CountryService,
+    protected teamService: TeamService,
+    protected teamSocialService: TeamSocialService,
+    protected competitionService: CompetitionService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ matchPreview }) => {
+      if (!matchPreview.id) {
+        const today = moment().startOf('day');
+        matchPreview.startUtcTimestamp = today;
+      }
+
       this.updateForm(matchPreview);
 
       this.countryService
@@ -72,25 +107,105 @@ export class MatchPreviewUpdateComponent implements OnInit {
               .subscribe((concatRes: ICountry[]) => (this.countries = concatRes));
           }
         });
+
+      this.teamService
+        .query({ filter: 'matchpreview-is-null' })
+        .pipe(
+          map((res: HttpResponse<ITeam[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ITeam[]) => {
+          if (!matchPreview.homeTeam || !matchPreview.homeTeam.id) {
+            this.hometeams = resBody;
+          } else {
+            this.teamService
+              .find(matchPreview.homeTeam.id)
+              .pipe(
+                map((subRes: HttpResponse<ITeam>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ITeam[]) => (this.hometeams = concatRes));
+          }
+        });
+
+      this.teamService
+        .query({ filter: 'matchpreview-is-null' })
+        .pipe(
+          map((res: HttpResponse<ITeam[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ITeam[]) => {
+          if (!matchPreview.visitorTeam || !matchPreview.visitorTeam.id) {
+            this.visitorteams = resBody;
+          } else {
+            this.teamService
+              .find(matchPreview.visitorTeam.id)
+              .pipe(
+                map((subRes: HttpResponse<ITeam>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ITeam[]) => (this.visitorteams = concatRes));
+          }
+        });
+
+      this.teamSocialService
+        .query({ filter: 'matchpreview-is-null' })
+        .pipe(
+          map((res: HttpResponse<ITeamSocial[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ITeamSocial[]) => {
+          if (!matchPreview.social || !matchPreview.social.id) {
+            this.socials = resBody;
+          } else {
+            this.teamSocialService
+              .find(matchPreview.social.id)
+              .pipe(
+                map((subRes: HttpResponse<ITeamSocial>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ITeamSocial[]) => (this.socials = concatRes));
+          }
+        });
+
+      this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
     });
   }
 
   updateForm(matchPreview: IMatchPreview): void {
     this.editForm.patchValue({
       id: matchPreview.id,
-      fixtureId: matchPreview.fixtureId,
       blurbFull: matchPreview.blurbFull,
+      fixtureId: matchPreview.fixtureId,
       hometeamId: matchPreview.hometeamId,
       visitorteamId: matchPreview.visitorteamId,
       hometeamName: matchPreview.hometeamName,
       visitorteamName: matchPreview.visitorteamName,
       leagueId: matchPreview.leagueId,
       league: matchPreview.league,
-      formationImg: matchPreview.formationImg,
-      formationImgContentType: matchPreview.formationImgContentType,
       fixtureImg: matchPreview.fixtureImg,
       fixtureImgContentType: matchPreview.fixtureImgContentType,
+      formationImg: matchPreview.formationImg,
+      formationImgContentType: matchPreview.formationImgContentType,
+      startUtcTimestamp: matchPreview.startUtcTimestamp ? matchPreview.startUtcTimestamp.format(DATE_TIME_FORMAT) : null,
+      venueName: matchPreview.venueName,
+      matchImg: matchPreview.matchImg,
+      matchImgContentType: matchPreview.matchImgContentType,
+      matchImaTxt: matchPreview.matchImaTxt,
+      headline: matchPreview.headline,
+      date: matchPreview.date,
+      language: matchPreview.language,
       country: matchPreview.country,
+      homeTeam: matchPreview.homeTeam,
+      visitorTeam: matchPreview.visitorTeam,
+      social: matchPreview.social,
+      competition: matchPreview.competition,
     });
   }
 
@@ -128,19 +243,33 @@ export class MatchPreviewUpdateComponent implements OnInit {
     return {
       ...new MatchPreview(),
       id: this.editForm.get(['id'])!.value,
-      fixtureId: this.editForm.get(['fixtureId'])!.value,
       blurbFull: this.editForm.get(['blurbFull'])!.value,
+      fixtureId: this.editForm.get(['fixtureId'])!.value,
       hometeamId: this.editForm.get(['hometeamId'])!.value,
       visitorteamId: this.editForm.get(['visitorteamId'])!.value,
       hometeamName: this.editForm.get(['hometeamName'])!.value,
       visitorteamName: this.editForm.get(['visitorteamName'])!.value,
       leagueId: this.editForm.get(['leagueId'])!.value,
       league: this.editForm.get(['league'])!.value,
-      formationImgContentType: this.editForm.get(['formationImgContentType'])!.value,
-      formationImg: this.editForm.get(['formationImg'])!.value,
       fixtureImgContentType: this.editForm.get(['fixtureImgContentType'])!.value,
       fixtureImg: this.editForm.get(['fixtureImg'])!.value,
+      formationImgContentType: this.editForm.get(['formationImgContentType'])!.value,
+      formationImg: this.editForm.get(['formationImg'])!.value,
+      startUtcTimestamp: this.editForm.get(['startUtcTimestamp'])!.value
+        ? moment(this.editForm.get(['startUtcTimestamp'])!.value, DATE_TIME_FORMAT)
+        : undefined,
+      venueName: this.editForm.get(['venueName'])!.value,
+      matchImgContentType: this.editForm.get(['matchImgContentType'])!.value,
+      matchImg: this.editForm.get(['matchImg'])!.value,
+      matchImaTxt: this.editForm.get(['matchImaTxt'])!.value,
+      headline: this.editForm.get(['headline'])!.value,
+      date: this.editForm.get(['date'])!.value,
+      language: this.editForm.get(['language'])!.value,
       country: this.editForm.get(['country'])!.value,
+      homeTeam: this.editForm.get(['homeTeam'])!.value,
+      visitorTeam: this.editForm.get(['visitorTeam'])!.value,
+      social: this.editForm.get(['social'])!.value,
+      competition: this.editForm.get(['competition'])!.value,
     };
   }
 
@@ -160,7 +289,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: ICountry): any {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

@@ -53,8 +53,8 @@
                     <th scope="col"  jhiSortBy="active"><span jhiTranslate="betmanageApp.competition.active">Active</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="type"><span jhiTranslate="betmanageApp.competition.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="sportscribeId"><span jhiTranslate="betmanageApp.competition.sportscribeId">Sportscribe Id</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.competition.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="sport.id"><span jhiTranslate="betmanageApp.competition.sport">Sport</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.competition.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -71,13 +71,13 @@
                     <td jhiTranslate="{{ 'betmanageApp.TypeCompetition.' + competition.type }}">{{ competition.type }}</td>
                     <td>{{ competition.sportscribeId }}</td>
                     <td>
-                        <div *ngIf="competition.country">
-                            <a [routerLink]="['/country', competition.country?.id, 'view']" >{{ competition.country?.id }}</a>
+                        <div *ngIf="competition.sport">
+                            <a [routerLink]="['/sport', competition.sport?.id, 'view']" >{{ competition.sport?.id }}</a>
                         </div>
                     </td>
                     <td>
-                        <div *ngIf="competition.sport">
-                            <a [routerLink]="['/sport', competition.sport?.id, 'view']" >{{ competition.sport?.id }}</a>
+                        <div *ngIf="competition.country">
+                            <a [routerLink]="['/country', competition.country?.id, 'view']" >{{ competition.country?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">
@@ -116,5 +116,5 @@
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
         </div>
-    </div>    
+    </div>
 </div>

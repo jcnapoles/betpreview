@@ -2,15 +2,15 @@
   "name": "MatchPreview",
   "fields": [
     {
+      "fieldName": "blurbFull",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "fixtureId",
       "fieldType": "Integer",
       "fieldValidateRules": [
         "required"
       ]
-    },
-    {
-      "fieldName": "blurbFull",
-      "fieldType": "String"
     },
     {
       "fieldName": "hometeamId",
@@ -37,14 +37,44 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "fixtureImg",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
       "fieldName": "formationImg",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"
     },
     {
-      "fieldName": "fixtureImg",
+      "fieldName": "startUtcTimestamp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "venueName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "matchImg",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "matchImaTxt",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "headline",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "LanguageEnum",
+      "fieldValues": "EN,ES,DE"
     }
   ],
   "relationships": [
@@ -53,6 +83,30 @@
       "otherEntityName": "country",
       "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "country",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "homeTeam",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "visitorTeam",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "teamSocial",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "social",
       "otherEntityField": "id",
       "ownerSide": true
     },
@@ -69,6 +123,19 @@
       "relationshipName": "paragraphs"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "parts",
+      "otherEntityRelationshipName": "parts",
+      "relationshipName": "parts"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "competition",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "competition",
+      "otherEntityField": "id"
+    },
+    {
       "relationshipType": "many-to-many",
       "otherEntityName": "team",
       "otherEntityRelationshipName": "matchPreview",
@@ -80,7 +147,7 @@
   "changelogDate": "20201020215603",
   "entityTableName": "match_preview",
   "dto": "no",
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,

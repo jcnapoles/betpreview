@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="teamSocial">
+            <h2><span jhiTranslate="betmanageApp.teamSocial.detail.title">Team Social</span> {{ teamSocial.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="betmanageApp.teamSocial.home">Home</span></dt>
+                <dd>
+                    <span>{{ teamSocial.home }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.teamSocial.visitor">Visitor</span></dt>
+                <dd>
+                    <span>{{ teamSocial.visitor }}</span>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.teamSocial.match">Match</span></dt>
+                <dd>
+                    <span>{{ teamSocial.match }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/team-social', teamSocial.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

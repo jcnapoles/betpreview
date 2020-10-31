@@ -1,0 +1,26 @@
+{
+  "betmanageApp": {
+    "teamSocial": {
+      "home": {
+        "title": "Team Socials",
+        "createLabel": "Crear nuevo Team Social",
+        "createOrEditLabel": "Crear o editar Team Social",
+        "search": "Buscar Team Social",
+        "notFound": "Ningún Team Socials encontrado"
+      },
+      "created": "Un nuevo Team Social ha sido creado con el identificador {{ param }}",
+      "updated": "Un Team Social ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Team Social ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Team Social {{ id }}?"
+      },
+      "detail": {
+        "title": "Team Social"
+      },
+      "home": "Home",
+      "visitor": "Visitor",
+      "match": "Match",
+      "socialMediaMatch": "Social Media Match"
+    }
+  }
+}

@@ -39,6 +39,12 @@
       "relationshipName": "team"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "competition",
+      "relationshipName": "matchPreview"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "sport",
       "otherEntityRelationshipName": "competition",

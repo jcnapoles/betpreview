@@ -162,5 +162,4 @@ export class CompetitionComponent implements OnInit, OnDestroy {
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
-
 }

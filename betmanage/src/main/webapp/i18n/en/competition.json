@@ -25,6 +25,7 @@
       "type": "Type",
       "sportscribeId": "Sportscribe Id",
       "team": "Team",
+      "matchPreview": "Match Preview",
       "sport": "Sport",
       "country": "Country"
     }

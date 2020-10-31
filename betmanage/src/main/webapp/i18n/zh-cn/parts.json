@@ -1,0 +1,33 @@
+{
+  "betmanageApp": {
+    "parts": {
+      "home": {
+        "title": "Parts",
+        "createLabel": "创建新 Parts",
+        "createOrEditLabel": "创建或编辑 Parts",
+        "search": "查找 Parts",
+        "notFound": "No Parts found"
+      },
+      "created": "Parts {{ param }} 创建成功",
+      "updated": "Parts {{ param }} 更新成功",
+      "deleted": "Parts {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Parts {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Parts"
+      },
+      "intro": "Intro",
+      "weather": "Weather",
+      "homeLastResult": "Home Last Result",
+      "visitorLastResult": "Visitor Last Result",
+      "homeScorers": "Home Scorers",
+      "visitorScorers": "Visitor Scorers",
+      "lastMeetingResult": "Last Meeting Result",
+      "lastMeetingScoring": "Last Meeting Scoring",
+      "homeSidelined": "Home Sidelined",
+      "visitorSidelined": "Visitor Sidelined",
+      "parts": "Parts"
+    }
+  }
+}

@@ -1,7 +1,10 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import * as moment from 'moment';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { MatchPreviewService } from 'app/entities/match-preview/match-preview.service';
 import { IMatchPreview, MatchPreview } from 'app/shared/model/match-preview.model';
+import { LanguageEnum } from 'app/shared/model/enumerations/language-enum.model';
 
 describe('Service Tests', () => {
   describe('MatchPreview Service', () => {
@@ -10,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IMatchPreview;
     let expectedResult: IMatchPreview | IMatchPreview[] | boolean | null;
+    let currentDate: moment.Moment;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,11 +23,12 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(MatchPreviewService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
       elemDefault = new MatchPreview(
         0,
-        0,
         'AAAAAAA',
+        0,
         0,
         0,
         'AAAAAAA',
@@ -33,13 +38,27 @@ describe('Service Tests', () => {
         'image/png',
         'AAAAAAA',
         'image/png',
-        'AAAAAAA'
+        'AAAAAAA',
+        currentDate,
+        'AAAAAAA',
+        'image/png',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        currentDate,
+        LanguageEnum.EN
       );
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            startUtcTimestamp: currentDate.format(DATE_TIME_FORMAT),
+            date: currentDate.format(DATE_FORMAT),
+          },
+          elemDefault
+        );
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -52,11 +71,19 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            startUtcTimestamp: currentDate.format(DATE_TIME_FORMAT),
+            date: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            startUtcTimestamp: currentDate,
+            date: currentDate,
+          },
+          returnedFromService
+        );
 
         service.create(new MatchPreview()).subscribe(resp => (expectedResult = resp.body));
 
@@ -68,21 +95,34 @@ describe('Service Tests', () => {
       it('should update a MatchPreview', () => {
         const returnedFromService = Object.assign(
           {
-            fixtureId: 1,
             blurbFull: 'BBBBBB',
+            fixtureId: 1,
             hometeamId: 1,
             visitorteamId: 1,
             hometeamName: 'BBBBBB',
             visitorteamName: 'BBBBBB',
             leagueId: 1,
             league: 'BBBBBB',
-            formationImg: 'BBBBBB',
             fixtureImg: 'BBBBBB',
+            formationImg: 'BBBBBB',
+            startUtcTimestamp: currentDate.format(DATE_TIME_FORMAT),
+            venueName: 'BBBBBB',
+            matchImg: 'BBBBBB',
+            matchImaTxt: 'BBBBBB',
+            headline: 'BBBBBB',
+            date: currentDate.format(DATE_FORMAT),
+            language: 'BBBBBB',
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            startUtcTimestamp: currentDate,
+            date: currentDate,
+          },
+          returnedFromService
+        );
 
         service.update(expected).subscribe(resp => (expectedResult = resp.body));
 
@@ -94,21 +134,34 @@ describe('Service Tests', () => {
       it('should return a list of MatchPreview', () => {
         const returnedFromService = Object.assign(
           {
-            fixtureId: 1,
             blurbFull: 'BBBBBB',
+            fixtureId: 1,
             hometeamId: 1,
             visitorteamId: 1,
             hometeamName: 'BBBBBB',
             visitorteamName: 'BBBBBB',
             leagueId: 1,
             league: 'BBBBBB',
-            formationImg: 'BBBBBB',
             fixtureImg: 'BBBBBB',
+            formationImg: 'BBBBBB',
+            startUtcTimestamp: currentDate.format(DATE_TIME_FORMAT),
+            venueName: 'BBBBBB',
+            matchImg: 'BBBBBB',
+            matchImaTxt: 'BBBBBB',
+            headline: 'BBBBBB',
+            date: currentDate.format(DATE_FORMAT),
+            language: 'BBBBBB',
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            startUtcTimestamp: currentDate,
+            date: currentDate,
+          },
+          returnedFromService
+        );
 
         service.query().subscribe(resp => (expectedResult = resp.body));
 

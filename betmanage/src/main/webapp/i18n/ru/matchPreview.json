@@ -17,19 +17,31 @@
       "detail": {
         "title": "Match Preview"
       },
-      "fixtureId": "Fixture Id",
       "blurbFull": "Blurb Full",
+      "fixtureId": "Fixture Id",
       "hometeamId": "Hometeam Id",
       "visitorteamId": "Visitorteam Id",
       "hometeamName": "Hometeam Name",
       "visitorteamName": "Visitorteam Name",
       "leagueId": "League Id",
       "league": "League",
-      "formationImg": "Formation Img",
       "fixtureImg": "Fixture Img",
+      "formationImg": "Formation Img",
+      "startUtcTimestamp": "Start Utc Timestamp",
+      "venueName": "Venue Name",
+      "matchImg": "Match Img",
+      "matchImaTxt": "Match Ima Txt",
+      "headline": "Headline",
+      "date": "Date",
+      "language": "Language",
       "country": "Country",
+      "homeTeam": "Home Team",
+      "visitorTeam": "Visitor Team",
+      "social": "Social",
       "title": "Title",
       "paragraphs": "Paragraphs",
+      "parts": "Parts",
+      "competition": "Competition",
       "team": "Team"
     }
   }

@@ -22,6 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +36,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
 /**
  * Integration tests for the {@link MatchPreviewResource} REST controller.
  */
@@ -41,11 +46,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class MatchPreviewResourceIT {
 
-    private static final Integer DEFAULT_FIXTURE_ID = 1;
-    private static final Integer UPDATED_FIXTURE_ID = 2;
-
     private static final String DEFAULT_BLURB_FULL = "AAAAAAAAAA";
     private static final String UPDATED_BLURB_FULL = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_FIXTURE_ID = 1;
+    private static final Integer UPDATED_FIXTURE_ID = 2;
 
     private static final Integer DEFAULT_HOMETEAM_ID = 1;
     private static final Integer UPDATED_HOMETEAM_ID = 2;
@@ -65,15 +70,38 @@ public class MatchPreviewResourceIT {
     private static final String DEFAULT_LEAGUE = "AAAAAAAAAA";
     private static final String UPDATED_LEAGUE = "BBBBBBBBBB";
 
+    private static final byte[] DEFAULT_FIXTURE_IMG = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_FIXTURE_IMG = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_FIXTURE_IMG_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_FIXTURE_IMG_CONTENT_TYPE = "image/png";
+
     private static final byte[] DEFAULT_FORMATION_IMG = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_FORMATION_IMG = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_FORMATION_IMG_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_FORMATION_IMG_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_FIXTURE_IMG = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_FIXTURE_IMG = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_FIXTURE_IMG_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_FIXTURE_IMG_CONTENT_TYPE = "image/png";
+    private static final Instant DEFAULT_START_UTC_TIMESTAMP = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_START_UTC_TIMESTAMP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_VENUE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_VENUE_NAME = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_MATCH_IMG = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_MATCH_IMG = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_MATCH_IMG_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_MATCH_IMG_CONTENT_TYPE = "image/png";
+
+    private static final String DEFAULT_MATCH_IMA_TXT = "AAAAAAAAAA";
+    private static final String UPDATED_MATCH_IMA_TXT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_HEADLINE = "AAAAAAAAAA";
+    private static final String UPDATED_HEADLINE = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LanguageEnum DEFAULT_LANGUAGE = LanguageEnum.EN;
+    private static final LanguageEnum UPDATED_LANGUAGE = LanguageEnum.ES;
 
     @Autowired
     private MatchPreviewRepository matchPreviewRepository;
@@ -105,18 +133,26 @@ public class MatchPreviewResourceIT {
      */
     public static MatchPreview createEntity(EntityManager em) {
         MatchPreview matchPreview = new MatchPreview()
-            .fixtureId(DEFAULT_FIXTURE_ID)
             .blurbFull(DEFAULT_BLURB_FULL)
+            .fixtureId(DEFAULT_FIXTURE_ID)
             .hometeamId(DEFAULT_HOMETEAM_ID)
             .visitorteamId(DEFAULT_VISITORTEAM_ID)
             .hometeamName(DEFAULT_HOMETEAM_NAME)
             .visitorteamName(DEFAULT_VISITORTEAM_NAME)
             .leagueId(DEFAULT_LEAGUE_ID)
             .league(DEFAULT_LEAGUE)
+            .fixtureImg(DEFAULT_FIXTURE_IMG)
+            .fixtureImgContentType(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)
             .formationImg(DEFAULT_FORMATION_IMG)
             .formationImgContentType(DEFAULT_FORMATION_IMG_CONTENT_TYPE)
-            .fixtureImg(DEFAULT_FIXTURE_IMG)
-            .fixtureImgContentType(DEFAULT_FIXTURE_IMG_CONTENT_TYPE);
+            .startUtcTimestamp(DEFAULT_START_UTC_TIMESTAMP)
+            .venueName(DEFAULT_VENUE_NAME)
+            .matchImg(DEFAULT_MATCH_IMG)
+            .matchImgContentType(DEFAULT_MATCH_IMG_CONTENT_TYPE)
+            .matchImaTxt(DEFAULT_MATCH_IMA_TXT)
+            .headline(DEFAULT_HEADLINE)
+            .date(DEFAULT_DATE)
+            .language(DEFAULT_LANGUAGE);
         return matchPreview;
     }
     /**
@@ -127,18 +163,26 @@ public class MatchPreviewResourceIT {
      */
     public static MatchPreview createUpdatedEntity(EntityManager em) {
         MatchPreview matchPreview = new MatchPreview()
-            .fixtureId(UPDATED_FIXTURE_ID)
             .blurbFull(UPDATED_BLURB_FULL)
+            .fixtureId(UPDATED_FIXTURE_ID)
             .hometeamId(UPDATED_HOMETEAM_ID)
             .visitorteamId(UPDATED_VISITORTEAM_ID)
             .hometeamName(UPDATED_HOMETEAM_NAME)
             .visitorteamName(UPDATED_VISITORTEAM_NAME)
             .leagueId(UPDATED_LEAGUE_ID)
             .league(UPDATED_LEAGUE)
+            .fixtureImg(UPDATED_FIXTURE_IMG)
+            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE)
             .formationImg(UPDATED_FORMATION_IMG)
             .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
-            .fixtureImg(UPDATED_FIXTURE_IMG)
-            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
+            .startUtcTimestamp(UPDATED_START_UTC_TIMESTAMP)
+            .venueName(UPDATED_VENUE_NAME)
+            .matchImg(UPDATED_MATCH_IMG)
+            .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
+            .matchImaTxt(UPDATED_MATCH_IMA_TXT)
+            .headline(UPDATED_HEADLINE)
+            .date(UPDATED_DATE)
+            .language(UPDATED_LANGUAGE);
         return matchPreview;
     }
 
@@ -161,18 +205,26 @@ public class MatchPreviewResourceIT {
         List<MatchPreview> matchPreviewList = matchPreviewRepository.findAll();
         assertThat(matchPreviewList).hasSize(databaseSizeBeforeCreate + 1);
         MatchPreview testMatchPreview = matchPreviewList.get(matchPreviewList.size() - 1);
-        assertThat(testMatchPreview.getFixtureId()).isEqualTo(DEFAULT_FIXTURE_ID);
         assertThat(testMatchPreview.getBlurbFull()).isEqualTo(DEFAULT_BLURB_FULL);
+        assertThat(testMatchPreview.getFixtureId()).isEqualTo(DEFAULT_FIXTURE_ID);
         assertThat(testMatchPreview.getHometeamId()).isEqualTo(DEFAULT_HOMETEAM_ID);
         assertThat(testMatchPreview.getVisitorteamId()).isEqualTo(DEFAULT_VISITORTEAM_ID);
         assertThat(testMatchPreview.getHometeamName()).isEqualTo(DEFAULT_HOMETEAM_NAME);
         assertThat(testMatchPreview.getVisitorteamName()).isEqualTo(DEFAULT_VISITORTEAM_NAME);
         assertThat(testMatchPreview.getLeagueId()).isEqualTo(DEFAULT_LEAGUE_ID);
         assertThat(testMatchPreview.getLeague()).isEqualTo(DEFAULT_LEAGUE);
-        assertThat(testMatchPreview.getFormationImg()).isEqualTo(DEFAULT_FORMATION_IMG);
-        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(DEFAULT_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getFixtureImg()).isEqualTo(DEFAULT_FIXTURE_IMG);
         assertThat(testMatchPreview.getFixtureImgContentType()).isEqualTo(DEFAULT_FIXTURE_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getFormationImg()).isEqualTo(DEFAULT_FORMATION_IMG);
+        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(DEFAULT_FORMATION_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getStartUtcTimestamp()).isEqualTo(DEFAULT_START_UTC_TIMESTAMP);
+        assertThat(testMatchPreview.getVenueName()).isEqualTo(DEFAULT_VENUE_NAME);
+        assertThat(testMatchPreview.getMatchImg()).isEqualTo(DEFAULT_MATCH_IMG);
+        assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(DEFAULT_MATCH_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(DEFAULT_MATCH_IMA_TXT);
+        assertThat(testMatchPreview.getHeadline()).isEqualTo(DEFAULT_HEADLINE);
+        assertThat(testMatchPreview.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testMatchPreview.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
         // Validate the MatchPreview in Elasticsearch
         verify(mockMatchPreviewSearchRepository, times(1)).save(testMatchPreview);
@@ -231,18 +283,26 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(matchPreview.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL)))
+            .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].hometeamId").value(hasItem(DEFAULT_HOMETEAM_ID)))
             .andExpect(jsonPath("$.[*].visitorteamId").value(hasItem(DEFAULT_VISITORTEAM_ID)))
             .andExpect(jsonPath("$.[*].hometeamName").value(hasItem(DEFAULT_HOMETEAM_NAME)))
             .andExpect(jsonPath("$.[*].visitorteamName").value(hasItem(DEFAULT_VISITORTEAM_NAME)))
             .andExpect(jsonPath("$.[*].leagueId").value(hasItem(DEFAULT_LEAGUE_ID)))
             .andExpect(jsonPath("$.[*].league").value(hasItem(DEFAULT_LEAGUE)))
+            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))))
             .andExpect(jsonPath("$.[*].formationImgContentType").value(hasItem(DEFAULT_FORMATION_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
-            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))));
+            .andExpect(jsonPath("$.[*].startUtcTimestamp").value(hasItem(DEFAULT_START_UTC_TIMESTAMP.toString())))
+            .andExpect(jsonPath("$.[*].venueName").value(hasItem(DEFAULT_VENUE_NAME)))
+            .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
+            .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))
+            .andExpect(jsonPath("$.[*].headline").value(hasItem(DEFAULT_HEADLINE)))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
     }
     
     @Test
@@ -256,18 +316,26 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(matchPreview.getId().intValue()))
-            .andExpect(jsonPath("$.fixtureId").value(DEFAULT_FIXTURE_ID))
             .andExpect(jsonPath("$.blurbFull").value(DEFAULT_BLURB_FULL))
+            .andExpect(jsonPath("$.fixtureId").value(DEFAULT_FIXTURE_ID))
             .andExpect(jsonPath("$.hometeamId").value(DEFAULT_HOMETEAM_ID))
             .andExpect(jsonPath("$.visitorteamId").value(DEFAULT_VISITORTEAM_ID))
             .andExpect(jsonPath("$.hometeamName").value(DEFAULT_HOMETEAM_NAME))
             .andExpect(jsonPath("$.visitorteamName").value(DEFAULT_VISITORTEAM_NAME))
             .andExpect(jsonPath("$.leagueId").value(DEFAULT_LEAGUE_ID))
             .andExpect(jsonPath("$.league").value(DEFAULT_LEAGUE))
+            .andExpect(jsonPath("$.fixtureImgContentType").value(DEFAULT_FIXTURE_IMG_CONTENT_TYPE))
+            .andExpect(jsonPath("$.fixtureImg").value(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG)))
             .andExpect(jsonPath("$.formationImgContentType").value(DEFAULT_FORMATION_IMG_CONTENT_TYPE))
             .andExpect(jsonPath("$.formationImg").value(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG)))
-            .andExpect(jsonPath("$.fixtureImgContentType").value(DEFAULT_FIXTURE_IMG_CONTENT_TYPE))
-            .andExpect(jsonPath("$.fixtureImg").value(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG)));
+            .andExpect(jsonPath("$.startUtcTimestamp").value(DEFAULT_START_UTC_TIMESTAMP.toString()))
+            .andExpect(jsonPath("$.venueName").value(DEFAULT_VENUE_NAME))
+            .andExpect(jsonPath("$.matchImgContentType").value(DEFAULT_MATCH_IMG_CONTENT_TYPE))
+            .andExpect(jsonPath("$.matchImg").value(Base64Utils.encodeToString(DEFAULT_MATCH_IMG)))
+            .andExpect(jsonPath("$.matchImaTxt").value(DEFAULT_MATCH_IMA_TXT))
+            .andExpect(jsonPath("$.headline").value(DEFAULT_HEADLINE))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()));
     }
     @Test
     @Transactional
@@ -290,18 +358,26 @@ public class MatchPreviewResourceIT {
         // Disconnect from session so that the updates on updatedMatchPreview are not directly saved in db
         em.detach(updatedMatchPreview);
         updatedMatchPreview
-            .fixtureId(UPDATED_FIXTURE_ID)
             .blurbFull(UPDATED_BLURB_FULL)
+            .fixtureId(UPDATED_FIXTURE_ID)
             .hometeamId(UPDATED_HOMETEAM_ID)
             .visitorteamId(UPDATED_VISITORTEAM_ID)
             .hometeamName(UPDATED_HOMETEAM_NAME)
             .visitorteamName(UPDATED_VISITORTEAM_NAME)
             .leagueId(UPDATED_LEAGUE_ID)
             .league(UPDATED_LEAGUE)
+            .fixtureImg(UPDATED_FIXTURE_IMG)
+            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE)
             .formationImg(UPDATED_FORMATION_IMG)
             .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
-            .fixtureImg(UPDATED_FIXTURE_IMG)
-            .fixtureImgContentType(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
+            .startUtcTimestamp(UPDATED_START_UTC_TIMESTAMP)
+            .venueName(UPDATED_VENUE_NAME)
+            .matchImg(UPDATED_MATCH_IMG)
+            .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
+            .matchImaTxt(UPDATED_MATCH_IMA_TXT)
+            .headline(UPDATED_HEADLINE)
+            .date(UPDATED_DATE)
+            .language(UPDATED_LANGUAGE);
 
         restMatchPreviewMockMvc.perform(put("/api/match-previews")
             .contentType(MediaType.APPLICATION_JSON)
@@ -312,18 +388,26 @@ public class MatchPreviewResourceIT {
         List<MatchPreview> matchPreviewList = matchPreviewRepository.findAll();
         assertThat(matchPreviewList).hasSize(databaseSizeBeforeUpdate);
         MatchPreview testMatchPreview = matchPreviewList.get(matchPreviewList.size() - 1);
-        assertThat(testMatchPreview.getFixtureId()).isEqualTo(UPDATED_FIXTURE_ID);
         assertThat(testMatchPreview.getBlurbFull()).isEqualTo(UPDATED_BLURB_FULL);
+        assertThat(testMatchPreview.getFixtureId()).isEqualTo(UPDATED_FIXTURE_ID);
         assertThat(testMatchPreview.getHometeamId()).isEqualTo(UPDATED_HOMETEAM_ID);
         assertThat(testMatchPreview.getVisitorteamId()).isEqualTo(UPDATED_VISITORTEAM_ID);
         assertThat(testMatchPreview.getHometeamName()).isEqualTo(UPDATED_HOMETEAM_NAME);
         assertThat(testMatchPreview.getVisitorteamName()).isEqualTo(UPDATED_VISITORTEAM_NAME);
         assertThat(testMatchPreview.getLeagueId()).isEqualTo(UPDATED_LEAGUE_ID);
         assertThat(testMatchPreview.getLeague()).isEqualTo(UPDATED_LEAGUE);
-        assertThat(testMatchPreview.getFormationImg()).isEqualTo(UPDATED_FORMATION_IMG);
-        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(UPDATED_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getFixtureImg()).isEqualTo(UPDATED_FIXTURE_IMG);
         assertThat(testMatchPreview.getFixtureImgContentType()).isEqualTo(UPDATED_FIXTURE_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getFormationImg()).isEqualTo(UPDATED_FORMATION_IMG);
+        assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(UPDATED_FORMATION_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getStartUtcTimestamp()).isEqualTo(UPDATED_START_UTC_TIMESTAMP);
+        assertThat(testMatchPreview.getVenueName()).isEqualTo(UPDATED_VENUE_NAME);
+        assertThat(testMatchPreview.getMatchImg()).isEqualTo(UPDATED_MATCH_IMG);
+        assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(UPDATED_MATCH_IMG_CONTENT_TYPE);
+        assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(UPDATED_MATCH_IMA_TXT);
+        assertThat(testMatchPreview.getHeadline()).isEqualTo(UPDATED_HEADLINE);
+        assertThat(testMatchPreview.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testMatchPreview.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 
         // Validate the MatchPreview in Elasticsearch
         verify(mockMatchPreviewSearchRepository, times(2)).save(testMatchPreview);
@@ -383,17 +467,25 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(matchPreview.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL)))
+            .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].hometeamId").value(hasItem(DEFAULT_HOMETEAM_ID)))
             .andExpect(jsonPath("$.[*].visitorteamId").value(hasItem(DEFAULT_VISITORTEAM_ID)))
             .andExpect(jsonPath("$.[*].hometeamName").value(hasItem(DEFAULT_HOMETEAM_NAME)))
             .andExpect(jsonPath("$.[*].visitorteamName").value(hasItem(DEFAULT_VISITORTEAM_NAME)))
             .andExpect(jsonPath("$.[*].leagueId").value(hasItem(DEFAULT_LEAGUE_ID)))
             .andExpect(jsonPath("$.[*].league").value(hasItem(DEFAULT_LEAGUE)))
+            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))))
             .andExpect(jsonPath("$.[*].formationImgContentType").value(hasItem(DEFAULT_FORMATION_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
-            .andExpect(jsonPath("$.[*].fixtureImgContentType").value(hasItem(DEFAULT_FIXTURE_IMG_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].fixtureImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FIXTURE_IMG))));
+            .andExpect(jsonPath("$.[*].startUtcTimestamp").value(hasItem(DEFAULT_START_UTC_TIMESTAMP.toString())))
+            .andExpect(jsonPath("$.[*].venueName").value(hasItem(DEFAULT_VENUE_NAME)))
+            .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
+            .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))
+            .andExpect(jsonPath("$.[*].headline").value(hasItem(DEFAULT_HEADLINE)))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
     }
 }

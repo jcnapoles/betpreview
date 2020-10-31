@@ -40,6 +40,7 @@ export const matchPreviewRoute: Routes = [
     component: MatchPreviewComponent,
     data: {
       authorities: [Authority.USER],
+      defaultSort: 'id,asc',
       pageTitle: 'betmanageApp.matchPreview.home.title',
     },
     canActivate: [UserRouteAccessService],

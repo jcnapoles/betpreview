@@ -1,4 +1,5 @@
 import { ITeam } from 'app/shared/model/team.model';
+import { IMatchPreview } from 'app/shared/model/match-preview.model';
 import { ISport } from 'app/shared/model/sport.model';
 import { ICountry } from 'app/shared/model/country.model';
 import { TypeCompetition } from 'app/shared/model/enumerations/type-competition.model';
@@ -13,6 +14,7 @@ export interface ICompetition {
   type?: TypeCompetition;
   sportscribeId?: number;
   teams?: ITeam[];
+  matchPreviews?: IMatchPreview[];
   sport?: ISport;
   country?: ICountry;
 }
@@ -28,6 +30,7 @@ export class Competition implements ICompetition {
     public type?: TypeCompetition,
     public sportscribeId?: number,
     public teams?: ITeam[],
+    public matchPreviews?: IMatchPreview[],
     public sport?: ISport,
     public country?: ICountry
   ) {

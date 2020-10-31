@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="team"/>
 
+        <addForeignKeyConstraint baseColumnNames="team_social_id"
+                                 baseTableName="social_media"
+                                 constraintName="fk_social_media_team_social_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_social"/>
+
     </changeSet>
 </databaseChangeLog>
