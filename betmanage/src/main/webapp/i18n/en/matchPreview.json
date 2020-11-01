@@ -5,6 +5,7 @@
         "title": "Match Previews",
         "createLabel": "Create a new Match Preview",
         "loadLabel": "Load Match Preview By Team",
+        "loadsLabel": "Load Match Previews By Date",
         "createOrEditLabel": "Create or edit a Match Preview",
         "search": "Search for Match Preview",
         "notFound": "No Match Previews found"

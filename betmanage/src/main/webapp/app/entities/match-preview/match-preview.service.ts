@@ -86,4 +86,8 @@ export class MatchPreviewService {
 load(teamId: number): Observable<EntityResponseType> {	
 	return this.http.get<IMatchPreview>(`${this.resourceUrl}/loadAPIMatchPreviewByTeamId/${teamId}`, {observe: 'response' });
   }
+
+loads(date: Date): Observable<EntityArrayResponseType> {	
+	return this.http.get<IMatchPreview[]>(`${this.resourceUrl}/loadAPIMatchPreviewByDate/${date}`, {observe: 'response' });
+  }
 }

@@ -2,6 +2,7 @@ package com.betpreview.betmanage.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -212,5 +214,27 @@ public class MatchPreviewResource {
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, matchPreview.getId().toString()))
                 .body(matchPreview);
+    }
+    
+    /**
+     * {@code GET  /competitions} : get all the competitions.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of competitions in body.
+     */
+    @GetMapping("/match-previews/loadAPIMatchPreviewByDate/{date}")
+    public ResponseEntity<List<MatchPreview>> loadAPIMatchPreviewByDate(@PathVariable Date date, Pageable pageable) {
+        log.debug("REST request to get a page of MatchPreview");
+        
+        String url = environment.getProperty("sportscribe.url");
+        String keyName = environment.getProperty("sportscribe.keyName");
+        String keyValue = environment.getProperty("sportscribe.keyValue");       
+        String language = "en";
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService, matchPreviewService, paragraphsService, titleService, partsService, socialMediaService, teamSocialService);
+        List<MatchPreview> matchPreviewList = sportScribeAPI.getMatchPreviewsByDate(date);
+        
+        Page<MatchPreview> page = new PageImpl<MatchPreview>(matchPreviewList);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

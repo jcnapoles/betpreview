@@ -191,6 +191,15 @@ public class SportScribeAPI {
 			}			
 			team.setTeamLogo(teamLogo);
 			
+			/*
+			 * Optional<Competition> competitionOptional =
+			 * competitionService.findOneBySportscribeId(leagueId); Competition competition
+			 * = new Competition(); if (!competitionOptional.isEmpty()) { competition =
+			 * competitionOptional.get(); } competition.setSportscribeId(leagueId);
+			 * competitionService.save(competition); team.setCompetition(competition);
+			 */
+			
+			
 			/*Create or Load Country*/
 			Optional<Country> countryOptional = countryService.findOneByCountryName(teamSportscribe.getCountry());
 			Country country = new Country();
@@ -208,7 +217,7 @@ public class SportScribeAPI {
 	}
 	
 	public MatchPreview getMatchPreviewByTeamId(Integer teamId) {
-		MatchPreview matchPreview = new MatchPreview();
+		
 		String method = "matchPreview";
 		String parameter = teamId.toString();
 		try {
@@ -217,6 +226,34 @@ public class SportScribeAPI {
 			e.printStackTrace();
 		}
 		Preview preview = SportScribeWsApplication.getPreview();
+		MatchPreview matchPreview = getMatchPreviewByPreview(preview);
+		
+		return matchPreview;
+	}
+	
+	public List<MatchPreview> getMatchPreviewsByDate(Date date){
+		List<MatchPreview> matchPreviewList = new ArrayList<MatchPreview>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String method = "date";
+		String parameter = sdf.format(date);
+		try {
+			SportScribeWsApplication.execute(url, keyName, keyValue, method, parameter, language);
+		} catch (URISyntaxException e) {			
+			e.printStackTrace();
+		}		
+		List<Preview> previewList = SportScribeWsApplication.getPreviews();
+		
+		for (Preview preview : previewList) {
+			MatchPreview matchPreview = new MatchPreview();
+			matchPreview = getMatchPreviewByPreview(preview);			
+			matchPreviewList.add(matchPreview);
+		}
+		
+		return matchPreviewList;
+	}
+	
+	private MatchPreview getMatchPreviewByPreview(Preview preview) {
+		MatchPreview matchPreview = new MatchPreview();
 		Integer fixture_id = preview.getFixture_id();
 		Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOneByFixtureId(fixture_id);
 		if (!matchPreviewOptional.isEmpty()) {
@@ -425,14 +462,7 @@ public class SportScribeAPI {
 		matchPreviewService.save(matchPreview);
 		
 		return matchPreview;
-	}
-	
-	public List<MatchPreview> getMatchPreviewByDate(Date date){
-		List<MatchPreview> matchPreviewList = new ArrayList<MatchPreview>();
 		
-		
-		
-		return matchPreviewList;
 	}
 
 	public byte[] urlStringToByte(String urlString) {
