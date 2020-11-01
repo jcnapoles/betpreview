@@ -1,6 +1,7 @@
 package com.betpreview.sportscribe.domain;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -47,7 +48,7 @@ public class Preview {
 	
 	private String date;
 	
-	private Object social;
+	private LinkedHashMap<String, Social[]> social;
 	
 	private String language;
 	
@@ -213,15 +214,7 @@ public class Preview {
 
 	public void setDate(String date) {
 		this.date = date;
-	}
-
-	public Object getSocial() {
-		return social;
-	}
-
-	public void setSocial(Object social) {
-		this.social = social;
-	}
+	}	
 
 	public String getLanguage() {
 		return language;
@@ -239,6 +232,14 @@ public class Preview {
 		this.parts = parts;
 	}
 
+	public LinkedHashMap<String, Social[]> getSocial() {
+		return social;
+	}
+
+	public void setSocial(LinkedHashMap<String, Social[]> social) {
+		this.social = social;
+	}
+
 	@Override
 	public String toString() {
 		return "Preview [blurb_full=" + blurb_full + ", blurb_split=" + Arrays.toString(blurb_split) + ", fixture_id="
@@ -250,6 +251,8 @@ public class Preview {
 				+ ", match_img_txt=" + match_img_txt + ", headline=" + headline + ", date=" + date + ", social="
 				+ social + ", language=" + language + ", parts=" + parts + "]";
 	}
+
+	
 
 	
 	

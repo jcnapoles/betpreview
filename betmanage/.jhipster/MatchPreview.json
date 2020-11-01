@@ -55,6 +55,10 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "venueCity",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "matchImg",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"

@@ -16,6 +16,7 @@ import { MatchPreviewDeleteDialogComponent } from './match-preview-delete-dialog
   templateUrl: './match-preview.component.html',
 })
 export class MatchPreviewComponent implements OnInit, OnDestroy {
+  matchPreviewsTemp?: any;
   matchPreviews?: IMatchPreview[];
   eventSubscriber?: Subscription;
   currentSearch: string;
@@ -152,4 +153,6 @@ export class MatchPreviewComponent implements OnInit, OnDestroy {
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
+
+	
 }

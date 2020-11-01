@@ -29,6 +29,7 @@
       "formationImg": "Formation Img",
       "startUtcTimestamp": "Start Utc Timestamp",
       "venueName": "Venue Name",
+      "venueCity": "Venue City",
       "matchImg": "Match Img",
       "matchImaTxt": "Match Ima Txt",
       "headline": "Headline",

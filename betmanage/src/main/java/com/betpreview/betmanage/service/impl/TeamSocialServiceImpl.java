@@ -73,4 +73,10 @@ public class TeamSocialServiceImpl implements TeamSocialService {
             .stream(teamSocialSearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	/*
+	 * @Override public Optional<TeamSocial> findOneByTag(String tag) {
+	 * log.debug("Request to get TeamSocial By Tag: {}", tag); return
+	 * teamSocialRepository.findOneByTag(tag); }
+	 */
 }

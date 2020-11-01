@@ -5,11 +5,18 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,17 +25,31 @@ import org.apache.commons.io.IOUtils;
 import com.betpreview.betmanage.domain.Competition;
 import com.betpreview.betmanage.domain.Country;
 import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.domain.Paragraphs;
+import com.betpreview.betmanage.domain.Parts;
+import com.betpreview.betmanage.domain.SocialMedia;
 import com.betpreview.betmanage.domain.Sport;
 import com.betpreview.betmanage.domain.Team;
+import com.betpreview.betmanage.domain.TeamSocial;
+import com.betpreview.betmanage.domain.Title;
+import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
+import com.betpreview.betmanage.domain.enumeration.PlatformEnum;
 import com.betpreview.betmanage.domain.enumeration.TypeCompetition;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
 import com.betpreview.betmanage.service.MatchPreviewService;
+import com.betpreview.betmanage.service.ParagraphsService;
+import com.betpreview.betmanage.service.PartsService;
+import com.betpreview.betmanage.service.SocialMediaService;
 import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.service.TeamService;
+import com.betpreview.betmanage.service.TeamSocialService;
+import com.betpreview.betmanage.service.TitleService;
 import com.betpreview.sportcribe.SportScribeWsApplication;
 import com.betpreview.sportscribe.domain.League;
+import com.betpreview.sportscribe.domain.PartPreview;
 import com.betpreview.sportscribe.domain.Preview;
+import com.betpreview.sportscribe.domain.Social;
 
 public class SportScribeAPI {
 	
@@ -50,8 +71,18 @@ public class SportScribeAPI {
 	
 	private MatchPreviewService matchPreviewService;
 	
+	private ParagraphsService paragraphsService;
 	
-	public SportScribeAPI(String url, String keyName, String keyValue, String language, CompetitionService competitionService, SportService sportService, CountryService countryService, TeamService teamService, MatchPreviewService matchPreviewService) {
+	private TitleService titleService;
+	
+	private PartsService partsService;
+	
+	private SocialMediaService socialMediaService;
+	
+	private TeamSocialService teamSocialService;
+	
+	
+	public SportScribeAPI(String url, String keyName, String keyValue, String language, CompetitionService competitionService, SportService sportService, CountryService countryService, TeamService teamService, MatchPreviewService matchPreviewService, ParagraphsService paragraphsService, TitleService titleService, PartsService partsService, SocialMediaService socialMediaService, TeamSocialService teamSocialService) {
 		super();
 		this.url = url;
 		this.keyName = keyName;
@@ -62,6 +93,11 @@ public class SportScribeAPI {
 		this.countryService = countryService;
 		this.teamService = teamService;
 		this.matchPreviewService = matchPreviewService;
+		this.paragraphsService = paragraphsService;
+		this.titleService = titleService;
+		this.partsService = partsService;
+		this.socialMediaService = socialMediaService;
+		this.teamSocialService = teamSocialService;
 	}
 
 
@@ -193,17 +229,7 @@ public class SportScribeAPI {
 		matchPreview.setVisitorteamId(preview.getVisitorteam_id());
 		matchPreview.setVisitorteamName(preview.getVisitorteam_name());
 		matchPreview.setLeague(preview.getLeague());
-		matchPreview.setLeagueId(preview.getLeague_id());
-		
-		/*Create or Load Country*/
-		Optional<Country> countryOptional = countryService.findOneByCountryName(preview.getCountry());
-		Country country = new Country();
-		if (!countryOptional.isEmpty()) {
-			country = countryOptional.get();				
-		} 
-		country.setCountryName(preview.getCountry());
-		countryService.save(country);
-		matchPreview.setCountry(country);
+		matchPreview.setLeagueId(preview.getLeague_id());	
 		
 		byte[] matchPreviewLogo = null;
 		if (preview.getFixture_img() != null) {
@@ -230,12 +256,183 @@ public class SportScribeAPI {
 			
 		}
 		matchPreview.setVenueName(preview.getVenue_name());
-		//matchPrevie
+		matchPreview.setVenueCity(preview.getVenue_city());
+		
+		byte[] matchLogo = null;
+		if (preview.getMatch_img() != null) {
+			matchLogo = urlStringToByte(preview.getMatch_img());
+		}	
+		matchPreview.setMatchImg(matchLogo);
+		//matchPreview.setMatchImgContentType(matchImgContentType);
+		matchPreview.setMatchImaTxt(preview.getMatch_img_txt());
+		matchPreview.setHeadline(preview.getHeadline());
+		
+		if (preview.getDate() != null) {			
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Date parseDate = dateFormat.parse(preview.getDate());
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Instant instant = parseDate.toInstant();
+				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				matchPreview.setDate(localDate);
+			} catch (ParseException e) {				
+				e.printStackTrace();
+			}
+			
+		}
+	
+		if (preview.getLanguage() != null) {
+			matchPreview.setLanguage(LanguageEnum.valueOf(preview.getLanguage().toUpperCase()));
+		}
+		
+		/*Create or Load Country*/
+		Optional<Country> countryOptional = countryService.findOneByCountryName(preview.getCountry());
+		Country country = new Country();
+		if (!countryOptional.isEmpty()) {
+			country = countryOptional.get();				
+		} 
+		country.setCountryName(preview.getCountry());
+		countryService.save(country);
+		matchPreview.setCountry(country);	
+		
+		/*Create or Load competition*/
+		Competition competition = new Competition();
+		Optional<Competition> competitionOptional = competitionService.findOneBySportscribeId(preview.getLeague_id());
+		if (!competitionOptional.isEmpty()) {
+			competition = competitionOptional.get();
+		}
+		competition.setCompetitionName(preview.getLeague());
+		competitionService.save(competition);
+		matchPreview.setCompetition(competition);
+		
+		/**Create Paragraphs*/
+		if(preview.getBlurb_split() != null) {
+			Set<Paragraphs> paragraphsSet = new HashSet<Paragraphs>();
+			List<String> paragraphsArray = Arrays.asList(preview.getBlurb_split());
+			for (String paragr : paragraphsArray) {
+				Paragraphs paragraphs = new Paragraphs();
+				paragraphs.setContent(paragr);
+				paragraphsService.save(paragraphs);
+				paragraphsSet.add(paragraphs);
+			}
+			matchPreview.setParagraphs(paragraphsSet);
+		}		
+		
+		/**Create Titles*/
+		if(preview.getQuick_items() != null) {
+			Set<Title> titlesSet = new HashSet<Title>();
+			List<String> titlesArray = Arrays.asList(preview.getQuick_items());
+			for (String tit : titlesArray) {
+				Title title = new Title();
+				title.setTitleText(tit);
+				titleService.save(title);
+				titlesSet.add(title);
+			}
+			matchPreview.setTitles(titlesSet);
+		}
+		
+		
+		/*Create Part*/
+		Set<Parts> partsSet = new HashSet<Parts>();
+		PartPreview partPreview = preview.getParts();
+		Parts parts = new Parts();
+		parts.setHomeLastResult(partPreview.getHome_lastResult());
+		parts.setHomeScorers(partPreview.getHome_scorers());
+		parts.setHomeSidelined(partPreview.getHome_sidelined());
+		parts.setIntro(partPreview.getIntro());
+		parts.setLastMeetingResult(partPreview.getLast_meeting_result());
+		parts.setLastMeetingScoring(partPreview.getLast_meeting_scoring());
+		parts.setVisitorLastResult(partPreview.getVisitor_lastResult());
+		parts.setVisitorScorers(partPreview.getVisitor_scorers());
+		parts.setVisitorSidelined(partPreview.getVisitor_sidelined());
+		parts.setWeather(partPreview.getWeather());
+		partsService.save(parts);		
+		partsSet.add(parts);
+		
+		Set<Team> teams = new HashSet<Team>();
+		/**Create or Load homeTeam*/
+		Team homeTeam = new Team();
+		Optional<Team> homeTeamOptional = teamService.findOneBySportscribeId(preview.getHometeam_id());
+		if (!homeTeamOptional.isEmpty()) {
+			homeTeam = homeTeamOptional.get();
+		}
+		homeTeam.setTeamName(preview.getHometeam_name());		
 		
 		
 		
+		/**Create or Load visitorTeam*/
+		Team visitorTeam = new Team();
+		Optional<Team> visitorTeamOptional = teamService.findOneBySportscribeId(preview.getVisitorteam_id());
+		if (!visitorTeamOptional.isEmpty()) {
+			visitorTeam = visitorTeamOptional.get();
+		}
+		visitorTeam.setTeamName(preview.getVisitorteam_name());		
+		
+		/*Create or Load Social*/
+		TeamSocial teamSocial = new TeamSocial();		
+		if (preview.getSocial() != null) {
+			LinkedHashMap<String, Social[]> socialObject = preview.getSocial();
+			
+			if (socialObject != null) {
+				for (Map.Entry<String,Social[]> entry : socialObject.entrySet()) {
+					String key = entry.getKey();
+					Social[] social = entry.getValue();
+					List<Social> socialList = Arrays.asList(social);
+					Set<SocialMedia> socialMediaSet = new HashSet<SocialMedia>();
+					for (Social socialElement : socialList) {
+						SocialMedia socialMedia = new SocialMedia();
+						socialMedia.setTag(socialElement.getTag());
+						socialMedia.setPlatform(PlatformEnum.valueOf(socialElement.getPlatform().name()));
+						/*Implementar la busqueda*/
+						socialMediaService.save(socialMedia);
+						socialMediaSet.add(socialMedia);
+					}
+					Integer tId = 0; 
+					if (!key.equalsIgnoreCase("match")) {
+						//Optional<TeamSocial> teamSocialOptional = teamSocialService.findOneByTag("") ;
+						tId = Integer.parseInt(key);
+						if(tId == homeTeam.getTeamId()) {
+							teamSocial.setHome(tId);
+							homeTeam.setSocialMedias(socialMediaSet);
+						}else {
+							teamSocial.setVisitor(tId);
+							visitorTeam.setSocialMedias(socialMediaSet);
+						}
+						
+					} else {
+						teamSocial.setMatch(fixture_id.toString());
+						teamSocial.setSocialMediaMatches(socialMediaSet);
+					}
+				}
+			}
+		}
+		teamService.save(homeTeam);
+		
+		matchPreview.setHomeTeam(homeTeam);
+		teams.add(homeTeam);
+		
+		teamService.save(visitorTeam);
+		
+		matchPreview.setVisitorTeam(visitorTeam);
+		teams.add(visitorTeam);
+		
+		matchPreview.setTeams(teams);
+		
+		teamSocialService.save(teamSocial);
+		
+		matchPreview.setSocial(teamSocial);
+		
+		matchPreviewService.save(matchPreview);
 		
 		return matchPreview;
+	}
+	
+	public List<MatchPreview> getMatchPreviewByDate(Date date){
+		List<MatchPreview> matchPreviewList = new ArrayList<MatchPreview>();
+		
+		
+		
+		return matchPreviewList;
 	}
 
 	public byte[] urlStringToByte(String urlString) {

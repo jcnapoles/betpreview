@@ -4,7 +4,7 @@
       "home": {
         "title": "Competitions",
         "createLabel": "Create a new Competition",
-        "loadCompetitionLabel": "Cargar Competiciones By API",
+        "loadCompetitionLabel": "Load Competiciones By API",
         "createOrEditLabel": "Create or edit a Competition",
         "search": "Search for Competition",
         "notFound": "No Competitions found"

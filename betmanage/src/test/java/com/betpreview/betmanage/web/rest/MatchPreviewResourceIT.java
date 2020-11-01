@@ -86,6 +86,9 @@ public class MatchPreviewResourceIT {
     private static final String DEFAULT_VENUE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_VENUE_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_VENUE_CITY = "AAAAAAAAAA";
+    private static final String UPDATED_VENUE_CITY = "BBBBBBBBBB";
+
     private static final byte[] DEFAULT_MATCH_IMG = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_MATCH_IMG = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_MATCH_IMG_CONTENT_TYPE = "image/jpg";
@@ -147,6 +150,7 @@ public class MatchPreviewResourceIT {
             .formationImgContentType(DEFAULT_FORMATION_IMG_CONTENT_TYPE)
             .startUtcTimestamp(DEFAULT_START_UTC_TIMESTAMP)
             .venueName(DEFAULT_VENUE_NAME)
+            .venueCity(DEFAULT_VENUE_CITY)
             .matchImg(DEFAULT_MATCH_IMG)
             .matchImgContentType(DEFAULT_MATCH_IMG_CONTENT_TYPE)
             .matchImaTxt(DEFAULT_MATCH_IMA_TXT)
@@ -177,6 +181,7 @@ public class MatchPreviewResourceIT {
             .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
             .startUtcTimestamp(UPDATED_START_UTC_TIMESTAMP)
             .venueName(UPDATED_VENUE_NAME)
+            .venueCity(UPDATED_VENUE_CITY)
             .matchImg(UPDATED_MATCH_IMG)
             .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
             .matchImaTxt(UPDATED_MATCH_IMA_TXT)
@@ -219,6 +224,7 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(DEFAULT_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getStartUtcTimestamp()).isEqualTo(DEFAULT_START_UTC_TIMESTAMP);
         assertThat(testMatchPreview.getVenueName()).isEqualTo(DEFAULT_VENUE_NAME);
+        assertThat(testMatchPreview.getVenueCity()).isEqualTo(DEFAULT_VENUE_CITY);
         assertThat(testMatchPreview.getMatchImg()).isEqualTo(DEFAULT_MATCH_IMG);
         assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(DEFAULT_MATCH_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(DEFAULT_MATCH_IMA_TXT);
@@ -297,6 +303,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
             .andExpect(jsonPath("$.[*].startUtcTimestamp").value(hasItem(DEFAULT_START_UTC_TIMESTAMP.toString())))
             .andExpect(jsonPath("$.[*].venueName").value(hasItem(DEFAULT_VENUE_NAME)))
+            .andExpect(jsonPath("$.[*].venueCity").value(hasItem(DEFAULT_VENUE_CITY)))
             .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
             .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))
@@ -330,6 +337,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.formationImg").value(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG)))
             .andExpect(jsonPath("$.startUtcTimestamp").value(DEFAULT_START_UTC_TIMESTAMP.toString()))
             .andExpect(jsonPath("$.venueName").value(DEFAULT_VENUE_NAME))
+            .andExpect(jsonPath("$.venueCity").value(DEFAULT_VENUE_CITY))
             .andExpect(jsonPath("$.matchImgContentType").value(DEFAULT_MATCH_IMG_CONTENT_TYPE))
             .andExpect(jsonPath("$.matchImg").value(Base64Utils.encodeToString(DEFAULT_MATCH_IMG)))
             .andExpect(jsonPath("$.matchImaTxt").value(DEFAULT_MATCH_IMA_TXT))
@@ -372,6 +380,7 @@ public class MatchPreviewResourceIT {
             .formationImgContentType(UPDATED_FORMATION_IMG_CONTENT_TYPE)
             .startUtcTimestamp(UPDATED_START_UTC_TIMESTAMP)
             .venueName(UPDATED_VENUE_NAME)
+            .venueCity(UPDATED_VENUE_CITY)
             .matchImg(UPDATED_MATCH_IMG)
             .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
             .matchImaTxt(UPDATED_MATCH_IMA_TXT)
@@ -402,6 +411,7 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getFormationImgContentType()).isEqualTo(UPDATED_FORMATION_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getStartUtcTimestamp()).isEqualTo(UPDATED_START_UTC_TIMESTAMP);
         assertThat(testMatchPreview.getVenueName()).isEqualTo(UPDATED_VENUE_NAME);
+        assertThat(testMatchPreview.getVenueCity()).isEqualTo(UPDATED_VENUE_CITY);
         assertThat(testMatchPreview.getMatchImg()).isEqualTo(UPDATED_MATCH_IMG);
         assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(UPDATED_MATCH_IMG_CONTENT_TYPE);
         assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(UPDATED_MATCH_IMA_TXT);
@@ -481,6 +491,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].formationImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_FORMATION_IMG))))
             .andExpect(jsonPath("$.[*].startUtcTimestamp").value(hasItem(DEFAULT_START_UTC_TIMESTAMP.toString())))
             .andExpect(jsonPath("$.[*].venueName").value(hasItem(DEFAULT_VENUE_NAME)))
+            .andExpect(jsonPath("$.[*].venueCity").value(hasItem(DEFAULT_VENUE_CITY)))
             .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
             .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))

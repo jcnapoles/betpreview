@@ -11,6 +11,7 @@ import { MatchPreviewService } from './match-preview.service';
 import { MatchPreviewComponent } from './match-preview.component';
 import { MatchPreviewDetailComponent } from './match-preview-detail.component';
 import { MatchPreviewUpdateComponent } from './match-preview-update.component';
+import { MatchPreviewLoadComponent } from './match-preview-load.component';
 
 @Injectable({ providedIn: 'root' })
 export class MatchPreviewResolve implements Resolve<IMatchPreview> {
@@ -72,6 +73,30 @@ export const matchPreviewRoute: Routes = [
   {
     path: ':id/edit',
     component: MatchPreviewUpdateComponent,
+    resolve: {
+      matchPreview: MatchPreviewResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'betmanageApp.matchPreview.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+ {
+    path: 'loadAPIMatchPreviewByTeamId',
+    component: MatchPreviewLoadComponent,
+    resolve: {
+      matchPreview: MatchPreviewResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'betmanageApp.matchPreview.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+{
+    path: 'load',
+    component: MatchPreviewLoadComponent,
     resolve: {
       matchPreview: MatchPreviewResolve,
     },

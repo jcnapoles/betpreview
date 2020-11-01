@@ -1,5 +1,5 @@
 package com.betpreview.sportscribe.domain;
 
 public enum SocialPlatform {
-	twitter,instagram
+	TWITTER, INSTAGRAM, TWTR, TWTR_OTHER
 }

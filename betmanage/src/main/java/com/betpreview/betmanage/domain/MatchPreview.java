@@ -1,21 +1,34 @@
 package com.betpreview.betmanage.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A MatchPreview.
@@ -33,6 +46,7 @@ public class MatchPreview implements Serializable {
     private Long id;
 
     @Column(name = "blurb_full")
+    @Size(max = 1500)
     private String blurbFull;
 
     @NotNull
@@ -76,6 +90,9 @@ public class MatchPreview implements Serializable {
 
     @Column(name = "venue_name")
     private String venueName;
+
+    @Column(name = "venue_city")
+    private String venueCity;
 
     @Lob
     @Column(name = "match_img")
@@ -323,6 +340,19 @@ public class MatchPreview implements Serializable {
 
     public void setVenueName(String venueName) {
         this.venueName = venueName;
+    }
+
+    public String getVenueCity() {
+        return venueCity;
+    }
+
+    public MatchPreview venueCity(String venueCity) {
+        this.venueCity = venueCity;
+        return this;
+    }
+
+    public void setVenueCity(String venueCity) {
+        this.venueCity = venueCity;
     }
 
     public byte[] getMatchImg() {
@@ -604,6 +634,7 @@ public class MatchPreview implements Serializable {
             ", formationImgContentType='" + getFormationImgContentType() + "'" +
             ", startUtcTimestamp='" + getStartUtcTimestamp() + "'" +
             ", venueName='" + getVenueName() + "'" +
+            ", venueCity='" + getVenueCity() + "'" +
             ", matchImg='" + getMatchImg() + "'" +
             ", matchImgContentType='" + getMatchImgContentType() + "'" +
             ", matchImaTxt='" + getMatchImaTxt() + "'" +

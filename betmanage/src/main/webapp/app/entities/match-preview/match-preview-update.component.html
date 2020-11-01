@@ -121,6 +121,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.venueCity" for="field_venueCity">Venue City</label>
+                    <input type="text" class="form-control" name="venueCity" id="field_venueCity"
+                           formControlName="venueCity"/>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.matchImg" for="field_matchImg">Match Img</label>
                     <div>
                         <div *ngIf="editForm.get('matchImg')!.value" class="form-text text-danger clearfix">

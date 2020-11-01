@@ -8,6 +8,12 @@
             Create a new Match Preview
             </span>
         </button>
+        <button class="btn btn-success float-right jh-load-entity mr-2" [routerLink]="['/match-preview/load']">
+            <fa-icon icon="plus"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="betmanageApp.matchPreview.home.loadLabel">
+             Load Competiciones By API
+            </span>
+        </button>
     </h2>
 
     <jhi-alert-error></jhi-alert-error>
@@ -53,6 +59,7 @@
                     <th scope="col"  jhiSortBy="formationImg"><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="startUtcTimestamp"><span jhiTranslate="betmanageApp.matchPreview.startUtcTimestamp">Start Utc Timestamp</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="venueName"><span jhiTranslate="betmanageApp.matchPreview.venueName">Venue Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="venueCity"><span jhiTranslate="betmanageApp.matchPreview.venueCity">Venue City</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="matchImg"><span jhiTranslate="betmanageApp.matchPreview.matchImg">Match Img</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="matchImaTxt"><span jhiTranslate="betmanageApp.matchPreview.matchImaTxt">Match Ima Txt</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="headline"><span jhiTranslate="betmanageApp.matchPreview.headline">Headline</span> <fa-icon icon="sort"></fa-icon></th>
@@ -87,6 +94,7 @@
                     </td>
                     <td>{{ matchPreview.startUtcTimestamp | date:'medium' }}</td>
                     <td>{{ matchPreview.venueName }}</td>
+                    <td>{{ matchPreview.venueCity }}</td>
                     <td>
                         <a *ngIf="matchPreview.matchImg" (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)" jhiTranslate="entity.action.open">open</a>
                         <span *ngIf="matchPreview.matchImg">{{ matchPreview.matchImgContentType }}, {{ byteSize(matchPreview.matchImg) }}</span>

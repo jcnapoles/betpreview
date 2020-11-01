@@ -24,6 +24,7 @@ export interface IMatchPreview {
   formationImg?: any;
   startUtcTimestamp?: Moment;
   venueName?: string;
+  venueCity?: string;
   matchImgContentType?: string;
   matchImg?: any;
   matchImaTxt?: string;
@@ -58,6 +59,7 @@ export class MatchPreview implements IMatchPreview {
     public formationImg?: any,
     public startUtcTimestamp?: Moment,
     public venueName?: string,
+    public venueCity?: string,
     public matchImgContentType?: string,
     public matchImg?: any,
     public matchImaTxt?: string,

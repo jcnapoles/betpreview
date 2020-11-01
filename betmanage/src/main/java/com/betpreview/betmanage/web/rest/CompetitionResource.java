@@ -29,13 +29,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.betpreview.betmanage.domain.Competition;
-import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.integration.SportScribeAPI;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
 import com.betpreview.betmanage.service.MatchPreviewService;
+import com.betpreview.betmanage.service.ParagraphsService;
+import com.betpreview.betmanage.service.PartsService;
+import com.betpreview.betmanage.service.SocialMediaService;
 import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.service.TeamService;
+import com.betpreview.betmanage.service.TeamSocialService;
+import com.betpreview.betmanage.service.TitleService;
 import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -72,6 +76,21 @@ public class CompetitionResource {
     
     @Autowired
     private MatchPreviewService matchPreviewService;
+    
+    @Autowired
+    private ParagraphsService paragraphsService;
+    
+    @Autowired
+    private TitleService titleService;
+	
+    @Autowired
+	private PartsService partsService;
+    
+    @Autowired
+    private SocialMediaService socialMediaService;
+    
+    @Autowired
+    private TeamSocialService teamSocialService;
 
     public CompetitionResource(CompetitionService competitionService) {
         this.competitionService = competitionService;
@@ -187,7 +206,7 @@ public class CompetitionResource {
         String keyName = environment.getProperty("sportscribe.keyName");
         String keyValue = environment.getProperty("sportscribe.keyValue");       
         String language = "en";
-        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService, matchPreviewService);
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService, matchPreviewService, paragraphsService, titleService, partsService, socialMediaService, teamSocialService);
         List<Competition> competitionList = sportScribeAPI.getAllCompetition();
         
         Page<Competition> page = new PageImpl<Competition>(competitionList);

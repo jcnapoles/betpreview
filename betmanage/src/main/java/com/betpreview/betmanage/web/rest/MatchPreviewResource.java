@@ -1,31 +1,49 @@
 package com.betpreview.betmanage.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.integration.SportScribeAPI;
+import com.betpreview.betmanage.service.CompetitionService;
+import com.betpreview.betmanage.service.CountryService;
 import com.betpreview.betmanage.service.MatchPreviewService;
+import com.betpreview.betmanage.service.ParagraphsService;
+import com.betpreview.betmanage.service.PartsService;
+import com.betpreview.betmanage.service.SocialMediaService;
+import com.betpreview.betmanage.service.SportService;
+import com.betpreview.betmanage.service.TeamService;
+import com.betpreview.betmanage.service.TeamSocialService;
+import com.betpreview.betmanage.service.TitleService;
 import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.betpreview.betmanage.domain.MatchPreview}.
@@ -42,6 +60,36 @@ public class MatchPreviewResource {
     private String applicationName;
 
     private final MatchPreviewService matchPreviewService;
+    
+    @Autowired
+    private Environment environment;
+    
+    @Autowired
+    private SportService sportService;
+    
+    @Autowired
+    private CountryService countryService;
+    
+    @Autowired
+    private TeamService teamService;    
+   
+    @Autowired
+    private ParagraphsService paragraphsService;
+    
+    @Autowired
+    private TitleService titleService;
+	
+    @Autowired
+	private PartsService partsService;
+    
+    @Autowired
+    private  CompetitionService competitionService;
+    
+    @Autowired
+    private SocialMediaService socialMediaService;
+    
+    @Autowired
+    private TeamSocialService teamSocialService;
 
     public MatchPreviewResource(MatchPreviewService matchPreviewService) {
         this.matchPreviewService = matchPreviewService;
@@ -142,4 +190,27 @@ public class MatchPreviewResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
         }
+    
+    /**
+     * {@code GET  /competitions} : get all the competitions.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of competitions in body.
+     */
+    @GetMapping("/match-previews/loadAPIMatchPreviewByTeamId/{teamId}")
+    public ResponseEntity<MatchPreview> loadAPIMatchPreviewByTeamId(@PathVariable Integer teamId, Pageable pageable) {
+        log.debug("REST request to get a page of MatchPreview");
+        /*IMPLEMENTAR*/
+        String url = environment.getProperty("sportscribe.url");
+        String keyName = environment.getProperty("sportscribe.keyName");
+        String keyValue = environment.getProperty("sportscribe.keyValue");       
+        String language = "en";
+        SportScribeAPI sportScribeAPI = new SportScribeAPI(url, keyName, keyValue, language, competitionService, sportService, countryService, teamService, matchPreviewService, paragraphsService, titleService, partsService, socialMediaService, teamSocialService);
+        
+        MatchPreview matchPreview = sportScribeAPI.getMatchPreviewByTeamId(teamId); 
+       
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, matchPreview.getId().toString()))
+                .body(matchPreview);
+    }
 }

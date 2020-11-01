@@ -58,6 +58,9 @@
             <column name="venue_name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="venue_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="match_img" type="longblob">
                 <constraints nullable="true" />
             </column>
@@ -129,6 +132,7 @@
             <column name="formation_img_content_type" type="string"/>
             <column name="start_utc_timestamp" type="datetime"/>
             <column name="venue_name" type="string"/>
+            <column name="venue_city" type="string"/>
             <column name="match_img" type="blob"/>
             <column name="match_img_content_type" type="string"/>
             <column name="match_ima_txt" type="string"/>

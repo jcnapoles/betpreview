@@ -52,6 +52,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
     formationImgContentType: [],
     startUtcTimestamp: [],
     venueName: [],
+    venueCity: [],
     matchImg: [],
     matchImgContentType: [],
     matchImaTxt: [],
@@ -195,6 +196,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
       formationImgContentType: matchPreview.formationImgContentType,
       startUtcTimestamp: matchPreview.startUtcTimestamp ? matchPreview.startUtcTimestamp.format(DATE_TIME_FORMAT) : null,
       venueName: matchPreview.venueName,
+      venueCity: matchPreview.venueCity,
       matchImg: matchPreview.matchImg,
       matchImgContentType: matchPreview.matchImgContentType,
       matchImaTxt: matchPreview.matchImaTxt,
@@ -259,6 +261,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
         ? moment(this.editForm.get(['startUtcTimestamp'])!.value, DATE_TIME_FORMAT)
         : undefined,
       venueName: this.editForm.get(['venueName'])!.value,
+      venueCity: this.editForm.get(['venueCity'])!.value,
       matchImgContentType: this.editForm.get(['matchImgContentType'])!.value,
       matchImg: this.editForm.get(['matchImg'])!.value,
       matchImaTxt: this.editForm.get(['matchImaTxt'])!.value,
