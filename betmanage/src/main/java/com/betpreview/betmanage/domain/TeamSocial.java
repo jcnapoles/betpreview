@@ -25,11 +25,11 @@ public class TeamSocial implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "home")
-    private Integer home;
+    @Column(name = "home_team_id")
+    private Integer homeTeamId;
 
-    @Column(name = "visitor")
-    private Integer visitor;
+    @Column(name = "visitor_team_id")
+    private Integer visitorTeamId;
 
     @Column(name = "jhi_match")
     private String match;
@@ -47,30 +47,30 @@ public class TeamSocial implements Serializable {
         this.id = id;
     }
 
-    public Integer getHome() {
-        return home;
+    public Integer getHomeTeamId() {
+        return homeTeamId;
     }
 
-    public TeamSocial home(Integer home) {
-        this.home = home;
+    public TeamSocial homeTeamId(Integer homeTeamId) {
+        this.homeTeamId = homeTeamId;
         return this;
     }
 
-    public void setHome(Integer home) {
-        this.home = home;
+    public void setHomeTeamId(Integer homeTeamId) {
+        this.homeTeamId = homeTeamId;
     }
 
-    public Integer getVisitor() {
-        return visitor;
+    public Integer getVisitorTeamId() {
+        return visitorTeamId;
     }
 
-    public TeamSocial visitor(Integer visitor) {
-        this.visitor = visitor;
+    public TeamSocial visitorTeamId(Integer visitorTeamId) {
+        this.visitorTeamId = visitorTeamId;
         return this;
     }
 
-    public void setVisitor(Integer visitor) {
-        this.visitor = visitor;
+    public void setVisitorTeamId(Integer visitorTeamId) {
+        this.visitorTeamId = visitorTeamId;
     }
 
     public String getMatch() {
@@ -133,8 +133,8 @@ public class TeamSocial implements Serializable {
     public String toString() {
         return "TeamSocial{" +
             "id=" + getId() +
-            ", home=" + getHome() +
-            ", visitor=" + getVisitor() +
+            ", homeTeamId=" + getHomeTeamId() +
+            ", visitorTeamId=" + getVisitorTeamId() +
             ", match='" + getMatch() + "'" +
             "}";
     }

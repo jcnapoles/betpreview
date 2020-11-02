@@ -41,8 +41,8 @@
             <thead>
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-                    <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.home">Home</span></th>
-                    <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.visitor">Visitor</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.homeTeamId">Home Team Id</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.visitorTeamId">Visitor Team Id</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.match">Match</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -50,8 +50,8 @@
             <tbody>
                 <tr *ngFor="let teamSocial of teamSocials ;trackBy: trackId">
                     <td><a [routerLink]="['/team-social', teamSocial.id, 'view']">{{ teamSocial.id }}</a></td>
-                    <td>{{ teamSocial.home }}</td>
-                    <td>{{ teamSocial.visitor }}</td>
+                    <td>{{ teamSocial.homeTeamId }}</td>
+                    <td>{{ teamSocial.visitorTeamId }}</td>
                     <td>{{ teamSocial.match }}</td>
                     <td class="text-right">
                         <div class="btn-group">

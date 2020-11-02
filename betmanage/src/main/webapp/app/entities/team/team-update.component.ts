@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,12 +9,8 @@ import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } 
 import { ITeam, Team } from 'app/shared/model/team.model';
 import { TeamService } from './team.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
-import { IMatchPreview } from 'app/shared/model/match-preview.model';
-import { MatchPreviewService } from 'app/entities/match-preview/match-preview.service';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country/country.service';
-
-type SelectableEntity = IMatchPreview | ICountry;
 
 @Component({
   selector: 'jhi-team-update',
@@ -22,7 +18,6 @@ type SelectableEntity = IMatchPreview | ICountry;
 })
 export class TeamUpdateComponent implements OnInit {
   isSaving = false;
-  matchpreviews: IMatchPreview[] = [];
   countries: ICountry[] = [];
 
   editForm = this.fb.group({
@@ -33,7 +28,6 @@ export class TeamUpdateComponent implements OnInit {
     teamLogo: [],
     teamLogoContentType: [],
     teamId: [],
-    matchPreviews: [],
     country: [],
   });
 
@@ -41,8 +35,8 @@ export class TeamUpdateComponent implements OnInit {
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected teamService: TeamService,
-    protected matchPreviewService: MatchPreviewService,
     protected countryService: CountryService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -50,8 +44,6 @@ export class TeamUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ team }) => {
       this.updateForm(team);
-
-      this.matchPreviewService.query().subscribe((res: HttpResponse<IMatchPreview[]>) => (this.matchpreviews = res.body || []));
 
       this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
@@ -66,7 +58,6 @@ export class TeamUpdateComponent implements OnInit {
       teamLogo: team.teamLogo,
       teamLogoContentType: team.teamLogoContentType,
       teamId: team.teamId,
-      matchPreviews: team.matchPreviews,
       country: team.country,
     });
   }
@@ -85,6 +76,16 @@ export class TeamUpdateComponent implements OnInit {
         new JhiEventWithContent<AlertError>('betmanageApp.error', { ...err, key: 'error.file.' + err.key })
       );
     });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (this.elementRef && idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -111,7 +112,6 @@ export class TeamUpdateComponent implements OnInit {
       teamLogoContentType: this.editForm.get(['teamLogoContentType'])!.value,
       teamLogo: this.editForm.get(['teamLogo'])!.value,
       teamId: this.editForm.get(['teamId'])!.value,
-      matchPreviews: this.editForm.get(['matchPreviews'])!.value,
       country: this.editForm.get(['country'])!.value,
     };
   }
@@ -132,18 +132,7 @@ export class TeamUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: ICountry): any {
     return item.id;
-  }
-
-  getSelected(selectedVals: IMatchPreview[], option: IMatchPreview): IMatchPreview {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 }

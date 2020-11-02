@@ -91,18 +91,12 @@ public class TeamResource {
      * {@code GET  /teams} : get all the teams.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teams in body.
      */
     @GetMapping("/teams")
-    public ResponseEntity<List<Team>> getAllTeams(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Team>> getAllTeams(Pageable pageable) {
         log.debug("REST request to get a page of Teams");
-        Page<Team> page;
-        if (eagerload) {
-            page = teamService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = teamService.findAll(pageable);
-        }
+        Page<Team> page = teamService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

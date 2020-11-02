@@ -23,19 +23,15 @@
                 <dt><span jhiTranslate="betmanageApp.team.teamLogo">Team Logo</span></dt>
                 <dd>
                     <div *ngIf="team.teamLogo">
-                        <a (click)="openFile(team.teamLogoContentType, team.teamLogo)" jhiTranslate="entity.action.open">open</a>
+                        <a (click)="openFile(team.teamLogoContentType, team.teamLogo)">
+                            <img [src]="'data:' + team.teamLogoContentType + ';base64,' + team.teamLogo" style="max-width: 100%;" alt="team image"/>
+                        </a>
                         {{ team.teamLogoContentType }}, {{ byteSize(team.teamLogo) }}
                     </div>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.team.teamId">Team Id</span></dt>
                 <dd>
                     <span>{{ team.teamId }}</span>
-                </dd>
-                <dt><span jhiTranslate="betmanageApp.team.matchPreview">Match Preview</span></dt>
-                <dd>
-                    <span *ngFor="let matchPreview of team.matchPreviews; let last = last">
-                        <a [routerLink]="['/match-preview', matchPreview?.id, 'view']">{{ matchPreview.id }}</a>{{ last ? '' : ', ' }}
-                    </span>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.team.country">Country</span></dt>
                 <dd>

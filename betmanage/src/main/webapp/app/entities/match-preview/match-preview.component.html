@@ -91,18 +91,24 @@
                     <td>{{ matchPreview.leagueId }}</td>
                     <td>{{ matchPreview.league }}</td>
                     <td>
-                        <a *ngIf="matchPreview.fixtureImg" (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)" jhiTranslate="entity.action.open">open</a>
+                        <a *ngIf="matchPreview.fixtureImg" (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)">
+                            <img [src]="'data:' + matchPreview.fixtureImgContentType + ';base64,' + matchPreview.fixtureImg" style="max-height: 30px;" alt="matchPreview image"/>
+                        </a>
                         <span *ngIf="matchPreview.fixtureImg">{{ matchPreview.fixtureImgContentType }}, {{ byteSize(matchPreview.fixtureImg) }}</span>
                     </td>
                     <td>
-                        <a *ngIf="matchPreview.formationImg" (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
+                        <a *ngIf="matchPreview.formationImg" (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)">
+                            <img [src]="'data:' + matchPreview.formationImgContentType + ';base64,' + matchPreview.formationImg" style="max-height: 30px;" alt="matchPreview image"/>
+                        </a>
                         <span *ngIf="matchPreview.formationImg">{{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}</span>
                     </td>
                     <td>{{ matchPreview.startUtcTimestamp | date:'medium' }}</td>
                     <td>{{ matchPreview.venueName }}</td>
                     <td>{{ matchPreview.venueCity }}</td>
                     <td>
-                        <a *ngIf="matchPreview.matchImg" (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)" jhiTranslate="entity.action.open">open</a>
+                        <a *ngIf="matchPreview.matchImg" (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)">
+                            <img [src]="'data:' + matchPreview.matchImgContentType + ';base64,' + matchPreview.matchImg" style="max-height: 30px;" alt="matchPreview image"/>
+                        </a>
                         <span *ngIf="matchPreview.matchImg">{{ matchPreview.matchImgContentType }}, {{ byteSize(matchPreview.matchImg) }}</span>
                     </td>
                     <td>{{ matchPreview.matchImaTxt }}</td>

@@ -3,7 +3,8 @@
   "fields": [
     {
       "fieldName": "blurbFull",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "fixtureId",
@@ -39,12 +40,12 @@
     {
       "fieldName": "fixtureImg",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any"
+      "fieldTypeBlobContent": "image"
     },
     {
       "fieldName": "formationImg",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any"
+      "fieldTypeBlobContent": "image"
     },
     {
       "fieldName": "startUtcTimestamp",
@@ -61,7 +62,7 @@
     {
       "fieldName": "matchImg",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any"
+      "fieldTypeBlobContent": "image"
     },
     {
       "fieldName": "matchImaTxt",
@@ -125,6 +126,14 @@
       "relationshipName": "parts"
     },
     {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "team",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "matchPreview",
@@ -137,14 +146,6 @@
       "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "country",
       "otherEntityField": "id"
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "team",
-      "otherEntityRelationshipName": "matchPreview",
-      "relationshipName": "team",
-      "otherEntityField": "id",
-      "ownerSide": false
     }
   ],
   "changelogDate": "20201020215603",

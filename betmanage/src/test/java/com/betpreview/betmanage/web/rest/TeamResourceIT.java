@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,12 +60,6 @@ public class TeamResourceIT {
 
     @Autowired
     private TeamRepository teamRepository;
-
-    @Mock
-    private TeamRepository teamRepositoryMock;
-
-    @Mock
-    private TeamService teamServiceMock;
 
     @Autowired
     private TeamService teamService;
@@ -211,26 +204,6 @@ public class TeamResourceIT {
             .andExpect(jsonPath("$.[*].teamId").value(hasItem(DEFAULT_TEAM_ID)));
     }
     
-    @SuppressWarnings({"unchecked"})
-    public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
-
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
-
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
     @Test
     @Transactional
     public void getTeam() throws Exception {

@@ -1,7 +1,7 @@
 import { ISocialMedia } from 'app/shared/model/social-media.model';
-import { IMatchPreview } from 'app/shared/model/match-preview.model';
 import { ICountry } from 'app/shared/model/country.model';
 import { ICompetition } from 'app/shared/model/competition.model';
+import { IMatchPreview } from 'app/shared/model/match-preview.model';
 
 export interface ITeam {
   id?: number;
@@ -12,9 +12,9 @@ export interface ITeam {
   teamLogo?: any;
   teamId?: number;
   socialMedias?: ISocialMedia[];
-  matchPreviews?: IMatchPreview[];
   country?: ICountry;
   competitions?: ICompetition[];
+  matchPreviews?: IMatchPreview[];
 }
 
 export class Team implements ITeam {
@@ -27,9 +27,9 @@ export class Team implements ITeam {
     public teamLogo?: any,
     public teamId?: number,
     public socialMedias?: ISocialMedia[],
-    public matchPreviews?: IMatchPreview[],
     public country?: ICountry,
-    public competitions?: ICompetition[]
+    public competitions?: ICompetition[],
+    public matchPreviews?: IMatchPreview[]
   ) {
     this.isNationalTeam = this.isNationalTeam || false;
   }

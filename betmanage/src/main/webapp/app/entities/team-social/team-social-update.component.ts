@@ -17,8 +17,8 @@ export class TeamSocialUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    home: [],
-    visitor: [],
+    homeTeamId: [],
+    visitorTeamId: [],
     match: [],
   });
 
@@ -33,8 +33,8 @@ export class TeamSocialUpdateComponent implements OnInit {
   updateForm(teamSocial: ITeamSocial): void {
     this.editForm.patchValue({
       id: teamSocial.id,
-      home: teamSocial.home,
-      visitor: teamSocial.visitor,
+      homeTeamId: teamSocial.homeTeamId,
+      visitorTeamId: teamSocial.visitorTeamId,
       match: teamSocial.match,
     });
   }
@@ -57,8 +57,8 @@ export class TeamSocialUpdateComponent implements OnInit {
     return {
       ...new TeamSocial(),
       id: this.editForm.get(['id'])!.value,
-      home: this.editForm.get(['home'])!.value,
-      visitor: this.editForm.get(['visitor'])!.value,
+      homeTeamId: this.editForm.get(['homeTeamId'])!.value,
+      visitorTeamId: this.editForm.get(['visitorTeamId'])!.value,
       match: this.editForm.get(['match'])!.value,
     };
   }

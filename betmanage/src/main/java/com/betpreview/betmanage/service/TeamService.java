@@ -28,13 +28,6 @@ public interface TeamService {
      */
     Page<Team> findAll(Pageable pageable);
 
-    /**
-     * Get all the teams with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    Page<Team> findAllWithEagerRelationships(Pageable pageable);
-
 
     /**
      * Get the "id" team.

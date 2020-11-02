@@ -52,13 +52,6 @@ public class Team implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<SocialMedia> socialMedias = new HashSet<>();
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(name = "team_match_preview",
-               joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "match_preview_id", referencedColumnName = "id"))
-    private Set<MatchPreview> matchPreviews = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
     private Country country;
@@ -67,6 +60,11 @@ public class Team implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
     private Set<Competition> competitions = new HashSet<>();
+
+    @ManyToMany(mappedBy = "teams")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
+    private Set<MatchPreview> matchPreviews = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -180,31 +178,6 @@ public class Team implements Serializable {
         this.socialMedias = socialMedias;
     }
 
-    public Set<MatchPreview> getMatchPreviews() {
-        return matchPreviews;
-    }
-
-    public Team matchPreviews(Set<MatchPreview> matchPreviews) {
-        this.matchPreviews = matchPreviews;
-        return this;
-    }
-
-    public Team addMatchPreview(MatchPreview matchPreview) {
-        this.matchPreviews.add(matchPreview);
-        matchPreview.getTeams().add(this);
-        return this;
-    }
-
-    public Team removeMatchPreview(MatchPreview matchPreview) {
-        this.matchPreviews.remove(matchPreview);
-        matchPreview.getTeams().remove(this);
-        return this;
-    }
-
-    public void setMatchPreviews(Set<MatchPreview> matchPreviews) {
-        this.matchPreviews = matchPreviews;
-    }
-
     public Country getCountry() {
         return country;
     }
@@ -241,6 +214,31 @@ public class Team implements Serializable {
 
     public void setCompetitions(Set<Competition> competitions) {
         this.competitions = competitions;
+    }
+
+    public Set<MatchPreview> getMatchPreviews() {
+        return matchPreviews;
+    }
+
+    public Team matchPreviews(Set<MatchPreview> matchPreviews) {
+        this.matchPreviews = matchPreviews;
+        return this;
+    }
+
+    public Team addMatchPreview(MatchPreview matchPreview) {
+        this.matchPreviews.add(matchPreview);
+        matchPreview.getTeams().add(this);
+        return this;
+    }
+
+    public Team removeMatchPreview(MatchPreview matchPreview) {
+        this.matchPreviews.remove(matchPreview);
+        matchPreview.getTeams().remove(this);
+        return this;
+    }
+
+    public void setMatchPreviews(Set<MatchPreview> matchPreviews) {
+        this.matchPreviews = matchPreviews;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -1,9 +1,9 @@
 package com.betpreview.betmanage.service;
 
+import com.betpreview.betmanage.domain.TeamSocial;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.betpreview.betmanage.domain.TeamSocial;
 
 /**
  * Service Interface for managing {@link TeamSocial}.

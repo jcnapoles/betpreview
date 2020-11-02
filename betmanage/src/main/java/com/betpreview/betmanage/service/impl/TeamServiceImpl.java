@@ -50,15 +50,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
 
-    public Page<Team> findAllWithEagerRelationships(Pageable pageable) {
-        return teamRepository.findAllWithEagerRelationships(pageable);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<Team> findOne(Long id) {
         log.debug("Request to get Team : {}", id);
-        return teamRepository.findOneWithEagerRelationships(id);
+        return teamRepository.findById(id);
     }
 
     @Override

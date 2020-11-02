@@ -1,21 +1,33 @@
 package com.betpreview.betmanage.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A MatchPreview.
@@ -32,6 +44,7 @@ public class MatchPreview implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     @Column(name = "blurb_full")
     private String blurbFull;
 
@@ -124,6 +137,13 @@ public class MatchPreview implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Parts> parts = new HashSet<>();
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "match_preview_team",
+               joinColumns = @JoinColumn(name = "match_preview_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"))
+    private Set<Team> teams = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
     private Competition competition;
@@ -131,11 +151,6 @@ public class MatchPreview implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
     private Country country;
-
-    @ManyToMany(mappedBy = "matchPreviews")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnore
-    private Set<Team> teams = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -533,6 +548,31 @@ public class MatchPreview implements Serializable {
         this.parts = parts;
     }
 
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public MatchPreview teams(Set<Team> teams) {
+        this.teams = teams;
+        return this;
+    }
+
+    public MatchPreview addTeam(Team team) {
+        this.teams.add(team);
+        team.getMatchPreviews().add(this);
+        return this;
+    }
+
+    public MatchPreview removeTeam(Team team) {
+        this.teams.remove(team);
+        team.getMatchPreviews().remove(this);
+        return this;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
     public Competition getCompetition() {
         return competition;
     }
@@ -557,31 +597,6 @@ public class MatchPreview implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public Set<Team> getTeams() {
-        return teams;
-    }
-
-    public MatchPreview teams(Set<Team> teams) {
-        this.teams = teams;
-        return this;
-    }
-
-    public MatchPreview addTeam(Team team) {
-        this.teams.add(team);
-        team.getMatchPreviews().add(this);
-        return this;
-    }
-
-    public MatchPreview removeTeam(Team team) {
-        this.teams.remove(team);
-        team.getMatchPreviews().remove(this);
-        return this;
-    }
-
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

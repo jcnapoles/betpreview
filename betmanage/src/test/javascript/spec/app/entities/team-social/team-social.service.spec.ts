@@ -54,8 +54,8 @@ describe('Service Tests', () => {
       it('should update a TeamSocial', () => {
         const returnedFromService = Object.assign(
           {
-            home: 1,
-            visitor: 1,
+            homeTeamId: 1,
+            visitorTeamId: 1,
             match: 'BBBBBB',
           },
           elemDefault
@@ -73,8 +73,8 @@ describe('Service Tests', () => {
       it('should return a list of TeamSocial', () => {
         const returnedFromService = Object.assign(
           {
-            home: 1,
-            visitor: 1,
+            homeTeamId: 1,
+            visitorTeamId: 1,
             match: 'BBBBBB',
           },
           elemDefault

@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -108,6 +109,12 @@ public class MatchPreviewResourceIT {
 
     @Autowired
     private MatchPreviewRepository matchPreviewRepository;
+
+    @Mock
+    private MatchPreviewRepository matchPreviewRepositoryMock;
+
+    @Mock
+    private MatchPreviewService matchPreviewServiceMock;
 
     @Autowired
     private MatchPreviewService matchPreviewService;
@@ -289,7 +296,7 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(matchPreview.getId().intValue())))
-            .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL)))
+            .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL.toString())))
             .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].hometeamId").value(hasItem(DEFAULT_HOMETEAM_ID)))
             .andExpect(jsonPath("$.[*].visitorteamId").value(hasItem(DEFAULT_VISITORTEAM_ID)))
@@ -312,6 +319,26 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllMatchPreviewsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(matchPreviewServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restMatchPreviewMockMvc.perform(get("/api/match-previews?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(matchPreviewServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllMatchPreviewsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(matchPreviewServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restMatchPreviewMockMvc.perform(get("/api/match-previews?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(matchPreviewServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getMatchPreview() throws Exception {
@@ -323,7 +350,7 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(matchPreview.getId().intValue()))
-            .andExpect(jsonPath("$.blurbFull").value(DEFAULT_BLURB_FULL))
+            .andExpect(jsonPath("$.blurbFull").value(DEFAULT_BLURB_FULL.toString()))
             .andExpect(jsonPath("$.fixtureId").value(DEFAULT_FIXTURE_ID))
             .andExpect(jsonPath("$.hometeamId").value(DEFAULT_HOMETEAM_ID))
             .andExpect(jsonPath("$.visitorteamId").value(DEFAULT_VISITORTEAM_ID))
@@ -477,7 +504,7 @@ public class MatchPreviewResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(matchPreview.getId().intValue())))
-            .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL)))
+            .andExpect(jsonPath("$.[*].blurbFull").value(hasItem(DEFAULT_BLURB_FULL.toString())))
             .andExpect(jsonPath("$.[*].fixtureId").value(hasItem(DEFAULT_FIXTURE_ID)))
             .andExpect(jsonPath("$.[*].hometeamId").value(hasItem(DEFAULT_HOMETEAM_ID)))
             .andExpect(jsonPath("$.[*].visitorteamId").value(hasItem(DEFAULT_VISITORTEAM_ID)))

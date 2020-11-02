@@ -28,6 +28,13 @@ public interface MatchPreviewService {
      */
     Page<MatchPreview> findAll(Pageable pageable);
 
+    /**
+     * Get all the matchPreviews with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    Page<MatchPreview> findAllWithEagerRelationships(Pageable pageable);
+
 
     /**
      * Get the "id" matchPreview.

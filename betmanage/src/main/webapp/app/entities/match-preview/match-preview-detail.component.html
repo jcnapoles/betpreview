@@ -43,14 +43,18 @@
                 <dt><span jhiTranslate="betmanageApp.matchPreview.fixtureImg">Fixture Img</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.fixtureImg">
-                        <a (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)" jhiTranslate="entity.action.open">open</a>
+                        <a (click)="openFile(matchPreview.fixtureImgContentType, matchPreview.fixtureImg)">
+                            <img [src]="'data:' + matchPreview.fixtureImgContentType + ';base64,' + matchPreview.fixtureImg" style="max-width: 100%;" alt="matchPreview image"/>
+                        </a>
                         {{ matchPreview.fixtureImgContentType }}, {{ byteSize(matchPreview.fixtureImg) }}
                     </div>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.formationImg">Formation Img</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.formationImg">
-                        <a (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)" jhiTranslate="entity.action.open">open</a>
+                        <a (click)="openFile(matchPreview.formationImgContentType, matchPreview.formationImg)">
+                            <img [src]="'data:' + matchPreview.formationImgContentType + ';base64,' + matchPreview.formationImg" style="max-width: 100%;" alt="matchPreview image"/>
+                        </a>
                         {{ matchPreview.formationImgContentType }}, {{ byteSize(matchPreview.formationImg) }}
                     </div>
                 </dd>
@@ -69,7 +73,9 @@
                 <dt><span jhiTranslate="betmanageApp.matchPreview.matchImg">Match Img</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.matchImg">
-                        <a (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)" jhiTranslate="entity.action.open">open</a>
+                        <a (click)="openFile(matchPreview.matchImgContentType, matchPreview.matchImg)">
+                            <img [src]="'data:' + matchPreview.matchImgContentType + ';base64,' + matchPreview.matchImg" style="max-width: 100%;" alt="matchPreview image"/>
+                        </a>
                         {{ matchPreview.matchImgContentType }}, {{ byteSize(matchPreview.matchImg) }}
                     </div>
                 </dd>
@@ -106,6 +112,12 @@
                     <div *ngIf="matchPreview.social">
                         <a [routerLink]="['/team-social', matchPreview.social?.id, 'view']">{{ matchPreview.social?.id }}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.team">Team</span></dt>
+                <dd>
+                    <span *ngFor="let team of matchPreview.teams; let last = last">
+                        <a [routerLink]="['/team', team?.id, 'view']">{{ team.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.competition">Competition</span></dt>
                 <dd>

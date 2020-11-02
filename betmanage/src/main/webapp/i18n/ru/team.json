@@ -23,9 +23,9 @@
       "teamLogo": "Team Logo",
       "teamId": "Team Id",
       "socialMedia": "Social Media",
-      "matchPreview": "Match Preview",
       "country": "Country",
-      "competition": "Competition"
+      "competition": "Competition",
+      "matchPreview": "Match Preview"
     }
   }
 }

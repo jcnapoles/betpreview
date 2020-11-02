@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
@@ -32,6 +32,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
   hometeams: ITeam[] = [];
   visitorteams: ITeam[] = [];
   socials: ITeamSocial[] = [];
+  teams: ITeam[] = [];
   competitions: ICompetition[] = [];
   countries: ICountry[] = [];
   dateDp: any;
@@ -62,6 +63,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
     homeTeam: [],
     visitorTeam: [],
     social: [],
+    teams: [],
     competition: [],
     country: [],
   });
@@ -74,6 +76,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
     protected teamSocialService: TeamSocialService,
     protected competitionService: CompetitionService,
     protected countryService: CountryService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -153,6 +156,8 @@ export class MatchPreviewUpdateComponent implements OnInit {
           }
         });
 
+      this.teamService.query().subscribe((res: HttpResponse<ITeam[]>) => (this.teams = res.body || []));
+
       this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
 
       this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
@@ -186,6 +191,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
       homeTeam: matchPreview.homeTeam,
       visitorTeam: matchPreview.visitorTeam,
       social: matchPreview.social,
+      teams: matchPreview.teams,
       competition: matchPreview.competition,
       country: matchPreview.country,
     });
@@ -205,6 +211,16 @@ export class MatchPreviewUpdateComponent implements OnInit {
         new JhiEventWithContent<AlertError>('betmanageApp.error', { ...err, key: 'error.file.' + err.key })
       );
     });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (this.elementRef && idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -251,6 +267,7 @@ export class MatchPreviewUpdateComponent implements OnInit {
       homeTeam: this.editForm.get(['homeTeam'])!.value,
       visitorTeam: this.editForm.get(['visitorTeam'])!.value,
       social: this.editForm.get(['social'])!.value,
+      teams: this.editForm.get(['teams'])!.value,
       competition: this.editForm.get(['competition'])!.value,
       country: this.editForm.get(['country'])!.value,
     };
@@ -274,5 +291,16 @@ export class MatchPreviewUpdateComponent implements OnInit {
 
   trackById(index: number, item: SelectableEntity): any {
     return item.id;
+  }
+
+  getSelected(selectedVals: ITeam[], option: ITeam): ITeam {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

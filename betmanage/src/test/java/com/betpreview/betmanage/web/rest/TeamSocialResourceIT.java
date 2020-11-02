@@ -38,11 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class TeamSocialResourceIT {
 
-    private static final Integer DEFAULT_HOME = 1;
-    private static final Integer UPDATED_HOME = 2;
+    private static final Integer DEFAULT_HOME_TEAM_ID = 1;
+    private static final Integer UPDATED_HOME_TEAM_ID = 2;
 
-    private static final Integer DEFAULT_VISITOR = 1;
-    private static final Integer UPDATED_VISITOR = 2;
+    private static final Integer DEFAULT_VISITOR_TEAM_ID = 1;
+    private static final Integer UPDATED_VISITOR_TEAM_ID = 2;
 
     private static final String DEFAULT_MATCH = "AAAAAAAAAA";
     private static final String UPDATED_MATCH = "BBBBBBBBBB";
@@ -77,8 +77,8 @@ public class TeamSocialResourceIT {
      */
     public static TeamSocial createEntity(EntityManager em) {
         TeamSocial teamSocial = new TeamSocial()
-            .home(DEFAULT_HOME)
-            .visitor(DEFAULT_VISITOR)
+            .homeTeamId(DEFAULT_HOME_TEAM_ID)
+            .visitorTeamId(DEFAULT_VISITOR_TEAM_ID)
             .match(DEFAULT_MATCH);
         return teamSocial;
     }
@@ -90,8 +90,8 @@ public class TeamSocialResourceIT {
      */
     public static TeamSocial createUpdatedEntity(EntityManager em) {
         TeamSocial teamSocial = new TeamSocial()
-            .home(UPDATED_HOME)
-            .visitor(UPDATED_VISITOR)
+            .homeTeamId(UPDATED_HOME_TEAM_ID)
+            .visitorTeamId(UPDATED_VISITOR_TEAM_ID)
             .match(UPDATED_MATCH);
         return teamSocial;
     }
@@ -115,8 +115,8 @@ public class TeamSocialResourceIT {
         List<TeamSocial> teamSocialList = teamSocialRepository.findAll();
         assertThat(teamSocialList).hasSize(databaseSizeBeforeCreate + 1);
         TeamSocial testTeamSocial = teamSocialList.get(teamSocialList.size() - 1);
-        assertThat(testTeamSocial.getHome()).isEqualTo(DEFAULT_HOME);
-        assertThat(testTeamSocial.getVisitor()).isEqualTo(DEFAULT_VISITOR);
+        assertThat(testTeamSocial.getHomeTeamId()).isEqualTo(DEFAULT_HOME_TEAM_ID);
+        assertThat(testTeamSocial.getVisitorTeamId()).isEqualTo(DEFAULT_VISITOR_TEAM_ID);
         assertThat(testTeamSocial.getMatch()).isEqualTo(DEFAULT_MATCH);
 
         // Validate the TeamSocial in Elasticsearch
@@ -157,8 +157,8 @@ public class TeamSocialResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSocial.getId().intValue())))
-            .andExpect(jsonPath("$.[*].home").value(hasItem(DEFAULT_HOME)))
-            .andExpect(jsonPath("$.[*].visitor").value(hasItem(DEFAULT_VISITOR)))
+            .andExpect(jsonPath("$.[*].homeTeamId").value(hasItem(DEFAULT_HOME_TEAM_ID)))
+            .andExpect(jsonPath("$.[*].visitorTeamId").value(hasItem(DEFAULT_VISITOR_TEAM_ID)))
             .andExpect(jsonPath("$.[*].match").value(hasItem(DEFAULT_MATCH)));
     }
     
@@ -173,8 +173,8 @@ public class TeamSocialResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(teamSocial.getId().intValue()))
-            .andExpect(jsonPath("$.home").value(DEFAULT_HOME))
-            .andExpect(jsonPath("$.visitor").value(DEFAULT_VISITOR))
+            .andExpect(jsonPath("$.homeTeamId").value(DEFAULT_HOME_TEAM_ID))
+            .andExpect(jsonPath("$.visitorTeamId").value(DEFAULT_VISITOR_TEAM_ID))
             .andExpect(jsonPath("$.match").value(DEFAULT_MATCH));
     }
     @Test
@@ -198,8 +198,8 @@ public class TeamSocialResourceIT {
         // Disconnect from session so that the updates on updatedTeamSocial are not directly saved in db
         em.detach(updatedTeamSocial);
         updatedTeamSocial
-            .home(UPDATED_HOME)
-            .visitor(UPDATED_VISITOR)
+            .homeTeamId(UPDATED_HOME_TEAM_ID)
+            .visitorTeamId(UPDATED_VISITOR_TEAM_ID)
             .match(UPDATED_MATCH);
 
         restTeamSocialMockMvc.perform(put("/api/team-socials")
@@ -211,8 +211,8 @@ public class TeamSocialResourceIT {
         List<TeamSocial> teamSocialList = teamSocialRepository.findAll();
         assertThat(teamSocialList).hasSize(databaseSizeBeforeUpdate);
         TeamSocial testTeamSocial = teamSocialList.get(teamSocialList.size() - 1);
-        assertThat(testTeamSocial.getHome()).isEqualTo(UPDATED_HOME);
-        assertThat(testTeamSocial.getVisitor()).isEqualTo(UPDATED_VISITOR);
+        assertThat(testTeamSocial.getHomeTeamId()).isEqualTo(UPDATED_HOME_TEAM_ID);
+        assertThat(testTeamSocial.getVisitorTeamId()).isEqualTo(UPDATED_VISITOR_TEAM_ID);
         assertThat(testTeamSocial.getMatch()).isEqualTo(UPDATED_MATCH);
 
         // Validate the TeamSocial in Elasticsearch
@@ -273,8 +273,8 @@ public class TeamSocialResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSocial.getId().intValue())))
-            .andExpect(jsonPath("$.[*].home").value(hasItem(DEFAULT_HOME)))
-            .andExpect(jsonPath("$.[*].visitor").value(hasItem(DEFAULT_VISITOR)))
+            .andExpect(jsonPath("$.[*].homeTeamId").value(hasItem(DEFAULT_HOME_TEAM_ID)))
+            .andExpect(jsonPath("$.[*].visitorTeamId").value(hasItem(DEFAULT_VISITOR_TEAM_ID)))
             .andExpect(jsonPath("$.[*].match").value(hasItem(DEFAULT_MATCH)));
     }
 }

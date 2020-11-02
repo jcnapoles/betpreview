@@ -50,11 +50,15 @@ public class MatchPreviewServiceImpl implements MatchPreviewService {
     }
 
 
+    public Page<MatchPreview> findAllWithEagerRelationships(Pageable pageable) {
+        return matchPreviewRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<MatchPreview> findOne(Long id) {
         log.debug("Request to get MatchPreview : {}", id);
-        return matchPreviewRepository.findById(id);
+        return matchPreviewRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

@@ -15,7 +15,9 @@
                 <dt><span jhiTranslate="betmanageApp.competition.competitionLogo">Competition Logo</span></dt>
                 <dd>
                     <div *ngIf="competition.competitionLogo">
-                        <a (click)="openFile(competition.competitionLogoContentType, competition.competitionLogo)" jhiTranslate="entity.action.open">open</a>
+                        <a (click)="openFile(competition.competitionLogoContentType, competition.competitionLogo)">
+                            <img [src]="'data:' + competition.competitionLogoContentType + ';base64,' + competition.competitionLogo" style="max-width: 100%;" alt="competition image"/>
+                        </a>
                         {{ competition.competitionLogoContentType }}, {{ byteSize(competition.competitionLogo) }}
                     </div>
                 </dd>

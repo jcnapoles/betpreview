@@ -386,6 +386,8 @@ public class SportScribeAPI {
 		partsService.save(parts);		
 		partsSet.add(parts);
 		
+		matchPreview.setParts(partsSet);
+		
 		Set<Team> teams = new HashSet<Team>();
 		/**Create or Load homeTeam*/
 		Team homeTeam = new Team();
@@ -394,7 +396,7 @@ public class SportScribeAPI {
 			homeTeam = homeTeamOptional.get();
 		}
 		homeTeam.setTeamName(preview.getHometeam_name());		
-		
+		teamService.save(homeTeam);
 		
 		
 		/**Create or Load visitorTeam*/
@@ -404,6 +406,7 @@ public class SportScribeAPI {
 			visitorTeam = visitorTeamOptional.get();
 		}
 		visitorTeam.setTeamName(preview.getVisitorteam_name());		
+		teamService.save(visitorTeam);
 		
 		/*Create or Load Social*/
 		TeamSocial teamSocial = new TeamSocial();		
@@ -424,15 +427,18 @@ public class SportScribeAPI {
 						socialMediaService.save(socialMedia);
 						socialMediaSet.add(socialMedia);
 					}
+					
 					Integer tId = 0; 
 					if (!key.equalsIgnoreCase("match")) {
 						//Optional<TeamSocial> teamSocialOptional = teamSocialService.findOneByTag("") ;
 						tId = Integer.parseInt(key);
-						if(tId == homeTeam.getTeamId()) {
-							teamSocial.setHome(tId);
+						Integer homeTeamId = homeTeam.getTeamId();
+						if(tId.equals(homeTeamId)) {
+							teamSocial.setHomeTeamId(tId);
 							homeTeam.setSocialMedias(socialMediaSet);
 						}else {
-							teamSocial.setVisitor(tId);
+							teamSocial.setVisitorTeamId(tId);
+							
 							visitorTeam.setSocialMedias(socialMediaSet);
 						}
 						
@@ -443,19 +449,19 @@ public class SportScribeAPI {
 				}
 			}
 		}
-		teamService.save(homeTeam);
+		teamSocialService.save(teamSocial);		
 		
+		teamService.save(homeTeam);
 		matchPreview.setHomeTeam(homeTeam);
 		teams.add(homeTeam);
 		
+		
 		teamService.save(visitorTeam);
-		
 		matchPreview.setVisitorTeam(visitorTeam);
-		teams.add(visitorTeam);
+		teams.add(visitorTeam);		
 		
-		matchPreview.setTeams(teams);
 		
-		teamSocialService.save(teamSocial);
+		matchPreview.setTeams(teams);		
 		
 		matchPreview.setSocial(teamSocial);
 		

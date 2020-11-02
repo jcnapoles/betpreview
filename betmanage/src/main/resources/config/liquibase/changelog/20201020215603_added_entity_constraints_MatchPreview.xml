@@ -26,6 +26,18 @@
                                  referencedColumnNames="id"
                                  referencedTableName="team_social"/>
 
+        <addForeignKeyConstraint baseColumnNames="match_preview_id"
+                                 baseTableName="match_preview_team"
+                                 constraintName="fk_match_preview_team_match_preview_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_preview"/>
+
+        <addForeignKeyConstraint baseColumnNames="team_id"
+                                 baseTableName="match_preview_team"
+                                 constraintName="fk_match_preview_team_team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+        
         <addForeignKeyConstraint baseColumnNames="competition_id"
                                  baseTableName="match_preview"
                                  constraintName="fk_match_preview_competition_id"

@@ -10,7 +10,7 @@ import { LanguageEnum } from 'app/shared/model/enumerations/language-enum.model'
 
 export interface IMatchPreview {
   id?: number;
-  blurbFull?: string;
+  blurbFull?: any;
   fixtureId?: number;
   hometeamId?: number;
   visitorteamId?: number;
@@ -37,15 +37,15 @@ export interface IMatchPreview {
   titles?: ITitle[];
   paragraphs?: IParagraphs[];
   parts?: IParts[];
+  teams?: ITeam[];
   competition?: ICompetition;
   country?: ICountry;
-  teams?: ITeam[];
 }
 
 export class MatchPreview implements IMatchPreview {
   constructor(
     public id?: number,
-    public blurbFull?: string,
+    public blurbFull?: any,
     public fixtureId?: number,
     public hometeamId?: number,
     public visitorteamId?: number,
@@ -72,8 +72,8 @@ export class MatchPreview implements IMatchPreview {
     public titles?: ITitle[],
     public paragraphs?: IParagraphs[],
     public parts?: IParts[],
+    public teams?: ITeam[],
     public competition?: ICompetition,
-    public country?: ICountry,
-    public teams?: ITeam[]
+    public country?: ICountry
   ) {}
 }

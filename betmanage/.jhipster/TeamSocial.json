@@ -2,11 +2,11 @@
   "name": "TeamSocial",
   "fields": [
     {
-      "fieldName": "home",
+      "fieldName": "homeTeamId",
       "fieldType": "Integer"
     },
     {
-      "fieldName": "visitor",
+      "fieldName": "visitorTeamId",
       "fieldType": "Integer"
     },
     {

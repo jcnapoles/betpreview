@@ -26,15 +26,14 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.competition.competitionLogo" for="field_competitionLogo">Competition Logo</label>
                     <div>
+                        <img [src]="'data:' + editForm.get('competitionLogoContentType')!.value + ';base64,' + editForm.get('competitionLogo')!.value" style="max-height: 100px;" *ngIf="editForm.get('competitionLogo')!.value" alt="competition image"/>
                         <div *ngIf="editForm.get('competitionLogo')!.value" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(editForm.get('competitionLogoContentType')!.value, editForm.get('competitionLogo')!.value)" jhiTranslate="entity.action.open">open</a><br>
                             <span class="pull-left">{{ editForm.get('competitionLogoContentType')!.value }}, {{ byteSize(editForm.get('competitionLogo')!.value) }}</span>
-                            <button type="button" (click)="editForm.patchValue({competitionLogo: null});editForm.patchValue({competitionLogoContentType: null});"
-                                    class="btn btn-secondary btn-xs pull-right">
+                            <button type="button" (click)="clearInputImage('competitionLogo', 'competitionLogoContentType', 'file_competitionLogo')" class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon icon="times"></fa-icon>
                             </button>
                         </div>
-                        <input type="file" id="file_competitionLogo" (change)="setFileData($event, 'competitionLogo', false)" jhiTranslate="entity.action.addblob"/>
+                        <input type="file" id="file_competitionLogo" (change)="setFileData($event, 'competitionLogo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="competitionLogo" id="field_competitionLogo"
                            formControlName="competitionLogo"/>

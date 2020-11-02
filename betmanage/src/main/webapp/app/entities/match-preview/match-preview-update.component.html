@@ -13,8 +13,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.blurbFull" for="field_blurbFull">Blurb Full</label>
-                    <input type="text" class="form-control" name="blurbFull" id="field_blurbFull"
-                           formControlName="blurbFull"/>
+                    <textarea class="form-control" name="blurbFull" id="field_blurbFull"
+                              formControlName="blurbFull"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -72,15 +72,14 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.fixtureImg" for="field_fixtureImg">Fixture Img</label>
                     <div>
+                        <img [src]="'data:' + editForm.get('fixtureImgContentType')!.value + ';base64,' + editForm.get('fixtureImg')!.value" style="max-height: 100px;" *ngIf="editForm.get('fixtureImg')!.value" alt="matchPreview image"/>
                         <div *ngIf="editForm.get('fixtureImg')!.value" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(editForm.get('fixtureImgContentType')!.value, editForm.get('fixtureImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
                             <span class="pull-left">{{ editForm.get('fixtureImgContentType')!.value }}, {{ byteSize(editForm.get('fixtureImg')!.value) }}</span>
-                            <button type="button" (click)="editForm.patchValue({fixtureImg: null});editForm.patchValue({fixtureImgContentType: null});"
-                                    class="btn btn-secondary btn-xs pull-right">
+                            <button type="button" (click)="clearInputImage('fixtureImg', 'fixtureImgContentType', 'file_fixtureImg')" class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon icon="times"></fa-icon>
                             </button>
                         </div>
-                        <input type="file" id="file_fixtureImg" (change)="setFileData($event, 'fixtureImg', false)" jhiTranslate="entity.action.addblob"/>
+                        <input type="file" id="file_fixtureImg" (change)="setFileData($event, 'fixtureImg', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="fixtureImg" id="field_fixtureImg"
                            formControlName="fixtureImg"/>
@@ -91,15 +90,14 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.formationImg" for="field_formationImg">Formation Img</label>
                     <div>
+                        <img [src]="'data:' + editForm.get('formationImgContentType')!.value + ';base64,' + editForm.get('formationImg')!.value" style="max-height: 100px;" *ngIf="editForm.get('formationImg')!.value" alt="matchPreview image"/>
                         <div *ngIf="editForm.get('formationImg')!.value" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(editForm.get('formationImgContentType')!.value, editForm.get('formationImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
                             <span class="pull-left">{{ editForm.get('formationImgContentType')!.value }}, {{ byteSize(editForm.get('formationImg')!.value) }}</span>
-                            <button type="button" (click)="editForm.patchValue({formationImg: null});editForm.patchValue({formationImgContentType: null});"
-                                    class="btn btn-secondary btn-xs pull-right">
+                            <button type="button" (click)="clearInputImage('formationImg', 'formationImgContentType', 'file_formationImg')" class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon icon="times"></fa-icon>
                             </button>
                         </div>
-                        <input type="file" id="file_formationImg" (change)="setFileData($event, 'formationImg', false)" jhiTranslate="entity.action.addblob"/>
+                        <input type="file" id="file_formationImg" (change)="setFileData($event, 'formationImg', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="formationImg" id="field_formationImg"
                            formControlName="formationImg"/>
@@ -129,15 +127,14 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.matchImg" for="field_matchImg">Match Img</label>
                     <div>
+                        <img [src]="'data:' + editForm.get('matchImgContentType')!.value + ';base64,' + editForm.get('matchImg')!.value" style="max-height: 100px;" *ngIf="editForm.get('matchImg')!.value" alt="matchPreview image"/>
                         <div *ngIf="editForm.get('matchImg')!.value" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(editForm.get('matchImgContentType')!.value, editForm.get('matchImg')!.value)" jhiTranslate="entity.action.open">open</a><br>
                             <span class="pull-left">{{ editForm.get('matchImgContentType')!.value }}, {{ byteSize(editForm.get('matchImg')!.value) }}</span>
-                            <button type="button" (click)="editForm.patchValue({matchImg: null});editForm.patchValue({matchImgContentType: null});"
-                                    class="btn btn-secondary btn-xs pull-right">
+                            <button type="button" (click)="clearInputImage('matchImg', 'matchImgContentType', 'file_matchImg')" class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon icon="times"></fa-icon>
                             </button>
                         </div>
-                        <input type="file" id="file_matchImg" (change)="setFileData($event, 'matchImg', false)" jhiTranslate="entity.action.addblob"/>
+                        <input type="file" id="file_matchImg" (change)="setFileData($event, 'matchImg', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="matchImg" id="field_matchImg"
                            formControlName="matchImg"/>
@@ -197,6 +194,13 @@
                     <select class="form-control" id="field_social" name="social" formControlName="social">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="teamSocialOption.id === editForm.get('social')!.value?.id ? editForm.get('social')!.value : teamSocialOption" *ngFor="let teamSocialOption of socials; trackBy: trackById">{{ teamSocialOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="betmanageApp.matchPreview.team" for="field_teams">Team</label>
+                    <select class="form-control" id="field_teams" multiple name="teams" formControlName="teams">
+                        <option [ngValue]="getSelected(editForm.get('teams')!.value, teamOption)" *ngFor="let teamOption of teams; trackBy: trackById">{{ teamOption.id }}</option>
                     </select>
                 </div>
 

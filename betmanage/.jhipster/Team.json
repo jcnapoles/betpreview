@@ -19,7 +19,7 @@
     {
       "fieldName": "teamLogo",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any"
+      "fieldTypeBlobContent": "image"
     },
     {
       "fieldName": "teamId",
@@ -34,14 +34,6 @@
       "relationshipName": "socialMedia"
     },
     {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "matchPreview",
-      "otherEntityRelationshipName": "team",
-      "relationshipName": "matchPreview",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "many-to-one",
       "otherEntityName": "country",
       "otherEntityRelationshipName": "team",
@@ -53,6 +45,14 @@
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "team",
       "relationshipName": "competition",
+      "otherEntityField": "id",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "matchPreview",
       "otherEntityField": "id",
       "ownerSide": false
     }

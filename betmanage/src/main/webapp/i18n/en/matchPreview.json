@@ -43,9 +43,9 @@
       "title": "Title",
       "paragraphs": "Paragraphs",
       "parts": "Parts",
+      "team": "Team",
       "competition": "Competition",
-      "country": "Country",
-      "team": "Team"
+      "country": "Country"
     }
   }
 }

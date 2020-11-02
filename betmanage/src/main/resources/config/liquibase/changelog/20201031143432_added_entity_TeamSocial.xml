@@ -16,10 +16,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="home" type="integer">
+            <column name="home_team_id" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="visitor" type="integer">
+            <column name="visitor_team_id" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="jhi_match" type="varchar(255)">
@@ -48,8 +48,8 @@
                   separator=";"
                   tableName="team_social">
             <column name="id" type="numeric"/>
-            <column name="home" type="numeric"/>
-            <column name="visitor" type="numeric"/>
+            <column name="home_team_id" type="numeric"/>
+            <column name="visitor_team_id" type="numeric"/>
             <column name="jhi_match" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

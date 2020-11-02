@@ -57,7 +57,9 @@
                     <td>{{ team.shortCode }}</td>
                     <td>{{ team.isNationalTeam }}</td>
                     <td>
-                        <a *ngIf="team.teamLogo" (click)="openFile(team.teamLogoContentType, team.teamLogo)" jhiTranslate="entity.action.open">open</a>
+                        <a *ngIf="team.teamLogo" (click)="openFile(team.teamLogoContentType, team.teamLogo)">
+                            <img [src]="'data:' + team.teamLogoContentType + ';base64,' + team.teamLogo" style="max-height: 30px;" alt="team image"/>
+                        </a>
                         <span *ngIf="team.teamLogo">{{ team.teamLogoContentType }}, {{ byteSize(team.teamLogo) }}</span>
                     </td>
                     <td>{{ team.teamId }}</td>

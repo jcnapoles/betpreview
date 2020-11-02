@@ -135,12 +135,18 @@ public class MatchPreviewResource {
      * {@code GET  /match-previews} : get all the matchPreviews.
      *
      * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of matchPreviews in body.
      */
     @GetMapping("/match-previews")
-    public ResponseEntity<List<MatchPreview>> getAllMatchPreviews(Pageable pageable) {
+    public ResponseEntity<List<MatchPreview>> getAllMatchPreviews(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of MatchPreviews");
-        Page<MatchPreview> page = matchPreviewService.findAll(pageable);
+        Page<MatchPreview> page;
+        if (eagerload) {
+            page = matchPreviewService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = matchPreviewService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

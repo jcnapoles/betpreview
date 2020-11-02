@@ -11,7 +11,7 @@
     {
       "fieldName": "competitionLogo",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any"
+      "fieldTypeBlobContent": "image"
     },
     {
       "fieldName": "isCup",

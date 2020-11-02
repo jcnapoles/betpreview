@@ -63,7 +63,9 @@
                     <td><a [routerLink]="['/competition', competition.id, 'view']">{{ competition.id }}</a></td>
                     <td>{{ competition.competitionName }}</td>
                     <td>
-                        <a *ngIf="competition.competitionLogo" (click)="openFile(competition.competitionLogoContentType, competition.competitionLogo)" jhiTranslate="entity.action.open">open</a>
+                        <a *ngIf="competition.competitionLogo" (click)="openFile(competition.competitionLogoContentType, competition.competitionLogo)">
+                            <img [src]="'data:' + competition.competitionLogoContentType + ';base64,' + competition.competitionLogo" style="max-height: 30px;" alt="competition image"/>
+                        </a>
                         <span *ngIf="competition.competitionLogo">{{ competition.competitionLogoContentType }}, {{ byteSize(competition.competitionLogo) }}</span>
                     </td>
                     <td>{{ competition.isCup }}</td>

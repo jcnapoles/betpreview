@@ -17,8 +17,8 @@
       "detail": {
         "title": "Team Social"
       },
-      "homeTeam": "Home",
-      "visitor": "Visitor",
+      "homeTeamId": "Home Team Id",
+      "visitorTeamId": "Visitor Team Id",
       "match": "Match",
       "socialMediaMatch": "Social Media Match"
     }
