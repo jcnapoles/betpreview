@@ -89,12 +89,6 @@
                 <dd>
                     <span jhiTranslate="{{ 'betmanageApp.LanguageEnum.' + matchPreview.language }}">{{ matchPreview.language }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>
-                <dd>
-                    <div *ngIf="matchPreview.country">
-                        <a [routerLink]="['/country', matchPreview.country?.id, 'view']">{{ matchPreview.country?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span></dt>
                 <dd>
                     <div *ngIf="matchPreview.homeTeam">
@@ -117,6 +111,12 @@
                 <dd>
                     <div *ngIf="matchPreview.competition">
                         <a [routerLink]="['/competition', matchPreview.competition?.id, 'view']">{{ matchPreview.competition?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.country">
+                        <a [routerLink]="['/country', matchPreview.country?.id, 'view']">{{ matchPreview.country?.id }}</a>
                     </div>
                 </dd>
             </dl>

@@ -8,12 +8,6 @@
     -->
     <changeSet id="20201020215603-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="country_id"
-                                 baseTableName="match_preview"
-                                 constraintName="fk_match_preview_country_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="country"/>
-
         <addForeignKeyConstraint baseColumnNames="home_team_id"
                                  baseTableName="match_preview"
                                  constraintName="fk_match_preview_home_team_id"
@@ -37,6 +31,12 @@
                                  constraintName="fk_match_preview_competition_id"
                                  referencedColumnNames="id"
                                  referencedTableName="competition"/>
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="match_preview"
+                                 constraintName="fk_match_preview_country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"/>
 
     </changeSet>
 </databaseChangeLog>

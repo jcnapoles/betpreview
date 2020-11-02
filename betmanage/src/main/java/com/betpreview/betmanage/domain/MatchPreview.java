@@ -1,34 +1,21 @@
 package com.betpreview.betmanage.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A MatchPreview.
@@ -45,8 +32,7 @@ public class MatchPreview implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "blurb_full", length = 1500)
-   
+    @Column(name = "blurb_full")
     private String blurbFull;
 
     @NotNull
@@ -116,10 +102,6 @@ public class MatchPreview implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Country country;
-
-    @OneToOne
-    @JoinColumn(unique = true)
     private Team homeTeam;
 
     @OneToOne
@@ -145,6 +127,10 @@ public class MatchPreview implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
     private Competition competition;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
+    private Country country;
 
     @ManyToMany(mappedBy = "matchPreviews")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -433,19 +419,6 @@ public class MatchPreview implements Serializable {
         this.language = language;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public MatchPreview country(Country country) {
-        this.country = country;
-        return this;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Team getHomeTeam() {
         return homeTeam;
     }
@@ -571,6 +544,19 @@ public class MatchPreview implements Serializable {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public MatchPreview country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Set<Team> getTeams() {

@@ -1,7 +1,6 @@
 package com.betpreview.betmanage.repository;
 
 import com.betpreview.betmanage.domain.MatchPreview;
-import com.betpreview.betmanage.domain.Team;
 
 import java.util.Optional;
 

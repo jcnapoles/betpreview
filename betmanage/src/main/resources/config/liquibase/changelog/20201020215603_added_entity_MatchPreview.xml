@@ -79,9 +79,6 @@
             <column name="language" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="country_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_country_id" />
-            </column>
             <column name="home_team_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_home_team_id" />
             </column>
@@ -92,6 +89,9 @@
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_match_preview_social_id" />
             </column>
             <column name="competition_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="country_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

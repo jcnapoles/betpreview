@@ -35,7 +35,6 @@
       "headline": "Headline",
       "date": "Date",
       "language": "Language",
-      "country": "Country",
       "homeTeam": "Home Team",
       "visitorTeam": "Visitor Team",
       "social": "Social",
@@ -43,6 +42,7 @@
       "paragraphs": "Paragraphs",
       "parts": "Parts",
       "competition": "Competition",
+      "country": "Country",
       "team": "Team"
     }
   }

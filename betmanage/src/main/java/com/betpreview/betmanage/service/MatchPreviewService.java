@@ -1,11 +1,11 @@
 package com.betpreview.betmanage.service;
 
-import java.util.Optional;
+import com.betpreview.betmanage.domain.MatchPreview;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.betpreview.betmanage.domain.MatchPreview;
+import java.util.Optional;
 
 /**
  * Service Interface for managing {@link MatchPreview}.

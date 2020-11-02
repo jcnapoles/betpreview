@@ -21,6 +21,12 @@
       "otherEntityName": "team",
       "otherEntityRelationshipName": "country",
       "relationshipName": "team"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "matchPreview"
     }
   ],
   "changelogDate": "20201020215503",

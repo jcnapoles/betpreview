@@ -84,14 +84,6 @@
   "relationships": [
     {
       "relationshipType": "one-to-one",
-      "otherEntityName": "country",
-      "otherEntityRelationshipName": "matchPreview",
-      "relationshipName": "country",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
-      "relationshipType": "one-to-one",
       "otherEntityName": "team",
       "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "homeTeam",
@@ -137,6 +129,13 @@
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "competition",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "matchPreview",
+      "relationshipName": "country",
       "otherEntityField": "id"
     },
     {

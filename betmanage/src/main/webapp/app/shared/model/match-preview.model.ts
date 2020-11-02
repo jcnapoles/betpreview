@@ -1,11 +1,11 @@
 import { Moment } from 'moment';
-import { ICountry } from 'app/shared/model/country.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { ITeamSocial } from 'app/shared/model/team-social.model';
 import { ITitle } from 'app/shared/model/title.model';
 import { IParagraphs } from 'app/shared/model/paragraphs.model';
 import { IParts } from 'app/shared/model/parts.model';
 import { ICompetition } from 'app/shared/model/competition.model';
+import { ICountry } from 'app/shared/model/country.model';
 import { LanguageEnum } from 'app/shared/model/enumerations/language-enum.model';
 
 export interface IMatchPreview {
@@ -31,7 +31,6 @@ export interface IMatchPreview {
   headline?: string;
   date?: Moment;
   language?: LanguageEnum;
-  country?: ICountry;
   homeTeam?: ITeam;
   visitorTeam?: ITeam;
   social?: ITeamSocial;
@@ -39,6 +38,7 @@ export interface IMatchPreview {
   paragraphs?: IParagraphs[];
   parts?: IParts[];
   competition?: ICompetition;
+  country?: ICountry;
   teams?: ITeam[];
 }
 
@@ -66,7 +66,6 @@ export class MatchPreview implements IMatchPreview {
     public headline?: string,
     public date?: Moment,
     public language?: LanguageEnum,
-    public country?: ICountry,
     public homeTeam?: ITeam,
     public visitorTeam?: ITeam,
     public social?: ITeamSocial,
@@ -74,6 +73,7 @@ export class MatchPreview implements IMatchPreview {
     public paragraphs?: IParagraphs[],
     public parts?: IParts[],
     public competition?: ICompetition,
+    public country?: ICountry,
     public teams?: ITeam[]
   ) {}
 }

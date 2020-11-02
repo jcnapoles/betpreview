@@ -1,6 +1,5 @@
 package com.betpreview.betmanage.repository;
 
-import com.betpreview.betmanage.domain.Competition;
 import com.betpreview.betmanage.domain.Country;
 
 import java.util.Optional;

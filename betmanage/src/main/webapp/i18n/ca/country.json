@@ -19,7 +19,8 @@
       },
       "countryName": "Country Name",
       "competition": "Competition",
-      "team": "Team"
+      "team": "Team",
+      "matchPreview": "Match Preview"
     }
   }
 }

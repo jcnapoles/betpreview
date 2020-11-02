@@ -12,16 +12,16 @@ import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } 
 import { IMatchPreview, MatchPreview } from 'app/shared/model/match-preview.model';
 import { MatchPreviewService } from './match-preview.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
-import { ICountry } from 'app/shared/model/country.model';
-import { CountryService } from 'app/entities/country/country.service';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team/team.service';
 import { ITeamSocial } from 'app/shared/model/team-social.model';
 import { TeamSocialService } from 'app/entities/team-social/team-social.service';
 import { ICompetition } from 'app/shared/model/competition.model';
 import { CompetitionService } from 'app/entities/competition/competition.service';
+import { ICountry } from 'app/shared/model/country.model';
+import { CountryService } from 'app/entities/country/country.service';
 
-type SelectableEntity = ICountry | ITeam | ITeamSocial | ICompetition;
+type SelectableEntity = ITeam | ITeamSocial | ICompetition | ICountry;
 
 @Component({
   selector: 'jhi-match-preview-update',
@@ -29,11 +29,11 @@ type SelectableEntity = ICountry | ITeam | ITeamSocial | ICompetition;
 })
 export class MatchPreviewUpdateComponent implements OnInit {
   isSaving = false;
-  countries: ICountry[] = [];
   hometeams: ITeam[] = [];
   visitorteams: ITeam[] = [];
   socials: ITeamSocial[] = [];
   competitions: ICompetition[] = [];
+  countries: ICountry[] = [];
   dateDp: any;
 
   editForm = this.fb.group({
@@ -59,21 +59,21 @@ export class MatchPreviewUpdateComponent implements OnInit {
     headline: [],
     date: [],
     language: [],
-    country: [],
     homeTeam: [],
     visitorTeam: [],
     social: [],
     competition: [],
+    country: [],
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected matchPreviewService: MatchPreviewService,
-    protected countryService: CountryService,
     protected teamService: TeamService,
     protected teamSocialService: TeamSocialService,
     protected competitionService: CompetitionService,
+    protected countryService: CountryService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -86,28 +86,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
       }
 
       this.updateForm(matchPreview);
-
-      this.countryService
-        .query({ filter: 'matchpreview-is-null' })
-        .pipe(
-          map((res: HttpResponse<ICountry[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICountry[]) => {
-          if (!matchPreview.country || !matchPreview.country.id) {
-            this.countries = resBody;
-          } else {
-            this.countryService
-              .find(matchPreview.country.id)
-              .pipe(
-                map((subRes: HttpResponse<ICountry>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICountry[]) => (this.countries = concatRes));
-          }
-        });
 
       this.teamService
         .query({ filter: 'matchpreview-is-null' })
@@ -176,6 +154,8 @@ export class MatchPreviewUpdateComponent implements OnInit {
         });
 
       this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
+
+      this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
   }
 
@@ -203,11 +183,11 @@ export class MatchPreviewUpdateComponent implements OnInit {
       headline: matchPreview.headline,
       date: matchPreview.date,
       language: matchPreview.language,
-      country: matchPreview.country,
       homeTeam: matchPreview.homeTeam,
       visitorTeam: matchPreview.visitorTeam,
       social: matchPreview.social,
       competition: matchPreview.competition,
+      country: matchPreview.country,
     });
   }
 
@@ -268,11 +248,11 @@ export class MatchPreviewUpdateComponent implements OnInit {
       headline: this.editForm.get(['headline'])!.value,
       date: this.editForm.get(['date'])!.value,
       language: this.editForm.get(['language'])!.value,
-      country: this.editForm.get(['country'])!.value,
       homeTeam: this.editForm.get(['homeTeam'])!.value,
       visitorTeam: this.editForm.get(['visitorTeam'])!.value,
       social: this.editForm.get(['social'])!.value,
       competition: this.editForm.get(['competition'])!.value,
+      country: this.editForm.get(['country'])!.value,
     };
   }
 

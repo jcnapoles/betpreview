@@ -71,11 +71,11 @@
                     <th scope="col"  jhiSortBy="headline"><span jhiTranslate="betmanageApp.matchPreview.headline">Headline</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="date"><span jhiTranslate="betmanageApp.matchPreview.date">Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="language"><span jhiTranslate="betmanageApp.matchPreview.language">Language</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.matchPreview.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="homeTeam.id"><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="visitorTeam.id"><span jhiTranslate="betmanageApp.matchPreview.visitorTeam">Visitor Team</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="social.id"><span jhiTranslate="betmanageApp.matchPreview.social">Social</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="competition.id"><span jhiTranslate="betmanageApp.matchPreview.competition">Competition</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.matchPreview.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -110,11 +110,6 @@
                     <td>{{ matchPreview.date | date:'mediumDate' }}</td>
                     <td jhiTranslate="{{ 'betmanageApp.LanguageEnum.' + matchPreview.language }}">{{ matchPreview.language }}</td>
                     <td>
-                        <div *ngIf="matchPreview.country">
-                            <a [routerLink]="['/country', matchPreview.country?.id, 'view']" >{{ matchPreview.country?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
                         <div *ngIf="matchPreview.homeTeam">
                             <a [routerLink]="['/team', matchPreview.homeTeam?.id, 'view']" >{{ matchPreview.homeTeam?.id }}</a>
                         </div>
@@ -132,6 +127,11 @@
                     <td>
                         <div *ngIf="matchPreview.competition">
                             <a [routerLink]="['/competition', matchPreview.competition?.id, 'view']" >{{ matchPreview.competition?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="matchPreview.country">
+                            <a [routerLink]="['/country', matchPreview.country?.id, 'view']" >{{ matchPreview.country?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">
