@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,6 +65,12 @@ public class CompetitionResourceIT {
 
     @Autowired
     private CompetitionRepository competitionRepository;
+
+    @Mock
+    private CompetitionRepository competitionRepositoryMock;
+
+    @Mock
+    private CompetitionService competitionServiceMock;
 
     @Autowired
     private CompetitionService competitionService;
@@ -212,6 +219,26 @@ public class CompetitionResourceIT {
             .andExpect(jsonPath("$.[*].sportscribeId").value(hasItem(DEFAULT_SPORTSCRIBE_ID)));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllCompetitionsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(competitionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCompetitionMockMvc.perform(get("/api/competitions?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(competitionServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllCompetitionsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(competitionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCompetitionMockMvc.perform(get("/api/competitions?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(competitionServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getCompetition() throws Exception {

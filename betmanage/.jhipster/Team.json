@@ -43,17 +43,18 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "competition",
-      "otherEntityRelationshipName": "team",
-      "relationshipName": "competition",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "country",
       "otherEntityRelationshipName": "team",
       "relationshipName": "country",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "competition",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "competition",
+      "otherEntityField": "id",
+      "ownerSide": false
     }
   ],
   "changelogDate": "20201020220003",

@@ -68,14 +68,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.team.competition" for="field_competition">Competition</label>
-                    <select class="form-control" id="field_competition" name="competition" formControlName="competition">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="competitionOption.id === editForm.get('competition')!.value?.id ? editForm.get('competition')!.value : competitionOption" *ngFor="let competitionOption of competitions; trackBy: trackById">{{ competitionOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="betmanageApp.team.country" for="field_country">Country</label>
                     <select class="form-control" id="field_country" name="country" formControlName="country">
                         <option [ngValue]="null"></option>

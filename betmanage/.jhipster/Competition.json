@@ -34,15 +34,17 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
-      "otherEntityName": "team",
-      "otherEntityRelationshipName": "competition",
-      "relationshipName": "team"
-    },
-    {
-      "relationshipType": "one-to-many",
       "otherEntityName": "matchPreview",
       "otherEntityRelationshipName": "competition",
       "relationshipName": "matchPreview"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "competition",
+      "relationshipName": "team",
+      "otherEntityField": "id",
+      "ownerSide": true
     },
     {
       "relationshipType": "many-to-one",

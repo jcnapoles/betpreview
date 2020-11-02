@@ -1,27 +1,17 @@
 package com.betpreview.betmanage.domain;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Team.
@@ -71,11 +61,12 @@ public class Team implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
-    private Competition competition;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "teams", allowSetters = true)
     private Country country;
+
+    @ManyToMany(mappedBy = "teams")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
+    private Set<Competition> competitions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -214,19 +205,6 @@ public class Team implements Serializable {
         this.matchPreviews = matchPreviews;
     }
 
-    public Competition getCompetition() {
-        return competition;
-    }
-
-    public Team competition(Competition competition) {
-        this.competition = competition;
-        return this;
-    }
-
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
-    }
-
     public Country getCountry() {
         return country;
     }
@@ -238,6 +216,31 @@ public class Team implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Set<Competition> getCompetitions() {
+        return competitions;
+    }
+
+    public Team competitions(Set<Competition> competitions) {
+        this.competitions = competitions;
+        return this;
+    }
+
+    public Team addCompetition(Competition competition) {
+        this.competitions.add(competition);
+        competition.getTeams().add(this);
+        return this;
+    }
+
+    public Team removeCompetition(Competition competition) {
+        this.competitions.remove(competition);
+        competition.getTeams().remove(this);
+        return this;
+    }
+
+    public void setCompetitions(Set<Competition> competitions) {
+        this.competitions = competitions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -49,6 +49,17 @@
 
     <changeSet id="20201020215403-1-relations" author="jhipster">
 
+        <createTable tableName="competition_team">
+            <column name="team_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="competition_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="competition_id, team_id" tableName="competition_team"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 

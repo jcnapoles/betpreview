@@ -45,8 +45,8 @@ public class MatchPreview implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "blurb_full")
-    @Size(max = 1500)
+    @Column(name = "blurb_full", length = 1500)
+   
     private String blurbFull;
 
     @NotNull

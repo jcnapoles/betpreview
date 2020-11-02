@@ -20,12 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="match_preview"/>
         
-        <addForeignKeyConstraint baseColumnNames="competition_id"
-                                 baseTableName="team"
-                                 constraintName="fk_team_competition_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="competition"/>
-
         <addForeignKeyConstraint baseColumnNames="country_id"
                                  baseTableName="team"
                                  constraintName="fk_team_country_id"

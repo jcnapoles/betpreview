@@ -50,11 +50,15 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
 
+    public Page<Competition> findAllWithEagerRelationships(Pageable pageable) {
+        return competitionRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Competition> findOne(Long id) {
         log.debug("Request to get Competition : {}", id);
-        return competitionRepository.findById(id);
+        return competitionRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

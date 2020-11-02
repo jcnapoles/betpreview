@@ -37,12 +37,6 @@
                         <a [routerLink]="['/match-preview', matchPreview?.id, 'view']">{{ matchPreview.id }}</a>{{ last ? '' : ', ' }}
                     </span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.team.competition">Competition</span></dt>
-                <dd>
-                    <div *ngIf="team.competition">
-                        <a [routerLink]="['/competition', team.competition?.id, 'view']">{{ team.competition?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.team.country">Country</span></dt>
                 <dd>
                     <div *ngIf="team.country">

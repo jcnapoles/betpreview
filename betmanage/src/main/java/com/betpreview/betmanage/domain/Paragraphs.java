@@ -31,8 +31,7 @@ public class Paragraphs implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content")
-    @Size(max = 1000)
+    @Column(name = "content", length = 1000)   
     private String content;
 
     @ManyToOne

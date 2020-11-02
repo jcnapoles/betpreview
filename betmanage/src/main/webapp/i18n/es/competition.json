@@ -4,7 +4,6 @@
       "home": {
         "title": "Competitions",
         "createLabel": "Crear nuevo Competition",
-        "loadCompetitionLabel": "Cargar Competiciones By API",
         "createOrEditLabel": "Crear o editar Competition",
         "search": "Buscar Competition",
         "notFound": "Ningún Competitions encontrado"
@@ -24,8 +23,8 @@
       "active": "Active",
       "type": "Type",
       "sportscribeId": "Sportscribe Id",
-      "team": "Team",
       "matchPreview": "Match Preview",
+      "team": "Team",
       "sport": "Sport",
       "country": "Country"
     }

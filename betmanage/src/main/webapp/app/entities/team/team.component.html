@@ -46,7 +46,6 @@
                     <th scope="col"  jhiSortBy="isNationalTeam"><span jhiTranslate="betmanageApp.team.isNationalTeam">Is National Team</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="teamLogo"><span jhiTranslate="betmanageApp.team.teamLogo">Team Logo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="teamId"><span jhiTranslate="betmanageApp.team.teamId">Team Id</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="competition.id"><span jhiTranslate="betmanageApp.team.competition">Competition</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.team.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -62,11 +61,6 @@
                         <span *ngIf="team.teamLogo">{{ team.teamLogoContentType }}, {{ byteSize(team.teamLogo) }}</span>
                     </td>
                     <td>{{ team.teamId }}</td>
-                    <td>
-                        <div *ngIf="team.competition">
-                            <a [routerLink]="['/competition', team.competition?.id, 'view']" >{{ team.competition?.id }}</a>
-                        </div>
-                    </td>
                     <td>
                         <div *ngIf="team.country">
                             <a [routerLink]="['/country', team.country?.id, 'view']" >{{ team.country?.id }}</a>

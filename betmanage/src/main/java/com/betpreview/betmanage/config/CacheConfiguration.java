@@ -73,6 +73,7 @@ public class CacheConfiguration {
             createCache(cm, com.betpreview.betmanage.domain.Parts.class.getName());
             createCache(cm, com.betpreview.betmanage.domain.TeamSocial.class.getName());
             createCache(cm, com.betpreview.betmanage.domain.TeamSocial.class.getName() + ".socialMediaMatches");
+            createCache(cm, com.betpreview.betmanage.domain.Team.class.getName() + ".competitions");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -55,11 +55,14 @@ public class Competition implements Serializable {
 
     @OneToMany(mappedBy = "competition")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Team> teams = new HashSet<>();
-
-    @OneToMany(mappedBy = "competition")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<MatchPreview> matchPreviews = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "competition_team",
+               joinColumns = @JoinColumn(name = "competition_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"))
+    private Set<Team> teams = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = "competitions", allowSetters = true)
@@ -169,31 +172,6 @@ public class Competition implements Serializable {
         this.sportscribeId = sportscribeId;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
-
-    public Competition teams(Set<Team> teams) {
-        this.teams = teams;
-        return this;
-    }
-
-    public Competition addTeam(Team team) {
-        this.teams.add(team);
-        team.setCompetition(this);
-        return this;
-    }
-
-    public Competition removeTeam(Team team) {
-        this.teams.remove(team);
-        team.setCompetition(null);
-        return this;
-    }
-
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
-
     public Set<MatchPreview> getMatchPreviews() {
         return matchPreviews;
     }
@@ -217,6 +195,31 @@ public class Competition implements Serializable {
 
     public void setMatchPreviews(Set<MatchPreview> matchPreviews) {
         this.matchPreviews = matchPreviews;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public Competition teams(Set<Team> teams) {
+        this.teams = teams;
+        return this;
+    }
+
+    public Competition addTeam(Team team) {
+        this.teams.add(team);
+        team.getCompetitions().add(this);
+        return this;
+    }
+
+    public Competition removeTeam(Team team) {
+        this.teams.remove(team);
+        team.getCompetitions().remove(this);
+        return this;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
     public Sport getSport() {

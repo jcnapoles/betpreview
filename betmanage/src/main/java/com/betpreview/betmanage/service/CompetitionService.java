@@ -1,11 +1,11 @@
 package com.betpreview.betmanage.service;
 
-import java.util.Optional;
+import com.betpreview.betmanage.domain.Competition;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.betpreview.betmanage.domain.Competition;
+import java.util.Optional;
 
 /**
  * Service Interface for managing {@link Competition}.
@@ -27,6 +27,13 @@ public interface CompetitionService {
      * @return the list of entities.
      */
     Page<Competition> findAll(Pageable pageable);
+
+    /**
+     * Get all the competitions with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    Page<Competition> findAllWithEagerRelationships(Pageable pageable);
 
 
     /**

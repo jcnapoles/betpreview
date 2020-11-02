@@ -11,12 +11,10 @@ import { TeamService } from './team.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { IMatchPreview } from 'app/shared/model/match-preview.model';
 import { MatchPreviewService } from 'app/entities/match-preview/match-preview.service';
-import { ICompetition } from 'app/shared/model/competition.model';
-import { CompetitionService } from 'app/entities/competition/competition.service';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country/country.service';
 
-type SelectableEntity = IMatchPreview | ICompetition | ICountry;
+type SelectableEntity = IMatchPreview | ICountry;
 
 @Component({
   selector: 'jhi-team-update',
@@ -25,7 +23,6 @@ type SelectableEntity = IMatchPreview | ICompetition | ICountry;
 export class TeamUpdateComponent implements OnInit {
   isSaving = false;
   matchpreviews: IMatchPreview[] = [];
-  competitions: ICompetition[] = [];
   countries: ICountry[] = [];
 
   editForm = this.fb.group({
@@ -37,7 +34,6 @@ export class TeamUpdateComponent implements OnInit {
     teamLogoContentType: [],
     teamId: [],
     matchPreviews: [],
-    competition: [],
     country: [],
   });
 
@@ -46,7 +42,6 @@ export class TeamUpdateComponent implements OnInit {
     protected eventManager: JhiEventManager,
     protected teamService: TeamService,
     protected matchPreviewService: MatchPreviewService,
-    protected competitionService: CompetitionService,
     protected countryService: CountryService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -57,8 +52,6 @@ export class TeamUpdateComponent implements OnInit {
       this.updateForm(team);
 
       this.matchPreviewService.query().subscribe((res: HttpResponse<IMatchPreview[]>) => (this.matchpreviews = res.body || []));
-
-      this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
 
       this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
@@ -74,7 +67,6 @@ export class TeamUpdateComponent implements OnInit {
       teamLogoContentType: team.teamLogoContentType,
       teamId: team.teamId,
       matchPreviews: team.matchPreviews,
-      competition: team.competition,
       country: team.country,
     });
   }
@@ -120,7 +112,6 @@ export class TeamUpdateComponent implements OnInit {
       teamLogo: this.editForm.get(['teamLogo'])!.value,
       teamId: this.editForm.get(['teamId'])!.value,
       matchPreviews: this.editForm.get(['matchPreviews'])!.value,
-      competition: this.editForm.get(['competition'])!.value,
       country: this.editForm.get(['country'])!.value,
     };
   }
