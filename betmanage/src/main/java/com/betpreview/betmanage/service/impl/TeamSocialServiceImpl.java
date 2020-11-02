@@ -74,9 +74,9 @@ public class TeamSocialServiceImpl implements TeamSocialService {
         .collect(Collectors.toList());
     }
 
-	/*
-	 * @Override public Optional<TeamSocial> findOneByTag(String tag) {
-	 * log.debug("Request to get TeamSocial By Tag: {}", tag); return
-	 * teamSocialRepository.findOneByTag(tag); }
-	 */
+	@Override
+	public Optional<TeamSocial> findOneByMatch(String match) {
+		log.debug("Request to get TeamSocial by Match: {}", match);
+		return teamSocialRepository.findOneByMatch(match);
+	}
 }

@@ -51,7 +51,7 @@
                     <th scope="col" ><span jhiTranslate="betmanageApp.parts.lastMeetingScoring">Last Meeting Scoring</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.parts.homeSidelined">Home Sidelined</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.parts.visitorSidelined">Visitor Sidelined</span></th>
-                    <th scope="col" ><span jhiTranslate="betmanageApp.parts.parts">Parts</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.parts.matchPreview">Match Preview</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -69,8 +69,8 @@
                     <td>{{ parts.homeSidelined }}</td>
                     <td>{{ parts.visitorSidelined }}</td>
                     <td>
-                        <div *ngIf="parts.parts">
-                            <a [routerLink]="['/match-preview', parts.parts?.id, 'view']" >{{ parts.parts?.id }}</a>
+                        <div *ngIf="parts.matchPreview">
+                            <a [routerLink]="['/match-preview', parts.matchPreview?.id, 'view']" >{{ parts.matchPreview?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

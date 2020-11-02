@@ -29,7 +29,7 @@ public class Title implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "titles", allowSetters = true)
-    private MatchPreview quickItems;
+    private MatchPreview matchPreview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,17 +53,17 @@ public class Title implements Serializable {
         this.titleText = titleText;
     }
 
-    public MatchPreview getQuickItems() {
-        return quickItems;
+    public MatchPreview getMatchPreview() {
+        return matchPreview;
     }
 
-    public Title quickItems(MatchPreview matchPreview) {
-        this.quickItems = matchPreview;
+    public Title matchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
         return this;
     }
 
-    public void setQuickItems(MatchPreview matchPreview) {
-        this.quickItems = matchPreview;
+    public void setMatchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

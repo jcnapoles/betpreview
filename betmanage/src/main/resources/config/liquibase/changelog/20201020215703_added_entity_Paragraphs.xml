@@ -19,7 +19,7 @@
             <column name="content" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="blurb_split_id" type="bigint">
+            <column name="match_preview_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

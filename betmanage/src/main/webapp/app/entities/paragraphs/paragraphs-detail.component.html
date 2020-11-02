@@ -12,10 +12,10 @@
                 <dd>
                     <span>{{ paragraphs.content }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.paragraphs.blurbSplit">Blurb Split</span></dt>
+                <dt><span jhiTranslate="betmanageApp.paragraphs.matchPreview">Match Preview</span></dt>
                 <dd>
-                    <div *ngIf="paragraphs.blurbSplit">
-                        <a [routerLink]="['/match-preview', paragraphs.blurbSplit?.id, 'view']">{{ paragraphs.blurbSplit?.id }}</a>
+                    <div *ngIf="paragraphs.matchPreview">
+                        <a [routerLink]="['/match-preview', paragraphs.matchPreview?.id, 'view']">{{ paragraphs.matchPreview?.id }}</a>
                     </div>
                 </dd>
             </dl>

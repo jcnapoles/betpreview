@@ -22,7 +22,7 @@
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "teamSocial",
-      "otherEntityRelationshipName": "socialMediaMatch",
+      "otherEntityRelationshipName": "socialMedia",
       "relationshipName": "teamSocial",
       "otherEntityField": "id"
     }

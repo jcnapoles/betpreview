@@ -21,7 +21,7 @@ export class TitleUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     titleText: [],
-    quickItems: [],
+    matchPreview: [],
   });
 
   constructor(
@@ -43,7 +43,7 @@ export class TitleUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: title.id,
       titleText: title.titleText,
-      quickItems: title.quickItems,
+      matchPreview: title.matchPreview,
     });
   }
 
@@ -66,7 +66,7 @@ export class TitleUpdateComponent implements OnInit {
       ...new Title(),
       id: this.editForm.get(['id'])!.value,
       titleText: this.editForm.get(['titleText'])!.value,
-      quickItems: this.editForm.get(['quickItems'])!.value,
+      matchPreview: this.editForm.get(['matchPreview'])!.value,
     };
   }
 

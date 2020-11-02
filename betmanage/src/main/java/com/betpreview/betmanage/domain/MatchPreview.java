@@ -1,33 +1,20 @@
 package com.betpreview.betmanage.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.betpreview.betmanage.domain.enumeration.LanguageEnum;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A MatchPreview.
@@ -121,21 +108,13 @@ public class MatchPreview implements Serializable {
     @JoinColumn(unique = true)
     private Team visitorTeam;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private TeamSocial social;
-
-    @OneToMany(mappedBy = "quickItems")
+    @OneToMany(mappedBy = "matchPreview")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Title> titles = new HashSet<>();
 
-    @OneToMany(mappedBy = "blurbSplit")
+    @OneToMany(mappedBy = "matchPreview")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Paragraphs> paragraphs = new HashSet<>();
-
-    @OneToMany(mappedBy = "parts")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Parts> parts = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -460,19 +439,6 @@ public class MatchPreview implements Serializable {
         this.visitorTeam = team;
     }
 
-    public TeamSocial getSocial() {
-        return social;
-    }
-
-    public MatchPreview social(TeamSocial teamSocial) {
-        this.social = teamSocial;
-        return this;
-    }
-
-    public void setSocial(TeamSocial teamSocial) {
-        this.social = teamSocial;
-    }
-
     public Set<Title> getTitles() {
         return titles;
     }
@@ -484,13 +450,13 @@ public class MatchPreview implements Serializable {
 
     public MatchPreview addTitle(Title title) {
         this.titles.add(title);
-        title.setQuickItems(this);
+        title.setMatchPreview(this);
         return this;
     }
 
     public MatchPreview removeTitle(Title title) {
         this.titles.remove(title);
-        title.setQuickItems(null);
+        title.setMatchPreview(null);
         return this;
     }
 
@@ -509,43 +475,18 @@ public class MatchPreview implements Serializable {
 
     public MatchPreview addParagraphs(Paragraphs paragraphs) {
         this.paragraphs.add(paragraphs);
-        paragraphs.setBlurbSplit(this);
+        paragraphs.setMatchPreview(this);
         return this;
     }
 
     public MatchPreview removeParagraphs(Paragraphs paragraphs) {
         this.paragraphs.remove(paragraphs);
-        paragraphs.setBlurbSplit(null);
+        paragraphs.setMatchPreview(null);
         return this;
     }
 
     public void setParagraphs(Set<Paragraphs> paragraphs) {
         this.paragraphs = paragraphs;
-    }
-
-    public Set<Parts> getParts() {
-        return parts;
-    }
-
-    public MatchPreview parts(Set<Parts> parts) {
-        this.parts = parts;
-        return this;
-    }
-
-    public MatchPreview addParts(Parts parts) {
-        this.parts.add(parts);
-        parts.setParts(this);
-        return this;
-    }
-
-    public MatchPreview removeParts(Parts parts) {
-        this.parts.remove(parts);
-        parts.setParts(null);
-        return this;
-    }
-
-    public void setParts(Set<Parts> parts) {
-        this.parts = parts;
     }
 
     public Set<Team> getTeams() {

@@ -1,9 +1,10 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.Parts;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.domain.Parts;
 
 /**
  * Service Interface for managing {@link Parts}.
@@ -49,4 +50,6 @@ public interface PartsService {
      * @return the list of entities.
      */
     List<Parts> search(String query);
+    
+    Optional<Parts> findOneByMatchPreview(MatchPreview matchPreviewId);
 }

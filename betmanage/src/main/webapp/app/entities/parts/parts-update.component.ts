@@ -4,6 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { IParts, Parts } from 'app/shared/model/parts.model';
 import { PartsService } from './parts.service';
@@ -30,7 +31,7 @@ export class PartsUpdateComponent implements OnInit {
     lastMeetingScoring: [],
     homeSidelined: [],
     visitorSidelined: [],
-    parts: [],
+    matchPreview: [],
   });
 
   constructor(
@@ -44,7 +45,27 @@ export class PartsUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ parts }) => {
       this.updateForm(parts);
 
-      this.matchPreviewService.query().subscribe((res: HttpResponse<IMatchPreview[]>) => (this.matchpreviews = res.body || []));
+      this.matchPreviewService
+        .query({ filter: 'parts-is-null' })
+        .pipe(
+          map((res: HttpResponse<IMatchPreview[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: IMatchPreview[]) => {
+          if (!parts.matchPreview || !parts.matchPreview.id) {
+            this.matchpreviews = resBody;
+          } else {
+            this.matchPreviewService
+              .find(parts.matchPreview.id)
+              .pipe(
+                map((subRes: HttpResponse<IMatchPreview>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: IMatchPreview[]) => (this.matchpreviews = concatRes));
+          }
+        });
     });
   }
 
@@ -61,7 +82,7 @@ export class PartsUpdateComponent implements OnInit {
       lastMeetingScoring: parts.lastMeetingScoring,
       homeSidelined: parts.homeSidelined,
       visitorSidelined: parts.visitorSidelined,
-      parts: parts.parts,
+      matchPreview: parts.matchPreview,
     });
   }
 
@@ -93,7 +114,7 @@ export class PartsUpdateComponent implements OnInit {
       lastMeetingScoring: this.editForm.get(['lastMeetingScoring'])!.value,
       homeSidelined: this.editForm.get(['homeSidelined'])!.value,
       visitorSidelined: this.editForm.get(['visitorSidelined'])!.value,
-      parts: this.editForm.get(['parts'])!.value,
+      matchPreview: this.editForm.get(['matchPreview'])!.value,
     };
   }
 

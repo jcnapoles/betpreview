@@ -1,16 +1,24 @@
 package com.betpreview.betmanage.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import java.io.Serializable;
-
 import com.betpreview.betmanage.domain.enumeration.PlatformEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Task entity.\n@author The JHipster team.
@@ -40,7 +48,7 @@ public class SocialMedia implements Serializable {
     private Team team;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "socialMediaMatches", allowSetters = true)
+    @JsonIgnoreProperties(value = "socialMedias", allowSetters = true)
     private TeamSocial teamSocial;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

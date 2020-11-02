@@ -1,3 +1,4 @@
+import { IMatchPreview } from 'app/shared/model/match-preview.model';
 import { ISocialMedia } from 'app/shared/model/social-media.model';
 
 export interface ITeamSocial {
@@ -5,7 +6,8 @@ export interface ITeamSocial {
   homeTeamId?: number;
   visitorTeamId?: number;
   match?: string;
-  socialMediaMatches?: ISocialMedia[];
+  matchPreview?: IMatchPreview;
+  socialMedias?: ISocialMedia[];
 }
 
 export class TeamSocial implements ITeamSocial {
@@ -14,6 +16,7 @@ export class TeamSocial implements ITeamSocial {
     public homeTeamId?: number,
     public visitorTeamId?: number,
     public match?: string,
-    public socialMediaMatches?: ISocialMedia[]
+    public matchPreview?: IMatchPreview,
+    public socialMedias?: ISocialMedia[]
   ) {}
 }

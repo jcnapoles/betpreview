@@ -8,9 +8,9 @@
     -->
     <changeSet id="20201020215703-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="blurb_split_id"
+        <addForeignKeyConstraint baseColumnNames="match_preview_id"
                                  baseTableName="paragraphs"
-                                 constraintName="fk_paragraphs_blurb_split_id"
+                                 constraintName="fk_paragraphs_match_preview_id"
                                  referencedColumnNames="id"
                                  referencedTableName="match_preview"/>
 

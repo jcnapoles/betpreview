@@ -44,11 +44,12 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-one",
       "otherEntityName": "matchPreview",
       "otherEntityRelationshipName": "parts",
-      "relationshipName": "parts",
-      "otherEntityField": "id"
+      "relationshipName": "matchPreview",
+      "otherEntityField": "id",
+      "ownerSide": true
     }
   ],
   "changelogDate": "20201031143332",

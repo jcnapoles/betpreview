@@ -100,30 +100,16 @@
       "ownerSide": true
     },
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "teamSocial",
-      "otherEntityRelationshipName": "matchPreview",
-      "relationshipName": "social",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "title",
-      "otherEntityRelationshipName": "quickItems",
+      "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "title"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "paragraphs",
-      "otherEntityRelationshipName": "blurbSplit",
+      "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "paragraphs"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "parts",
-      "otherEntityRelationshipName": "parts",
-      "relationshipName": "parts"
     },
     {
       "relationshipType": "many-to-many",

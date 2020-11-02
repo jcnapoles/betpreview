@@ -14,14 +14,12 @@ import { MatchPreviewService } from './match-preview.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team/team.service';
-import { ITeamSocial } from 'app/shared/model/team-social.model';
-import { TeamSocialService } from 'app/entities/team-social/team-social.service';
 import { ICompetition } from 'app/shared/model/competition.model';
 import { CompetitionService } from 'app/entities/competition/competition.service';
 import { ICountry } from 'app/shared/model/country.model';
 import { CountryService } from 'app/entities/country/country.service';
 
-type SelectableEntity = ITeam | ITeamSocial | ICompetition | ICountry;
+type SelectableEntity = ITeam | ICompetition | ICountry;
 
 @Component({
   selector: 'jhi-match-preview-update',
@@ -31,7 +29,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
   isSaving = false;
   hometeams: ITeam[] = [];
   visitorteams: ITeam[] = [];
-  socials: ITeamSocial[] = [];
   teams: ITeam[] = [];
   competitions: ICompetition[] = [];
   countries: ICountry[] = [];
@@ -62,7 +59,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
     language: [],
     homeTeam: [],
     visitorTeam: [],
-    social: [],
     teams: [],
     competition: [],
     country: [],
@@ -73,7 +69,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
     protected eventManager: JhiEventManager,
     protected matchPreviewService: MatchPreviewService,
     protected teamService: TeamService,
-    protected teamSocialService: TeamSocialService,
     protected competitionService: CompetitionService,
     protected countryService: CountryService,
     protected elementRef: ElementRef,
@@ -134,28 +129,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
           }
         });
 
-      this.teamSocialService
-        .query({ filter: 'matchpreview-is-null' })
-        .pipe(
-          map((res: HttpResponse<ITeamSocial[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITeamSocial[]) => {
-          if (!matchPreview.social || !matchPreview.social.id) {
-            this.socials = resBody;
-          } else {
-            this.teamSocialService
-              .find(matchPreview.social.id)
-              .pipe(
-                map((subRes: HttpResponse<ITeamSocial>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITeamSocial[]) => (this.socials = concatRes));
-          }
-        });
-
       this.teamService.query().subscribe((res: HttpResponse<ITeam[]>) => (this.teams = res.body || []));
 
       this.competitionService.query().subscribe((res: HttpResponse<ICompetition[]>) => (this.competitions = res.body || []));
@@ -190,7 +163,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
       language: matchPreview.language,
       homeTeam: matchPreview.homeTeam,
       visitorTeam: matchPreview.visitorTeam,
-      social: matchPreview.social,
       teams: matchPreview.teams,
       competition: matchPreview.competition,
       country: matchPreview.country,
@@ -266,7 +238,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
       language: this.editForm.get(['language'])!.value,
       homeTeam: this.editForm.get(['homeTeam'])!.value,
       visitorTeam: this.editForm.get(['visitorTeam'])!.value,
-      social: this.editForm.get(['social'])!.value,
       teams: this.editForm.get(['teams'])!.value,
       competition: this.editForm.get(['competition'])!.value,
       country: this.editForm.get(['country'])!.value,

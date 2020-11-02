@@ -21,7 +21,7 @@ export class ParagraphsUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     content: [],
-    blurbSplit: [],
+    matchPreview: [],
   });
 
   constructor(
@@ -43,7 +43,7 @@ export class ParagraphsUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: paragraphs.id,
       content: paragraphs.content,
-      blurbSplit: paragraphs.blurbSplit,
+      matchPreview: paragraphs.matchPreview,
     });
   }
 
@@ -66,7 +66,7 @@ export class ParagraphsUpdateComponent implements OnInit {
       ...new Paragraphs(),
       id: this.editForm.get(['id'])!.value,
       content: this.editForm.get(['content'])!.value,
-      blurbSplit: this.editForm.get(['blurbSplit'])!.value,
+      matchPreview: this.editForm.get(['matchPreview'])!.value,
     };
   }
 

@@ -1,6 +1,7 @@
 package com.betpreview.betmanage.service.impl;
 
 import com.betpreview.betmanage.service.PartsService;
+import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.domain.Parts;
 import com.betpreview.betmanage.repository.PartsRepository;
 import com.betpreview.betmanage.repository.search.PartsSearchRepository;
@@ -73,4 +74,10 @@ public class PartsServiceImpl implements PartsService {
             .stream(partsSearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	@Override
+	public Optional<Parts> findOneByMatchPreview(MatchPreview matchPreview) {
+		log.debug("Request to get Parts by MatchPreview: {}", matchPreview.getId());
+		return partsRepository.findOneByMatchPreview(matchPreview);
+	}
 }

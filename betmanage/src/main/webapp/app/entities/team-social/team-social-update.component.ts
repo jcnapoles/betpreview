@@ -4,9 +4,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ITeamSocial, TeamSocial } from 'app/shared/model/team-social.model';
 import { TeamSocialService } from './team-social.service';
+import { IMatchPreview } from 'app/shared/model/match-preview.model';
+import { MatchPreviewService } from 'app/entities/match-preview/match-preview.service';
 
 @Component({
   selector: 'jhi-team-social-update',
@@ -14,19 +17,48 @@ import { TeamSocialService } from './team-social.service';
 })
 export class TeamSocialUpdateComponent implements OnInit {
   isSaving = false;
+  matchpreviews: IMatchPreview[] = [];
 
   editForm = this.fb.group({
     id: [],
     homeTeamId: [],
     visitorTeamId: [],
     match: [],
+    matchPreview: [],
   });
 
-  constructor(protected teamSocialService: TeamSocialService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected teamSocialService: TeamSocialService,
+    protected matchPreviewService: MatchPreviewService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ teamSocial }) => {
       this.updateForm(teamSocial);
+
+      this.matchPreviewService
+        .query({ filter: 'teamsocial-is-null' })
+        .pipe(
+          map((res: HttpResponse<IMatchPreview[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: IMatchPreview[]) => {
+          if (!teamSocial.matchPreview || !teamSocial.matchPreview.id) {
+            this.matchpreviews = resBody;
+          } else {
+            this.matchPreviewService
+              .find(teamSocial.matchPreview.id)
+              .pipe(
+                map((subRes: HttpResponse<IMatchPreview>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: IMatchPreview[]) => (this.matchpreviews = concatRes));
+          }
+        });
     });
   }
 
@@ -36,6 +68,7 @@ export class TeamSocialUpdateComponent implements OnInit {
       homeTeamId: teamSocial.homeTeamId,
       visitorTeamId: teamSocial.visitorTeamId,
       match: teamSocial.match,
+      matchPreview: teamSocial.matchPreview,
     });
   }
 
@@ -60,6 +93,7 @@ export class TeamSocialUpdateComponent implements OnInit {
       homeTeamId: this.editForm.get(['homeTeamId'])!.value,
       visitorTeamId: this.editForm.get(['visitorTeamId'])!.value,
       match: this.editForm.get(['match'])!.value,
+      matchPreview: this.editForm.get(['matchPreview'])!.value,
     };
   }
 
@@ -77,5 +111,9 @@ export class TeamSocialUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: IMatchPreview): any {
+    return item.id;
   }
 }

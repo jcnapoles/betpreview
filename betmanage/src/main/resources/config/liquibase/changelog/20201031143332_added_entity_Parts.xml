@@ -46,8 +46,8 @@
             <column name="visitor_sidelined" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="parts_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="match_preview_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_parts_match_preview_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

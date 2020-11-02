@@ -1,9 +1,7 @@
 import { Moment } from 'moment';
 import { ITeam } from 'app/shared/model/team.model';
-import { ITeamSocial } from 'app/shared/model/team-social.model';
 import { ITitle } from 'app/shared/model/title.model';
 import { IParagraphs } from 'app/shared/model/paragraphs.model';
-import { IParts } from 'app/shared/model/parts.model';
 import { ICompetition } from 'app/shared/model/competition.model';
 import { ICountry } from 'app/shared/model/country.model';
 import { LanguageEnum } from 'app/shared/model/enumerations/language-enum.model';
@@ -33,10 +31,8 @@ export interface IMatchPreview {
   language?: LanguageEnum;
   homeTeam?: ITeam;
   visitorTeam?: ITeam;
-  social?: ITeamSocial;
   titles?: ITitle[];
   paragraphs?: IParagraphs[];
-  parts?: IParts[];
   teams?: ITeam[];
   competition?: ICompetition;
   country?: ICountry;
@@ -68,10 +64,8 @@ export class MatchPreview implements IMatchPreview {
     public language?: LanguageEnum,
     public homeTeam?: ITeam,
     public visitorTeam?: ITeam,
-    public social?: ITeamSocial,
     public titles?: ITitle[],
     public paragraphs?: IParagraphs[],
-    public parts?: IParts[],
     public teams?: ITeam[],
     public competition?: ICompetition,
     public country?: ICountry

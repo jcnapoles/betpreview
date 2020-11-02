@@ -42,7 +42,7 @@
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.paragraphs.content">Content</span></th>
-                    <th scope="col" ><span jhiTranslate="betmanageApp.paragraphs.blurbSplit">Blurb Split</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.paragraphs.matchPreview">Match Preview</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -51,8 +51,8 @@
                     <td><a [routerLink]="['/paragraphs', paragraphs.id, 'view']">{{ paragraphs.id }}</a></td>
                     <td>{{ paragraphs.content }}</td>
                     <td>
-                        <div *ngIf="paragraphs.blurbSplit">
-                            <a [routerLink]="['/match-preview', paragraphs.blurbSplit?.id, 'view']" >{{ paragraphs.blurbSplit?.id }}</a>
+                        <div *ngIf="paragraphs.matchPreview">
+                            <a [routerLink]="['/match-preview', paragraphs.matchPreview?.id, 'view']" >{{ paragraphs.matchPreview?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

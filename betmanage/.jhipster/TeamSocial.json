@@ -16,10 +16,18 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "teamSocial",
+      "relationshipName": "matchPreview",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
       "relationshipType": "one-to-many",
       "otherEntityName": "socialMedia",
       "otherEntityRelationshipName": "teamSocial",
-      "relationshipName": "socialMediaMatch"
+      "relationshipName": "socialMedia"
     }
   ],
   "changelogDate": "20201031143432",

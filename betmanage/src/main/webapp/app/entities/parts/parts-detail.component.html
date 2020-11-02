@@ -48,10 +48,10 @@
                 <dd>
                     <span>{{ parts.visitorSidelined }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.parts.parts">Parts</span></dt>
+                <dt><span jhiTranslate="betmanageApp.parts.matchPreview">Match Preview</span></dt>
                 <dd>
-                    <div *ngIf="parts.parts">
-                        <a [routerLink]="['/match-preview', parts.parts?.id, 'view']">{{ parts.parts?.id }}</a>
+                    <div *ngIf="parts.matchPreview">
+                        <a [routerLink]="['/match-preview', parts.matchPreview?.id, 'view']">{{ parts.matchPreview?.id }}</a>
                     </div>
                 </dd>
             </dl>

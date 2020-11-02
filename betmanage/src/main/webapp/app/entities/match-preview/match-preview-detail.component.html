@@ -107,12 +107,6 @@
                         <a [routerLink]="['/team', matchPreview.visitorTeam?.id, 'view']">{{ matchPreview.visitorTeam?.id }}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.matchPreview.social">Social</span></dt>
-                <dd>
-                    <div *ngIf="matchPreview.social">
-                        <a [routerLink]="['/team-social', matchPreview.social?.id, 'view']">{{ matchPreview.social?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.team">Team</span></dt>
                 <dd>
                     <span *ngFor="let team of matchPreview.teams; let last = last">

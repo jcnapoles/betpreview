@@ -12,10 +12,10 @@
                 <dd>
                     <span>{{ title.titleText }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.title.quickItems">Quick Items</span></dt>
+                <dt><span jhiTranslate="betmanageApp.title.matchPreview">Match Preview</span></dt>
                 <dd>
-                    <div *ngIf="title.quickItems">
-                        <a [routerLink]="['/match-preview', title.quickItems?.id, 'view']">{{ title.quickItems?.id }}</a>
+                    <div *ngIf="title.matchPreview">
+                        <a [routerLink]="['/match-preview', title.matchPreview?.id, 'view']">{{ title.matchPreview?.id }}</a>
                     </div>
                 </dd>
             </dl>

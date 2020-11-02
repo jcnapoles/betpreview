@@ -44,6 +44,7 @@
                     <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.homeTeamId">Home Team Id</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.visitorTeamId">Visitor Team Id</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.match">Match</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.teamSocial.matchPreview">Match Preview</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -53,6 +54,11 @@
                     <td>{{ teamSocial.homeTeamId }}</td>
                     <td>{{ teamSocial.visitorTeamId }}</td>
                     <td>{{ teamSocial.match }}</td>
+                    <td>
+                        <div *ngIf="teamSocial.matchPreview">
+                            <a [routerLink]="['/match-preview', teamSocial.matchPreview?.id, 'view']" >{{ teamSocial.matchPreview?.id }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

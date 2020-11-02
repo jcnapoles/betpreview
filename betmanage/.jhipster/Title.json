@@ -11,7 +11,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "matchPreview",
       "otherEntityRelationshipName": "title",
-      "relationshipName": "quickItems",
+      "relationshipName": "matchPreview",
       "otherEntityField": "id"
     }
   ],

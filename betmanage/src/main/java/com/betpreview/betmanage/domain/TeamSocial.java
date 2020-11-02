@@ -34,9 +34,13 @@ public class TeamSocial implements Serializable {
     @Column(name = "jhi_match")
     private String match;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private MatchPreview matchPreview;
+
     @OneToMany(mappedBy = "teamSocial")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<SocialMedia> socialMediaMatches = new HashSet<>();
+    private Set<SocialMedia> socialMedias = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -86,29 +90,42 @@ public class TeamSocial implements Serializable {
         this.match = match;
     }
 
-    public Set<SocialMedia> getSocialMediaMatches() {
-        return socialMediaMatches;
+    public MatchPreview getMatchPreview() {
+        return matchPreview;
     }
 
-    public TeamSocial socialMediaMatches(Set<SocialMedia> socialMedias) {
-        this.socialMediaMatches = socialMedias;
+    public TeamSocial matchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
         return this;
     }
 
-    public TeamSocial addSocialMediaMatch(SocialMedia socialMedia) {
-        this.socialMediaMatches.add(socialMedia);
+    public void setMatchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
+    }
+
+    public Set<SocialMedia> getSocialMedias() {
+        return socialMedias;
+    }
+
+    public TeamSocial socialMedias(Set<SocialMedia> socialMedias) {
+        this.socialMedias = socialMedias;
+        return this;
+    }
+
+    public TeamSocial addSocialMedia(SocialMedia socialMedia) {
+        this.socialMedias.add(socialMedia);
         socialMedia.setTeamSocial(this);
         return this;
     }
 
-    public TeamSocial removeSocialMediaMatch(SocialMedia socialMedia) {
-        this.socialMediaMatches.remove(socialMedia);
+    public TeamSocial removeSocialMedia(SocialMedia socialMedia) {
+        this.socialMedias.remove(socialMedia);
         socialMedia.setTeamSocial(null);
         return this;
     }
 
-    public void setSocialMediaMatches(Set<SocialMedia> socialMedias) {
-        this.socialMediaMatches = socialMedias;
+    public void setSocialMedias(Set<SocialMedia> socialMedias) {
+        this.socialMedias = socialMedias;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

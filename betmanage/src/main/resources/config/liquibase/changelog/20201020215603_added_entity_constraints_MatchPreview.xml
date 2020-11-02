@@ -20,12 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="team"/>
 
-        <addForeignKeyConstraint baseColumnNames="social_id"
-                                 baseTableName="match_preview"
-                                 constraintName="fk_match_preview_social_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="team_social"/>
-
         <addForeignKeyConstraint baseColumnNames="match_preview_id"
                                  baseTableName="match_preview_team"
                                  constraintName="fk_match_preview_team_match_preview_id"

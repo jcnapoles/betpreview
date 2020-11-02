@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Parts.
@@ -51,7 +50,7 @@ public class Parts implements Serializable {
     @Column(name = "last_meeting_result")
     private String lastMeetingResult;
 
-    @Column(name = "last_meeting_scoring", length = 1000)
+    @Column(name = "last_meeting_scoring")
     private String lastMeetingScoring;
 
     @Column(name = "home_sidelined")
@@ -60,9 +59,9 @@ public class Parts implements Serializable {
     @Column(name = "visitor_sidelined")
     private String visitorSidelined;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "parts", allowSetters = true)
-    private MatchPreview parts;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private MatchPreview matchPreview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -203,17 +202,17 @@ public class Parts implements Serializable {
         this.visitorSidelined = visitorSidelined;
     }
 
-    public MatchPreview getParts() {
-        return parts;
+    public MatchPreview getMatchPreview() {
+        return matchPreview;
     }
 
-    public Parts parts(MatchPreview matchPreview) {
-        this.parts = matchPreview;
+    public Parts matchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
         return this;
     }
 
-    public void setParts(MatchPreview matchPreview) {
-        this.parts = matchPreview;
+    public void setMatchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

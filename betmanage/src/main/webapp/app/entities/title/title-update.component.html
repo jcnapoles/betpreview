@@ -18,10 +18,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.title.quickItems" for="field_quickItems">Quick Items</label>
-                    <select class="form-control" id="field_quickItems" name="quickItems" formControlName="quickItems">
+                    <label class="form-control-label" jhiTranslate="betmanageApp.title.matchPreview" for="field_matchPreview">Match Preview</label>
+                    <select class="form-control" id="field_matchPreview" name="matchPreview" formControlName="matchPreview">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="matchPreviewOption.id === editForm.get('quickItems')!.value?.id ? editForm.get('quickItems')!.value : matchPreviewOption" *ngFor="let matchPreviewOption of matchpreviews; trackBy: trackById">{{ matchPreviewOption.id }}</option>
+                        <option [ngValue]="matchPreviewOption.id === editForm.get('matchPreview')!.value?.id ? editForm.get('matchPreview')!.value : matchPreviewOption" *ngFor="let matchPreviewOption of matchpreviews; trackBy: trackById">{{ matchPreviewOption.id }}</option>
                     </select>
                 </div>
             </div>

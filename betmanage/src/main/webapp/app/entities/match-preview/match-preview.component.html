@@ -73,7 +73,6 @@
                     <th scope="col"  jhiSortBy="language"><span jhiTranslate="betmanageApp.matchPreview.language">Language</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="homeTeam.id"><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="visitorTeam.id"><span jhiTranslate="betmanageApp.matchPreview.visitorTeam">Visitor Team</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="social.id"><span jhiTranslate="betmanageApp.matchPreview.social">Social</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="competition.id"><span jhiTranslate="betmanageApp.matchPreview.competition">Competition</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="country.id"><span jhiTranslate="betmanageApp.matchPreview.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
@@ -123,11 +122,6 @@
                     <td>
                         <div *ngIf="matchPreview.visitorTeam">
                             <a [routerLink]="['/team', matchPreview.visitorTeam?.id, 'view']" >{{ matchPreview.visitorTeam?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="matchPreview.social">
-                            <a [routerLink]="['/team-social', matchPreview.social?.id, 'view']" >{{ matchPreview.social?.id }}</a>
                         </div>
                     </td>
                     <td>

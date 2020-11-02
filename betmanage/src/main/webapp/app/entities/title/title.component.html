@@ -42,7 +42,7 @@
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="betmanageApp.title.titleText">Title Text</span></th>
-                    <th scope="col" ><span jhiTranslate="betmanageApp.title.quickItems">Quick Items</span></th>
+                    <th scope="col" ><span jhiTranslate="betmanageApp.title.matchPreview">Match Preview</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -51,8 +51,8 @@
                     <td><a [routerLink]="['/title', title.id, 'view']">{{ title.id }}</a></td>
                     <td>{{ title.titleText }}</td>
                     <td>
-                        <div *ngIf="title.quickItems">
-                            <a [routerLink]="['/match-preview', title.quickItems?.id, 'view']" >{{ title.quickItems?.id }}</a>
+                        <div *ngIf="title.matchPreview">
+                            <a [routerLink]="['/match-preview', title.matchPreview?.id, 'view']" >{{ title.matchPreview?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

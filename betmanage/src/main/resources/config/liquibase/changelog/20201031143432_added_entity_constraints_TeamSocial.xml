@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
     <!--
-        Added the constraints for entity Title.
+        Added the constraints for entity TeamSocial.
     -->
-    <changeSet id="20201020220103-2" author="jhipster">
+    <changeSet id="20201031143432-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="match_preview_id"
-                                 baseTableName="title"
-                                 constraintName="fk_title_match_preview_id"
+                                 baseTableName="team_social"
+                                 constraintName="fk_team_social_match_preview_id"
                                  referencedColumnNames="id"
                                  referencedTableName="match_preview"/>
 

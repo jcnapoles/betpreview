@@ -20,6 +20,12 @@
                 <dd>
                     <span>{{ teamSocial.match }}</span>
                 </dd>
+                <dt><span jhiTranslate="betmanageApp.teamSocial.matchPreview">Match Preview</span></dt>
+                <dd>
+                    <div *ngIf="teamSocial.matchPreview">
+                        <a [routerLink]="['/match-preview', teamSocial.matchPreview?.id, 'view']">{{ teamSocial.matchPreview?.id }}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

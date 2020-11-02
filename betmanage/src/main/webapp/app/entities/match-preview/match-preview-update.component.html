@@ -190,14 +190,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="betmanageApp.matchPreview.social" for="field_social">Social</label>
-                    <select class="form-control" id="field_social" name="social" formControlName="social">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="teamSocialOption.id === editForm.get('social')!.value?.id ? editForm.get('social')!.value : teamSocialOption" *ngFor="let teamSocialOption of socials; trackBy: trackById">{{ teamSocialOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label jhiTranslate="betmanageApp.matchPreview.team" for="field_teams">Team</label>
                     <select class="form-control" id="field_teams" multiple name="teams" formControlName="teams">
                         <option [ngValue]="getSelected(editForm.get('teams')!.value, teamOption)" *ngFor="let teamOption of teams; trackBy: trackById">{{ teamOption.id }}</option>

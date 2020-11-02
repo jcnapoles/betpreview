@@ -1,19 +1,13 @@
 package com.betpreview.betmanage.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import java.io.Serializable;
 
 /**
  * A Paragraphs.
@@ -30,12 +24,12 @@ public class Paragraphs implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", length = 1000)   
+    @Column(name = "content")
     private String content;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "paragraphs", allowSetters = true)
-    private MatchPreview blurbSplit;
+    private MatchPreview matchPreview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -59,17 +53,17 @@ public class Paragraphs implements Serializable {
         this.content = content;
     }
 
-    public MatchPreview getBlurbSplit() {
-        return blurbSplit;
+    public MatchPreview getMatchPreview() {
+        return matchPreview;
     }
 
-    public Paragraphs blurbSplit(MatchPreview matchPreview) {
-        this.blurbSplit = matchPreview;
+    public Paragraphs matchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
         return this;
     }
 
-    public void setBlurbSplit(MatchPreview matchPreview) {
-        this.blurbSplit = matchPreview;
+    public void setMatchPreview(MatchPreview matchPreview) {
+        this.matchPreview = matchPreview;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

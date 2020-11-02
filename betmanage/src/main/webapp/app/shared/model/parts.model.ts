@@ -12,7 +12,7 @@ export interface IParts {
   lastMeetingScoring?: string;
   homeSidelined?: string;
   visitorSidelined?: string;
-  parts?: IMatchPreview;
+  matchPreview?: IMatchPreview;
 }
 
 export class Parts implements IParts {
@@ -28,6 +28,6 @@ export class Parts implements IParts {
     public lastMeetingScoring?: string,
     public homeSidelined?: string,
     public visitorSidelined?: string,
-    public parts?: IMatchPreview
+    public matchPreview?: IMatchPreview
   ) {}
 }

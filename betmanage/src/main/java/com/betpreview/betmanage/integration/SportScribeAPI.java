@@ -340,20 +340,8 @@ public class SportScribeAPI {
 		}
 		competition.setCompetitionName(preview.getLeague());
 		competitionService.save(competition);
-		matchPreview.setCompetition(competition);
-		
-		/**Create Paragraphs*/
-		if(preview.getBlurb_split() != null) {
-			Set<Paragraphs> paragraphsSet = new HashSet<Paragraphs>();
-			List<String> paragraphsArray = Arrays.asList(preview.getBlurb_split());
-			for (String paragr : paragraphsArray) {
-				Paragraphs paragraphs = new Paragraphs();
-				paragraphs.setContent(paragr);
-				paragraphsService.save(paragraphs);
-				paragraphsSet.add(paragraphs);
-			}
-			matchPreview.setParagraphs(paragraphsSet);
-		}		
+		matchPreview.setCompetition(competition);	
+			
 		
 		/**Create Titles*/
 		if(preview.getQuick_items() != null) {
@@ -366,27 +354,8 @@ public class SportScribeAPI {
 				titlesSet.add(title);
 			}
 			matchPreview.setTitles(titlesSet);
-		}
+		}		
 		
-		
-		/*Create Part*/
-		Set<Parts> partsSet = new HashSet<Parts>();
-		PartPreview partPreview = preview.getParts();
-		Parts parts = new Parts();
-		parts.setHomeLastResult(partPreview.getHome_lastResult());
-		parts.setHomeScorers(partPreview.getHome_scorers());
-		parts.setHomeSidelined(partPreview.getHome_sidelined());
-		parts.setIntro(partPreview.getIntro());
-		parts.setLastMeetingResult(partPreview.getLast_meeting_result());
-		parts.setLastMeetingScoring(partPreview.getLast_meeting_scoring());
-		parts.setVisitorLastResult(partPreview.getVisitor_lastResult());
-		parts.setVisitorScorers(partPreview.getVisitor_scorers());
-		parts.setVisitorSidelined(partPreview.getVisitor_sidelined());
-		parts.setWeather(partPreview.getWeather());
-		partsService.save(parts);		
-		partsSet.add(parts);
-		
-		matchPreview.setParts(partsSet);
 		
 		Set<Team> teams = new HashSet<Team>();
 		/**Create or Load homeTeam*/
@@ -410,62 +379,123 @@ public class SportScribeAPI {
 		
 		/*Create or Load Social*/
 		TeamSocial teamSocial = new TeamSocial();		
+		Optional<TeamSocial> teamSocialOptional = teamSocialService.findOneByMatch(preview.getFixture_id().toString());
+		if (!teamSocialOptional.isEmpty()) {
+			teamSocial = teamSocialOptional.get();
+		}
 		if (preview.getSocial() != null) {
-			LinkedHashMap<String, Social[]> socialObject = preview.getSocial();
-			
+			LinkedHashMap<String, Social[]> socialObject = preview.getSocial();	
+			Boolean noVacio = false;
+			List<SocialMedia> socialMediaList = new ArrayList<SocialMedia>();
 			if (socialObject != null) {
 				for (Map.Entry<String,Social[]> entry : socialObject.entrySet()) {
 					String key = entry.getKey();
 					Social[] social = entry.getValue();
 					List<Social> socialList = Arrays.asList(social);
-					Set<SocialMedia> socialMediaSet = new HashSet<SocialMedia>();
+					
 					for (Social socialElement : socialList) {
+						noVacio = true;
 						SocialMedia socialMedia = new SocialMedia();
 						socialMedia.setTag(socialElement.getTag());
 						socialMedia.setPlatform(PlatformEnum.valueOf(socialElement.getPlatform().name()));
-						/*Implementar la busqueda*/
+						Integer tId = 0; 
+						if (!key.equalsIgnoreCase("match")) {							
+							tId = Integer.parseInt(key);
+							Integer homeTeamId = homeTeam.getTeamId();
+							if(tId.equals(homeTeamId)) {
+								
+								socialMedia.setTeam(homeTeam);								
+							}else {
+								
+								socialMedia.setTeam(visitorTeam);
+								
+							}
+							
+						} else {
+							socialMediaList.add(socialMedia);
+							
+							
+							
+						}						
 						socialMediaService.save(socialMedia);
-						socialMediaSet.add(socialMedia);
+						
 					}
 					
-					Integer tId = 0; 
-					if (!key.equalsIgnoreCase("match")) {
-						//Optional<TeamSocial> teamSocialOptional = teamSocialService.findOneByTag("") ;
-						tId = Integer.parseInt(key);
-						Integer homeTeamId = homeTeam.getTeamId();
-						if(tId.equals(homeTeamId)) {
-							teamSocial.setHomeTeamId(tId);
-							homeTeam.setSocialMedias(socialMediaSet);
-						}else {
-							teamSocial.setVisitorTeamId(tId);
-							
-							visitorTeam.setSocialMedias(socialMediaSet);
-						}
-						
-					} else {
-						teamSocial.setMatch(fixture_id.toString());
-						teamSocial.setSocialMediaMatches(socialMediaSet);
+					
+				}
+				
+				if (noVacio) {
+					teamSocial.setMatch(fixture_id.toString());	
+					teamSocial.setHomeTeamId(homeTeam.getTeamId());
+					teamSocial.setVisitorTeamId(visitorTeam.getTeamId());
+					teamSocialService.save(teamSocial);
+					for (SocialMedia socialMedia : socialMediaList) {
+						socialMedia.setTeamSocial(teamSocial);
+						socialMediaService.save(socialMedia);
 					}
+					
 				}
 			}
 		}
-		teamSocialService.save(teamSocial);		
 		
-		teamService.save(homeTeam);
+		
+		
 		matchPreview.setHomeTeam(homeTeam);
-		teams.add(homeTeam);
+		teams.add(homeTeam);		
 		
 		
-		teamService.save(visitorTeam);
 		matchPreview.setVisitorTeam(visitorTeam);
 		teams.add(visitorTeam);		
 		
 		
 		matchPreview.setTeams(teams);		
 		
-		matchPreview.setSocial(teamSocial);
-		
 		matchPreviewService.save(matchPreview);
+		
+		/**Create Paragraphs*/
+		if(preview.getBlurb_split() != null) {			
+			List<String> paragraphsArray = Arrays.asList(preview.getBlurb_split());
+			for (String paragr : paragraphsArray) {
+				Paragraphs paragraphs = new Paragraphs();
+				paragraphs.setContent(paragr);
+				paragraphs.setMatchPreview(matchPreview);
+				paragraphsService.save(paragraphs);				
+				
+			}
+			
+		}
+		if (teamSocial != null) {
+			teamSocialOptional = teamSocialService.findOneByMatch(preview.getFixture_id().toString());
+			if (!teamSocialOptional.isEmpty()) {
+				teamSocial = teamSocialOptional.get();
+			}
+			teamSocial.setMatchPreview(matchPreview);
+			teamSocial.setMatch(fixture_id.toString());	
+			teamSocial.setHomeTeamId(homeTeam.getTeamId());
+			teamSocial.setVisitorTeamId(visitorTeam.getTeamId());
+			teamSocialService.save(teamSocial);
+		}
+			
+		/*Create Part*/		
+		PartPreview partPreview = preview.getParts();
+		Parts parts = new Parts();
+		Optional<Parts> partsOptional = partsService.findOneByMatchPreview(matchPreview);
+		if (!partsOptional.isEmpty()) {
+			parts = partsOptional.get();
+		}
+		
+		parts.setHomeLastResult(partPreview.getHome_lastResult());
+		parts.setHomeScorers(partPreview.getHome_scorers());
+		parts.setHomeSidelined(partPreview.getHome_sidelined());
+		parts.setIntro(partPreview.getIntro());
+		parts.setLastMeetingResult(partPreview.getLast_meeting_result());
+		parts.setLastMeetingScoring(partPreview.getLast_meeting_scoring());
+		parts.setVisitorLastResult(partPreview.getVisitor_lastResult());
+		parts.setVisitorScorers(partPreview.getVisitor_scorers());
+		parts.setVisitorSidelined(partPreview.getVisitor_sidelined());
+		parts.setWeather(partPreview.getWeather());		
+		parts.setMatchPreview(matchPreview);
+		partsService.save(parts);
 		
 		return matchPreview;
 		

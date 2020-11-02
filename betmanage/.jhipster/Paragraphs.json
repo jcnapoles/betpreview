@@ -11,7 +11,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "matchPreview",
       "otherEntityRelationshipName": "paragraphs",
-      "relationshipName": "blurbSplit",
+      "relationshipName": "matchPreview",
       "otherEntityField": "id"
     }
   ],
