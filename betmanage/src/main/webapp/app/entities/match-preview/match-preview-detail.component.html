@@ -95,18 +95,6 @@
                 <dd>
                     <span jhiTranslate="{{ 'betmanageApp.LanguageEnum.' + matchPreview.language }}">{{ matchPreview.language }}</span>
                 </dd>
-                <dt><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span></dt>
-                <dd>
-                    <div *ngIf="matchPreview.homeTeam">
-                        <a [routerLink]="['/team', matchPreview.homeTeam?.id, 'view']">{{ matchPreview.homeTeam?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="betmanageApp.matchPreview.visitorTeam">Visitor Team</span></dt>
-                <dd>
-                    <div *ngIf="matchPreview.visitorTeam">
-                        <a [routerLink]="['/team', matchPreview.visitorTeam?.id, 'view']">{{ matchPreview.visitorTeam?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.team">Team</span></dt>
                 <dd>
                     <span *ngFor="let team of matchPreview.teams; let last = last">
@@ -117,6 +105,18 @@
                 <dd>
                     <div *ngIf="matchPreview.competition">
                         <a [routerLink]="['/competition', matchPreview.competition?.id, 'view']">{{ matchPreview.competition?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.homeTeam">Home Team</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.homeTeam">
+                        <a [routerLink]="['/team', matchPreview.homeTeam?.id, 'view']">{{ matchPreview.homeTeam?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="betmanageApp.matchPreview.visitorTeam">Visitor Team</span></dt>
+                <dd>
+                    <div *ngIf="matchPreview.visitorTeam">
+                        <a [routerLink]="['/team', matchPreview.visitorTeam?.id, 'view']">{{ matchPreview.visitorTeam?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="betmanageApp.matchPreview.country">Country</span></dt>

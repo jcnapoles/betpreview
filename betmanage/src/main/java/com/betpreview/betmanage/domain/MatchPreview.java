@@ -100,14 +100,6 @@ public class MatchPreview implements Serializable {
     @Column(name = "language")
     private LanguageEnum language;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Team homeTeam;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Team visitorTeam;
-
     @OneToMany(mappedBy = "matchPreview")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Title> titles = new HashSet<>();
@@ -126,6 +118,14 @@ public class MatchPreview implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
     private Competition competition;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "matchPreviewsHomes", allowSetters = true)
+    private Team homeTeam;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "matchPreviewsVisitors", allowSetters = true)
+    private Team visitorTeam;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "matchPreviews", allowSetters = true)
@@ -413,32 +413,6 @@ public class MatchPreview implements Serializable {
         this.language = language;
     }
 
-    public Team getHomeTeam() {
-        return homeTeam;
-    }
-
-    public MatchPreview homeTeam(Team team) {
-        this.homeTeam = team;
-        return this;
-    }
-
-    public void setHomeTeam(Team team) {
-        this.homeTeam = team;
-    }
-
-    public Team getVisitorTeam() {
-        return visitorTeam;
-    }
-
-    public MatchPreview visitorTeam(Team team) {
-        this.visitorTeam = team;
-        return this;
-    }
-
-    public void setVisitorTeam(Team team) {
-        this.visitorTeam = team;
-    }
-
     public Set<Title> getTitles() {
         return titles;
     }
@@ -525,6 +499,32 @@ public class MatchPreview implements Serializable {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public MatchPreview homeTeam(Team team) {
+        this.homeTeam = team;
+        return this;
+    }
+
+    public void setHomeTeam(Team team) {
+        this.homeTeam = team;
+    }
+
+    public Team getVisitorTeam() {
+        return visitorTeam;
+    }
+
+    public MatchPreview visitorTeam(Team team) {
+        this.visitorTeam = team;
+        return this;
+    }
+
+    public void setVisitorTeam(Team team) {
+        this.visitorTeam = team;
     }
 
     public Country getCountry() {

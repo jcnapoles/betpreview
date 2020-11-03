@@ -23,6 +23,8 @@
       "teamLogo": "Team Logo",
       "teamId": "Team Id",
       "socialMedia": "Social Media",
+      "matchPreviewsHome": "Match Previews Home",
+      "matchPreviewsVisitor": "Match Previews Visitor",
       "country": "Country",
       "competition": "Competition",
       "matchPreview": "Match Preview"

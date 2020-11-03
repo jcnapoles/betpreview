@@ -8,18 +8,6 @@
     -->
     <changeSet id="20201020215603-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="home_team_id"
-                                 baseTableName="match_preview"
-                                 constraintName="fk_match_preview_home_team_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="team"/>
-
-        <addForeignKeyConstraint baseColumnNames="visitor_team_id"
-                                 baseTableName="match_preview"
-                                 constraintName="fk_match_preview_visitor_team_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="team"/>
-
         <addForeignKeyConstraint baseColumnNames="match_preview_id"
                                  baseTableName="match_preview_team"
                                  constraintName="fk_match_preview_team_match_preview_id"
@@ -37,6 +25,18 @@
                                  constraintName="fk_match_preview_competition_id"
                                  referencedColumnNames="id"
                                  referencedTableName="competition"/>
+
+        <addForeignKeyConstraint baseColumnNames="home_team_id"
+                                 baseTableName="match_preview"
+                                 constraintName="fk_match_preview_home_team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+
+        <addForeignKeyConstraint baseColumnNames="visitor_team_id"
+                                 baseTableName="match_preview"
+                                 constraintName="fk_match_preview_visitor_team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
 
         <addForeignKeyConstraint baseColumnNames="country_id"
                                  baseTableName="match_preview"

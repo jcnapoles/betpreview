@@ -4,7 +4,6 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
@@ -27,8 +26,6 @@ type SelectableEntity = ITeam | ICompetition | ICountry;
 })
 export class MatchPreviewUpdateComponent implements OnInit {
   isSaving = false;
-  hometeams: ITeam[] = [];
-  visitorteams: ITeam[] = [];
   teams: ITeam[] = [];
   competitions: ICompetition[] = [];
   countries: ICountry[] = [];
@@ -57,10 +54,10 @@ export class MatchPreviewUpdateComponent implements OnInit {
     headline: [],
     date: [],
     language: [],
-    homeTeam: [],
-    visitorTeam: [],
     teams: [],
     competition: [],
+    homeTeam: [],
+    visitorTeam: [],
     country: [],
   });
 
@@ -84,50 +81,6 @@ export class MatchPreviewUpdateComponent implements OnInit {
       }
 
       this.updateForm(matchPreview);
-
-      this.teamService
-        .query({ filter: 'matchpreview-is-null' })
-        .pipe(
-          map((res: HttpResponse<ITeam[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITeam[]) => {
-          if (!matchPreview.homeTeam || !matchPreview.homeTeam.id) {
-            this.hometeams = resBody;
-          } else {
-            this.teamService
-              .find(matchPreview.homeTeam.id)
-              .pipe(
-                map((subRes: HttpResponse<ITeam>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITeam[]) => (this.hometeams = concatRes));
-          }
-        });
-
-      this.teamService
-        .query({ filter: 'matchpreview-is-null' })
-        .pipe(
-          map((res: HttpResponse<ITeam[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITeam[]) => {
-          if (!matchPreview.visitorTeam || !matchPreview.visitorTeam.id) {
-            this.visitorteams = resBody;
-          } else {
-            this.teamService
-              .find(matchPreview.visitorTeam.id)
-              .pipe(
-                map((subRes: HttpResponse<ITeam>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITeam[]) => (this.visitorteams = concatRes));
-          }
-        });
 
       this.teamService.query().subscribe((res: HttpResponse<ITeam[]>) => (this.teams = res.body || []));
 
@@ -161,10 +114,10 @@ export class MatchPreviewUpdateComponent implements OnInit {
       headline: matchPreview.headline,
       date: matchPreview.date,
       language: matchPreview.language,
-      homeTeam: matchPreview.homeTeam,
-      visitorTeam: matchPreview.visitorTeam,
       teams: matchPreview.teams,
       competition: matchPreview.competition,
+      homeTeam: matchPreview.homeTeam,
+      visitorTeam: matchPreview.visitorTeam,
       country: matchPreview.country,
     });
   }
@@ -236,10 +189,10 @@ export class MatchPreviewUpdateComponent implements OnInit {
       headline: this.editForm.get(['headline'])!.value,
       date: this.editForm.get(['date'])!.value,
       language: this.editForm.get(['language'])!.value,
-      homeTeam: this.editForm.get(['homeTeam'])!.value,
-      visitorTeam: this.editForm.get(['visitorTeam'])!.value,
       teams: this.editForm.get(['teams'])!.value,
       competition: this.editForm.get(['competition'])!.value,
+      homeTeam: this.editForm.get(['homeTeam'])!.value,
+      visitorTeam: this.editForm.get(['visitorTeam'])!.value,
       country: this.editForm.get(['country'])!.value,
     };
   }

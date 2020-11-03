@@ -52,6 +52,14 @@ public class Team implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<SocialMedia> socialMedias = new HashSet<>();
 
+    @OneToMany(mappedBy = "homeTeam")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<MatchPreview> matchPreviewsHomes = new HashSet<>();
+
+    @OneToMany(mappedBy = "visitorTeam")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<MatchPreview> matchPreviewsVisitors = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
     private Country country;
@@ -176,6 +184,56 @@ public class Team implements Serializable {
 
     public void setSocialMedias(Set<SocialMedia> socialMedias) {
         this.socialMedias = socialMedias;
+    }
+
+    public Set<MatchPreview> getMatchPreviewsHomes() {
+        return matchPreviewsHomes;
+    }
+
+    public Team matchPreviewsHomes(Set<MatchPreview> matchPreviews) {
+        this.matchPreviewsHomes = matchPreviews;
+        return this;
+    }
+
+    public Team addMatchPreviewsHome(MatchPreview matchPreview) {
+        this.matchPreviewsHomes.add(matchPreview);
+        matchPreview.setHomeTeam(this);
+        return this;
+    }
+
+    public Team removeMatchPreviewsHome(MatchPreview matchPreview) {
+        this.matchPreviewsHomes.remove(matchPreview);
+        matchPreview.setHomeTeam(null);
+        return this;
+    }
+
+    public void setMatchPreviewsHomes(Set<MatchPreview> matchPreviews) {
+        this.matchPreviewsHomes = matchPreviews;
+    }
+
+    public Set<MatchPreview> getMatchPreviewsVisitors() {
+        return matchPreviewsVisitors;
+    }
+
+    public Team matchPreviewsVisitors(Set<MatchPreview> matchPreviews) {
+        this.matchPreviewsVisitors = matchPreviews;
+        return this;
+    }
+
+    public Team addMatchPreviewsVisitor(MatchPreview matchPreview) {
+        this.matchPreviewsVisitors.add(matchPreview);
+        matchPreview.setVisitorTeam(this);
+        return this;
+    }
+
+    public Team removeMatchPreviewsVisitor(MatchPreview matchPreview) {
+        this.matchPreviewsVisitors.remove(matchPreview);
+        matchPreview.setVisitorTeam(null);
+        return this;
+    }
+
+    public void setMatchPreviewsVisitors(Set<MatchPreview> matchPreviews) {
+        this.matchPreviewsVisitors = matchPreviews;
     }
 
     public Country getCountry() {

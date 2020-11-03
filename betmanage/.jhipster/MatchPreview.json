@@ -84,22 +84,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "team",
-      "otherEntityRelationshipName": "matchPreview",
-      "relationshipName": "homeTeam",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "team",
-      "otherEntityRelationshipName": "matchPreview",
-      "relationshipName": "visitorTeam",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "title",
       "otherEntityRelationshipName": "matchPreview",
@@ -124,6 +108,20 @@
       "otherEntityName": "competition",
       "otherEntityRelationshipName": "matchPreview",
       "relationshipName": "competition",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreviewsHome",
+      "relationshipName": "homeTeam",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "matchPreviewsVisitor",
+      "relationshipName": "visitorTeam",
       "otherEntityField": "id"
     },
     {

@@ -34,6 +34,18 @@
       "relationshipName": "socialMedia"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "homeTeam",
+      "relationshipName": "matchPreviewsHome"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "matchPreview",
+      "otherEntityRelationshipName": "visitorTeam",
+      "relationshipName": "matchPreviewsVisitor"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "country",
       "otherEntityRelationshipName": "team",

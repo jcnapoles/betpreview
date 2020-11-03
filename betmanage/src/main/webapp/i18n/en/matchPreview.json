@@ -37,12 +37,12 @@
       "headline": "Headline",
       "date": "Date",
       "language": "Language",
-      "homeTeam": "Home Team",
-      "visitorTeam": "Visitor Team",
       "title": "Title",
       "paragraphs": "Paragraphs",
       "team": "Team",
       "competition": "Competition",
+      "homeTeam": "Home Team",
+      "visitorTeam": "Visitor Team",
       "country": "Country"
     }
   }
