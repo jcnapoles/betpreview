@@ -8,11 +8,12 @@ import { MatchPreviewUpdateComponent } from './match-preview-update.component';
 import { MatchPreviewLoadComponent } from './match-preview-load.component';
 import { MatchPreviewLoadsComponent } from './match-preview-loads.component';
 import { MatchPreviewDeleteDialogComponent } from './match-preview-delete-dialog.component';
+import { MatchPreviewSendDialogComponent } from './match-preview-send-dialog.component';
 import { matchPreviewRoute } from './match-preview.route';
 
 @NgModule({
   imports: [BetmanageSharedModule, RouterModule.forChild(matchPreviewRoute)],
-  declarations: [MatchPreviewComponent, MatchPreviewDetailComponent, MatchPreviewUpdateComponent, MatchPreviewLoadComponent, MatchPreviewLoadsComponent, MatchPreviewDeleteDialogComponent],
-  entryComponents: [MatchPreviewDeleteDialogComponent],
+  declarations: [MatchPreviewComponent, MatchPreviewDetailComponent, MatchPreviewUpdateComponent, MatchPreviewLoadComponent, MatchPreviewLoadsComponent, MatchPreviewDeleteDialogComponent, MatchPreviewSendDialogComponent],
+  entryComponents: [MatchPreviewDeleteDialogComponent, MatchPreviewSendDialogComponent],
 })
 export class BetmanageMatchPreviewModule {}

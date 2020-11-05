@@ -1,0 +1,24 @@
+<form *ngIf="matchPreview" name="sendForm" (ngSubmit)="confirmSend(matchPreview?.id!)">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="entity.send.title">Confirm Send operation</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <p id="jhi-send-matchPreview-heading" jhiTranslate="betmanageApp.matchPreview.send.question" [translateValues]="{ id: matchPreview.id }">Are you sure you want to send this Match Preview?</p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button id="jhi-confirm-send-matchPreview" type="submit" class="btn btn-danger">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.send">Send</span>
+        </button>
+    </div>
+</form>

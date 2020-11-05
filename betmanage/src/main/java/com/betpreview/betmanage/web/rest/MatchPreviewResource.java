@@ -237,4 +237,17 @@ public class MatchPreviewResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    /**
+     * {@code GET  /competitions} : get all the competitions.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of competitions in body.
+     */
+    @GetMapping("/match-previews/sendToBetPreview/{id}")
+    public ResponseEntity<Void> loadAPIMatchPreviewByDate(@PathVariable Long id) {
+    	log.debug("REST request to send MatchPreview : {}", id);
+        //Implementar el envio a BetPreview
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, ENTITY_NAME, id.toString())).build();
+    }
 }

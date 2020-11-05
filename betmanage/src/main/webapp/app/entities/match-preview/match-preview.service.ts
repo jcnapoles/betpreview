@@ -90,4 +90,9 @@ load(teamId: number): Observable<EntityResponseType> {
 loads(date: Date): Observable<EntityArrayResponseType> {	
 	return this.http.get<IMatchPreview[]>(`${this.resourceUrl}/loadAPIMatchPreviewByDate/${date}`, {observe: 'response' });
   }
+
+ sendToBetPreview(id: number): Observable<HttpResponse<{}>> {
+	  // const copy = this.convertDateFromClient(matchPreview);	
+	return this.http.get(`${this.resourceUrl}/sendToBetPreview/${id}`, { observe: 'response' });
+  }
 }

@@ -109,7 +109,8 @@
       "open": "Open",
       "save": "Save",
       "load": "Load",
-      "view": "View"
+      "view": "View",
+      "send": "Send"
     },
     "detail": {
       "field": "Field",
@@ -117,6 +118,9 @@
     },
     "delete": {
       "title": "Confirm delete operation"
+    },
+    "send": {
+      "title": "Confirm send operation"
     },
     "validation": {
       "required": "This field is required.",

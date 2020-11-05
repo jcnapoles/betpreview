@@ -16,6 +16,9 @@
       "delete": {
         "question": "Are you sure you want to delete Match Preview {{ id }}?"
       },
+      "send": {
+        "question": "Are you sure you want to send Match Preview {{ id }}?"
+      },
       "detail": {
         "title": "Match Preview"
       },
