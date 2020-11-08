@@ -76,6 +76,7 @@ public class PartsServiceImpl implements PartsService {
     }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Parts> findOneByMatchPreview(MatchPreview matchPreview) {
 		log.debug("Request to get Parts by MatchPreview: {}", matchPreview.getId());
 		return partsRepository.findOneByMatchPreview(matchPreview);

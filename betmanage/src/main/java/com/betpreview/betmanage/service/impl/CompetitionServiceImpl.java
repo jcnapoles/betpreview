@@ -75,6 +75,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionSearchRepository.search(queryStringQuery(query), pageable);    }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Competition> findOneBySportscribeId(Integer sportscribeId) {
 		 log.debug("Request to get Competition by SportscribeId: {}", sportscribeId);
 		return competitionRepository.findOneBySportscribeId(sportscribeId);

@@ -1,9 +1,10 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.Title;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.domain.Title;
 
 /**
  * Service Interface for managing {@link Title}.
@@ -49,4 +50,6 @@ public interface TitleService {
      * @return the list of entities.
      */
     List<Title> search(String query);
+    
+    List<Title> findAllByMatchPreview(MatchPreview matchPreview);
 }

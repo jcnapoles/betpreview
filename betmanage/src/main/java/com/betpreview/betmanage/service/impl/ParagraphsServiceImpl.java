@@ -1,6 +1,7 @@
 package com.betpreview.betmanage.service.impl;
 
 import com.betpreview.betmanage.service.ParagraphsService;
+import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.domain.Paragraphs;
 import com.betpreview.betmanage.repository.ParagraphsRepository;
 import com.betpreview.betmanage.repository.search.ParagraphsSearchRepository;
@@ -73,4 +74,10 @@ public class ParagraphsServiceImpl implements ParagraphsService {
             .stream(paragraphsSearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	@Override
+	public List<Paragraphs> findAllByMatchPreview(MatchPreview matchPreview) {
+		log.debug("Request to search Paragraphs by matchPreview {}", matchPreview);
+		return paragraphsRepository.findAllByMatchPreview(matchPreview);
+	}
 }

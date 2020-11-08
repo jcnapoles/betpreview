@@ -75,6 +75,7 @@ public class MatchPreviewServiceImpl implements MatchPreviewService {
         return matchPreviewSearchRepository.search(queryStringQuery(query), pageable);    }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<MatchPreview> findOneByFixtureId(Integer fixtureId) {
 		log.debug("Request to get MatchPreview by fixtureId: {}", fixtureId);
 		return matchPreviewRepository.findOneByFixtureId(fixtureId);

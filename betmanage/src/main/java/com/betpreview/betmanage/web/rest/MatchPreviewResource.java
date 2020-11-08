@@ -1,6 +1,53 @@
 package com.betpreview.betmanage.web.rest;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.betpreview.betmanage.domain.Competition;
 import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.domain.Paragraphs;
+import com.betpreview.betmanage.domain.Parts;
+import com.betpreview.betmanage.domain.Team;
+import com.betpreview.betmanage.domain.Title;
 import com.betpreview.betmanage.integration.SportScribeAPI;
 import com.betpreview.betmanage.service.CompetitionService;
 import com.betpreview.betmanage.service.CountryService;
@@ -12,34 +59,19 @@ import com.betpreview.betmanage.service.SportService;
 import com.betpreview.betmanage.service.TeamService;
 import com.betpreview.betmanage.service.TeamSocialService;
 import com.betpreview.betmanage.service.TitleService;
+import com.betpreview.betmanage.service.dto.BetPreviewPost;
+import com.betpreview.betmanage.service.dto.BetPreviewPostMapper;
+import com.betpreview.betmanage.service.dto.MatchPreviewDTO;
+import com.betpreview.betmanage.service.dto.MatchPreviewMapper;
 import com.betpreview.betmanage.web.rest.errors.BadRequestAlertException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.betpreview.betmanage.domain.MatchPreview}.
@@ -85,7 +117,10 @@ public class MatchPreviewResource {
     private SocialMediaService socialMediaService;
     
     @Autowired
-    private TeamSocialService teamSocialService;
+    private TeamSocialService teamSocialService;    
+    
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     public MatchPreviewResource(MatchPreviewService matchPreviewService) {
         this.matchPreviewService = matchPreviewService;
@@ -247,7 +282,112 @@ public class MatchPreviewResource {
     @GetMapping("/match-previews/sendToBetPreview/{id}")
     public ResponseEntity<Void> loadAPIMatchPreviewByDate(@PathVariable Long id) {
     	log.debug("REST request to send MatchPreview : {}", id);
-        //Implementar el envio a BetPreview
+    	
+    	String endpoint = environment.getProperty("betpreview.endpoint");
+        String username = environment.getProperty("betpreview.username");
+        String password = environment.getProperty("betpreview.password");
+        Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOne(id);
+        MatchPreview matchPreview = new MatchPreview();
+        if(!matchPreviewOptional.isEmpty()) {
+        	try {
+	        	String userPass = username + ":" + password;
+	        	matchPreview = matchPreviewOptional.get();
+	        	Parts parts = new Parts();
+	        	Optional<Parts> partsOptional = partsService.findOneByMatchPreview(matchPreview);
+	        	if (!partsOptional.isEmpty()) {
+					parts = partsOptional.get();
+				}
+	        	List<Title> titlesList = new ArrayList<Title>();
+	        	titlesList = titleService.findAllByMatchPreview(matchPreview);
+	        	String[] titlesArray = null;
+	        	if (titlesList.size() != 0) {
+	        		titlesArray = new String[titlesList.size()];
+		        	int cont = 0;
+		        	for (Title title : titlesList) {
+						titlesArray[cont] = title.getTitleText();
+						cont++;
+					}
+				}
+	        	String title = matchPreview.getHometeamName() + " vs " + matchPreview.getVisitorteamName();
+	        	String slug = "matchpreview-" + matchPreview.getId() + "-" + matchPreview.getHometeamName() + "-vs-" + matchPreview.getVisitorteamName();
+	        	slug = slug.replaceAll(" ", "");
+	        	slug = slug.toLowerCase();
+	        	String date = matchPreview.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+						.withZone(ZoneId.systemDefault());
+	        	String startUtcTimestamp = formatter.format(matchPreview.getStartUtcTimestamp()); 
+	        	Team homeTeam = matchPreview.getHomeTeam();
+	        	Team visitorTeam = matchPreview.getVisitorTeam();
+	        	Competition competition = matchPreview.getCompetition();
+	        	File matchImg = new File("match_" + matchPreview.getId() + ".png");
+	        	File fixtureImg = new File("fixture_" + matchPreview.getId() + ".png");
+	        	File formationImg = new File("formation_" + matchPreview.getId() + ".png");
+	        	File hometeam_logo = new File("hometeam_" + homeTeam.getId() + ".png");
+	        	File visitorteam_logo = new File("visitorteam_" + visitorTeam.getId() + ".png");
+	        	File competition_logo = new File("competition_" + homeTeam.getId() + ".png");
+	        	
+	        	if (matchPreview.getMatchImg() != null) {
+	        		FileUtils.writeByteArrayToFile(matchImg, matchPreview.getMatchImg());
+				}
+	        	if (matchPreview.getFixtureImg() != null) {
+	        		FileUtils.writeByteArrayToFile(fixtureImg, matchPreview.getFixtureImg());
+				}
+	        	if (matchPreview.getFormationImg() != null) {
+	        		FileUtils.writeByteArrayToFile(formationImg, matchPreview.getFormationImg());
+				}
+	        	if (homeTeam.getTeamLogo() != null) {
+	        		FileUtils.writeByteArrayToFile(hometeam_logo, homeTeam.getTeamLogo());
+				}
+	        	if (visitorTeam.getTeamLogo() != null) {
+	        		FileUtils.writeByteArrayToFile(visitorteam_logo, visitorTeam.getTeamLogo());
+				}
+	        	if (competition.getCompetitionLogo() != null) {
+	        		FileUtils.writeByteArrayToFile(competition_logo, competition.getCompetitionLogo());
+				}
+	        	List<Paragraphs> paragraphsList = new ArrayList<Paragraphs>();
+	        	paragraphsList = paragraphsService.findAllByMatchPreview(matchPreview);
+	        	String[] blurbSplit = null;
+	        	if (paragraphsList.size() != 0) {
+	        		blurbSplit = new String[paragraphsList.size()];
+	        		int cont = 0;
+	        		for (Paragraphs paragraphs : paragraphsList) {
+	        			blurbSplit[cont] = paragraphs.getContent();
+	        			cont++;
+					}
+				}      	
+	        	
+	        	MatchPreviewDTO matchPreviewDTO = MatchPreviewMapper.INSTANCE.createMatchPreviewDTO(matchPreview, parts, titlesArray, blurbSplit, date, startUtcTimestamp, matchImg, fixtureImg, formationImg, hometeam_logo, visitorteam_logo, competition_logo);        	
+	        	BetPreviewPost betPreviewPost = BetPreviewPostMapper.INSTANCE.createBetPreviewPost(matchPreviewDTO, slug, title, 7, "publish");
+	        	
+	        	String json = objectMapper.writeValueAsString(betPreviewPost);
+	        	Integer jsonLength = json.length();
+	        	MultiValueMap<String, String> headers = new LinkedMultiValueMap<>() ;        	
+	        	headers.add("Content-Lenght", jsonLength.toString());
+	        	headers.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(userPass.getBytes()));
+	        	
+	        	HttpHeaders httpHeaders = new HttpHeaders(headers);
+	        	httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+	        	RestTemplate restTemplate = new RestTemplate();
+	        	HttpEntity<String> request = new HttpEntity<String>(json, headers);	        	 
+	        	String result = restTemplate.postForObject(endpoint, request, String.class);
+				JsonNode root = objectMapper.readTree(result);
+				matchImg.delete();
+				fixtureImg.delete();
+				formationImg.delete();
+				hometeam_logo .delete();
+	        	visitorteam_logo.delete();
+	        	competition_logo.delete();
+			} catch (JsonMappingException e) {				
+				e.printStackTrace();
+			} catch (JsonProcessingException e) {				
+				e.printStackTrace();
+			} catch (RestClientException e) {
+				e.printStackTrace();
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+        }
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, ENTITY_NAME, id.toString())).build();
-    }
+    }  
+ 
 }

@@ -150,3 +150,10 @@ sportscribe:
   url:  https://api.sportscribe.co/v1_0/
   keyName:  x-api-key
   keyValue: G0dSJy8KSc38kklmmLmmP8ZSFkkMg4wj46rrnZqM
+  
+# BetPreview
+betpreview:
+  endpoint: http://35.180.117.24/betpreview/?rest_route=/wp/v2/posts/
+  username: betpreview
+  password: betpreview
+    

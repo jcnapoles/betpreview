@@ -1,9 +1,10 @@
 package com.betpreview.betmanage.service;
 
-import com.betpreview.betmanage.domain.Paragraphs;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.betpreview.betmanage.domain.MatchPreview;
+import com.betpreview.betmanage.domain.Paragraphs;
 
 /**
  * Service Interface for managing {@link Paragraphs}.
@@ -49,4 +50,6 @@ public interface ParagraphsService {
      * @return the list of entities.
      */
     List<Paragraphs> search(String query);
+    
+    List<Paragraphs> findAllByMatchPreview(MatchPreview matchPreview);
 }

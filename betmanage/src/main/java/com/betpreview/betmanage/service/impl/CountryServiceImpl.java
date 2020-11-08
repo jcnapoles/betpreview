@@ -75,6 +75,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Country> findOneByCountryName(String countryName) {
 		log.debug("Request to get Country by countryName : {}", countryName);
 		return countryRepository.findOneCountryName(countryName);

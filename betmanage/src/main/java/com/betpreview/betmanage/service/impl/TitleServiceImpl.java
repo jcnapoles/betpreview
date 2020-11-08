@@ -1,6 +1,7 @@
 package com.betpreview.betmanage.service.impl;
 
 import com.betpreview.betmanage.service.TitleService;
+import com.betpreview.betmanage.domain.MatchPreview;
 import com.betpreview.betmanage.domain.Title;
 import com.betpreview.betmanage.repository.TitleRepository;
 import com.betpreview.betmanage.repository.search.TitleSearchRepository;
@@ -73,4 +74,11 @@ public class TitleServiceImpl implements TitleService {
             .stream(titleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
         .collect(Collectors.toList());
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Title> findAllByMatchPreview(MatchPreview matchPreview) {
+		 log.debug("Request to search Titles for matchPreview {}", matchPreview);
+		return titleRepository.findAllByMatchPreview(matchPreview);
+	}
 }

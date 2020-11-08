@@ -75,6 +75,7 @@ public class SportServiceImpl implements SportService {
     }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Sport> findOneBySportName(String sportName) {
 		log.debug("Request to get Sport by sportName: {}", sportName);
 		return sportRepository.findOneBySportName(sportName);

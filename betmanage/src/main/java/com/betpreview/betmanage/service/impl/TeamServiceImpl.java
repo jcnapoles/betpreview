@@ -71,6 +71,7 @@ public class TeamServiceImpl implements TeamService {
         return teamSearchRepository.search(queryStringQuery(query), pageable);    }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Team> findOneBySportscribeId(Integer sportscribeId) {
 		log.debug("Request to get Team by sportscribeId: {}", sportscribeId);
 		return teamRepository.findOneBySportscribeId(sportscribeId);

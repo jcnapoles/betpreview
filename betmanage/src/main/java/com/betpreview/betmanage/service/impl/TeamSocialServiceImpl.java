@@ -75,6 +75,7 @@ public class TeamSocialServiceImpl implements TeamSocialService {
     }
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<TeamSocial> findOneByMatch(String match) {
 		log.debug("Request to get TeamSocial by Match: {}", match);
 		return teamSocialRepository.findOneByMatch(match);
