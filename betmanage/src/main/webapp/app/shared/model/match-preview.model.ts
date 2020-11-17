@@ -25,7 +25,7 @@ export interface IMatchPreview {
   venueCity?: string;
   matchImgContentType?: string;
   matchImg?: any;
-  matchImaTxt?: string;
+  matchImgTxt?: string;
   headline?: string;
   date?: Moment;
   language?: LanguageEnum;

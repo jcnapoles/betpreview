@@ -99,8 +99,8 @@ public class MatchPreview implements Serializable {
     @Column(name = "match_img_content_type")
     private String matchImgContentType;
 
-    @Column(name = "match_ima_txt")
-    private String matchImaTxt;
+    @Column(name = "match_img_txt")
+    private String matchImgTxt;
 
     @Column(name = "headline")
     private String headline;
@@ -373,17 +373,17 @@ public class MatchPreview implements Serializable {
         this.matchImgContentType = matchImgContentType;
     }
 
-    public String getMatchImaTxt() {
-        return matchImaTxt;
+    public String getMatchImgTxt() {
+        return matchImgTxt;
     }
 
-    public MatchPreview matchImaTxt(String matchImaTxt) {
-        this.matchImaTxt = matchImaTxt;
+    public MatchPreview matchImgTxt(String matchImgTxt) {
+        this.matchImgTxt = matchImgTxt;
         return this;
     }
 
-    public void setMatchImaTxt(String matchImaTxt) {
-        this.matchImaTxt = matchImaTxt;
+    public void setMatchImgTxt(String matchImgTxt) {
+        this.matchImgTxt = matchImgTxt;
     }
 
     public String getHeadline() {
@@ -591,7 +591,7 @@ public class MatchPreview implements Serializable {
             ", venueCity='" + getVenueCity() + "'" +
             ", matchImg='" + getMatchImg() + "'" +
             ", matchImgContentType='" + getMatchImgContentType() + "'" +
-            ", matchImaTxt='" + getMatchImaTxt() + "'" +
+            ", matchImgTxt='" + getMatchImgTxt() + "'" +
             ", headline='" + getHeadline() + "'" +
             ", date='" + getDate() + "'" +
             ", language='" + getLanguage() + "'" +

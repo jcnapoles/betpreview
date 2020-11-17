@@ -1,7 +1,5 @@
 package com.betpreview.betmanage.service.dto;
 
-import java.io.File;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -23,9 +21,9 @@ public class MatchPreviewDTO {
     
     private String league;
      
-    private File fixture_img;
+    private String fixture_img;
        
-    private File formation_img;   
+    private String formation_img;   
    
     private String start_utc_timestamp;
     
@@ -33,9 +31,9 @@ public class MatchPreviewDTO {
     
     private String venue_city;
         
-    private File match_img;
+    private String match_img;
     
-    private String match_ima_txt;
+    private String match_img_txt;
     
     private String headline;    
     
@@ -62,17 +60,17 @@ public class MatchPreviewDTO {
     
     private String parts_last_meeting_scoring;
     
-    private String parts_home_sidelinded;
+    private String parts_home_sidelined;
     
-    private String parts_vivistor_sidelined;
+    private String parts_visitor_sidelined;
     
     private String[] quick_items;
     
-    private File hometeam_logo;
+    private String hometeam_logo;
     
-    private File visitorteam_logo;
+    private String visitorteam_logo;
     
-    private File competition_logo;
+    private String competition_logo;
     
     private String blurb_full;
     
@@ -156,15 +154,7 @@ public class MatchPreviewDTO {
 
 	public void setVenue_city(String venue_city) {
 		this.venue_city = venue_city;
-	}
-
-	public String getMatch_ima_txt() {
-		return match_ima_txt;
-	}
-
-	public void setMatch_ima_txt(String match_ima_txt) {
-		this.match_ima_txt = match_ima_txt;
-	}
+	}	
 
 	public String getHeadline() {
 		return headline;
@@ -260,22 +250,30 @@ public class MatchPreviewDTO {
 
 	public void setParts_last_meeting_scoring(String parts_last_meeting_scoring) {
 		this.parts_last_meeting_scoring = parts_last_meeting_scoring;
+	}	
+
+	public String getMatch_img_txt() {
+		return match_img_txt;
 	}
 
-	public String getParts_home_sidelinded() {
-		return parts_home_sidelinded;
+	public void setMatch_img_txt(String match_img_txt) {
+		this.match_img_txt = match_img_txt;
 	}
 
-	public void setParts_home_sidelinded(String parts_home_sidelinded) {
-		this.parts_home_sidelinded = parts_home_sidelinded;
+	public String getParts_home_sidelined() {
+		return parts_home_sidelined;
 	}
 
-	public String getParts_vivistor_sidelined() {
-		return parts_vivistor_sidelined;
+	public void setParts_home_sidelined(String parts_home_sidelined) {
+		this.parts_home_sidelined = parts_home_sidelined;
 	}
 
-	public void setParts_vivistor_sidelined(String parts_vivistor_sidelined) {
-		this.parts_vivistor_sidelined = parts_vivistor_sidelined;
+	public String getParts_visitor_sidelined() {
+		return parts_visitor_sidelined;
+	}
+
+	public void setParts_visitor_sidelined(String parts_visitor_sidelined) {
+		this.parts_visitor_sidelined = parts_visitor_sidelined;
 	}
 
 	public String[] getQuick_items() {
@@ -284,53 +282,53 @@ public class MatchPreviewDTO {
 
 	public void setQuick_items(String[] quick_items) {
 		this.quick_items = quick_items;
-	}
+	}	
 
-	public File getFixture_img() {
+	public String getFixture_img() {
 		return fixture_img;
 	}
 
-	public void setFixture_img(File fixture_img) {
+	public void setFixture_img(String fixture_img) {
 		this.fixture_img = fixture_img;
 	}
 
-	public File getFormation_img() {
+	public String getFormation_img() {
 		return formation_img;
 	}
 
-	public void setFormation_img(File formation_img) {
+	public void setFormation_img(String formation_img) {
 		this.formation_img = formation_img;
 	}
 
-	public File getMatch_img() {
+	public String getMatch_img() {
 		return match_img;
 	}
 
-	public void setMatch_img(File match_img) {
+	public void setMatch_img(String match_img) {
 		this.match_img = match_img;
 	}
 
-	public File getHometeam_logo() {
+	public String getHometeam_logo() {
 		return hometeam_logo;
 	}
 
-	public void setHometeam_logo(File hometeam_logo) {
+	public void setHometeam_logo(String hometeam_logo) {
 		this.hometeam_logo = hometeam_logo;
 	}
 
-	public File getVisitorteam_logo() {
+	public String getVisitorteam_logo() {
 		return visitorteam_logo;
 	}
 
-	public void setVisitorteam_logo(File visitorteam_logo) {
+	public void setVisitorteam_logo(String visitorteam_logo) {
 		this.visitorteam_logo = visitorteam_logo;
 	}
 
-	public File getCompetition_logo() {
+	public String getCompetition_logo() {
 		return competition_logo;
 	}
 
-	public void setCompetition_logo(File competition_logo) {
+	public void setCompetition_logo(String competition_logo) {
 		this.competition_logo = competition_logo;
 	}
 

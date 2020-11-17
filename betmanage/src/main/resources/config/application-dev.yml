@@ -154,6 +154,7 @@ sportscribe:
 # BetPreview
 betpreview:
   endpoint: http://35.180.117.24/betpreview/?rest_route=/wp/v2/posts/
+  loadImgEP: http://35.180.117.24/betpreview/?rest_route=/wp/v2/media/ 
   username: betpreview
   password: betpreview
     

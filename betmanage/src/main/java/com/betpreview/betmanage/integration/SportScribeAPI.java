@@ -301,7 +301,7 @@ public class SportScribeAPI {
 		}	
 		matchPreview.setMatchImg(matchLogo);
 		//matchPreview.setMatchImgContentType(matchImgContentType);
-		matchPreview.setMatchImaTxt(preview.getMatch_img_txt());
+		matchPreview.setMatchImgTxt(preview.getMatch_img_txt());
 		matchPreview.setHeadline(preview.getHeadline());
 		
 		if (preview.getDate() != null) {			

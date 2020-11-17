@@ -95,8 +95,8 @@ public class MatchPreviewResourceIT {
     private static final String DEFAULT_MATCH_IMG_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_MATCH_IMG_CONTENT_TYPE = "image/png";
 
-    private static final String DEFAULT_MATCH_IMA_TXT = "AAAAAAAAAA";
-    private static final String UPDATED_MATCH_IMA_TXT = "BBBBBBBBBB";
+    private static final String DEFAULT_MATCH_IMG_TXT = "AAAAAAAAAA";
+    private static final String UPDATED_MATCH_IMG_TXT = "BBBBBBBBBB";
 
     private static final String DEFAULT_HEADLINE = "AAAAAAAAAA";
     private static final String UPDATED_HEADLINE = "BBBBBBBBBB";
@@ -160,7 +160,7 @@ public class MatchPreviewResourceIT {
             .venueCity(DEFAULT_VENUE_CITY)
             .matchImg(DEFAULT_MATCH_IMG)
             .matchImgContentType(DEFAULT_MATCH_IMG_CONTENT_TYPE)
-            .matchImaTxt(DEFAULT_MATCH_IMA_TXT)
+            .matchImgTxt(DEFAULT_MATCH_IMG_TXT)
             .headline(DEFAULT_HEADLINE)
             .date(DEFAULT_DATE)
             .language(DEFAULT_LANGUAGE);
@@ -191,7 +191,7 @@ public class MatchPreviewResourceIT {
             .venueCity(UPDATED_VENUE_CITY)
             .matchImg(UPDATED_MATCH_IMG)
             .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
-            .matchImaTxt(UPDATED_MATCH_IMA_TXT)
+            .matchImgTxt(UPDATED_MATCH_IMG_TXT)
             .headline(UPDATED_HEADLINE)
             .date(UPDATED_DATE)
             .language(UPDATED_LANGUAGE);
@@ -234,7 +234,7 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getVenueCity()).isEqualTo(DEFAULT_VENUE_CITY);
         assertThat(testMatchPreview.getMatchImg()).isEqualTo(DEFAULT_MATCH_IMG);
         assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(DEFAULT_MATCH_IMG_CONTENT_TYPE);
-        assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(DEFAULT_MATCH_IMA_TXT);
+        assertThat(testMatchPreview.getMatchImgTxt()).isEqualTo(DEFAULT_MATCH_IMG_TXT);
         assertThat(testMatchPreview.getHeadline()).isEqualTo(DEFAULT_HEADLINE);
         assertThat(testMatchPreview.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testMatchPreview.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
@@ -313,7 +313,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].venueCity").value(hasItem(DEFAULT_VENUE_CITY)))
             .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
-            .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))
+            .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMG_TXT)))
             .andExpect(jsonPath("$.[*].headline").value(hasItem(DEFAULT_HEADLINE)))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
@@ -367,7 +367,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.venueCity").value(DEFAULT_VENUE_CITY))
             .andExpect(jsonPath("$.matchImgContentType").value(DEFAULT_MATCH_IMG_CONTENT_TYPE))
             .andExpect(jsonPath("$.matchImg").value(Base64Utils.encodeToString(DEFAULT_MATCH_IMG)))
-            .andExpect(jsonPath("$.matchImaTxt").value(DEFAULT_MATCH_IMA_TXT))
+            .andExpect(jsonPath("$.matchImgTxt").value(DEFAULT_MATCH_IMG_TXT))
             .andExpect(jsonPath("$.headline").value(DEFAULT_HEADLINE))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()));
@@ -410,7 +410,7 @@ public class MatchPreviewResourceIT {
             .venueCity(UPDATED_VENUE_CITY)
             .matchImg(UPDATED_MATCH_IMG)
             .matchImgContentType(UPDATED_MATCH_IMG_CONTENT_TYPE)
-            .matchImaTxt(UPDATED_MATCH_IMA_TXT)
+            .matchImgTxt(UPDATED_MATCH_IMG_TXT)
             .headline(UPDATED_HEADLINE)
             .date(UPDATED_DATE)
             .language(UPDATED_LANGUAGE);
@@ -441,7 +441,7 @@ public class MatchPreviewResourceIT {
         assertThat(testMatchPreview.getVenueCity()).isEqualTo(UPDATED_VENUE_CITY);
         assertThat(testMatchPreview.getMatchImg()).isEqualTo(UPDATED_MATCH_IMG);
         assertThat(testMatchPreview.getMatchImgContentType()).isEqualTo(UPDATED_MATCH_IMG_CONTENT_TYPE);
-        assertThat(testMatchPreview.getMatchImaTxt()).isEqualTo(UPDATED_MATCH_IMA_TXT);
+        assertThat(testMatchPreview.getMatchImgTxt()).isEqualTo(UPDATED_MATCH_IMG_TXT);
         assertThat(testMatchPreview.getHeadline()).isEqualTo(UPDATED_HEADLINE);
         assertThat(testMatchPreview.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testMatchPreview.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
@@ -521,7 +521,7 @@ public class MatchPreviewResourceIT {
             .andExpect(jsonPath("$.[*].venueCity").value(hasItem(DEFAULT_VENUE_CITY)))
             .andExpect(jsonPath("$.[*].matchImgContentType").value(hasItem(DEFAULT_MATCH_IMG_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].matchImg").value(hasItem(Base64Utils.encodeToString(DEFAULT_MATCH_IMG))))
-            .andExpect(jsonPath("$.[*].matchImaTxt").value(hasItem(DEFAULT_MATCH_IMA_TXT)))
+            .andExpect(jsonPath("$.[*].matchImgTxt").value(hasItem(DEFAULT_MATCH_IMG_TXT)))
             .andExpect(jsonPath("$.[*].headline").value(hasItem(DEFAULT_HEADLINE)))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));

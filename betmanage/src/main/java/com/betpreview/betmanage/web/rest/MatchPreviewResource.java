@@ -1,5 +1,7 @@
 package com.betpreview.betmanage.web.rest;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -12,14 +14,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.imageio.ImageIO;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -284,6 +289,7 @@ public class MatchPreviewResource {
     	log.debug("REST request to send MatchPreview : {}", id);
     	
     	String endpoint = environment.getProperty("betpreview.endpoint");
+    	String loadImgEP = environment.getProperty("betpreview.loadImgEP");
         String username = environment.getProperty("betpreview.username");
         String password = environment.getProperty("betpreview.password");
         Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOne(id);
@@ -319,30 +325,36 @@ public class MatchPreviewResource {
 	        	Team homeTeam = matchPreview.getHomeTeam();
 	        	Team visitorTeam = matchPreview.getVisitorTeam();
 	        	Competition competition = matchPreview.getCompetition();
-	        	File matchImg = new File("match_" + matchPreview.getId() + ".png");
-	        	File fixtureImg = new File("fixture_" + matchPreview.getId() + ".png");
-	        	File formationImg = new File("formation_" + matchPreview.getId() + ".png");
-	        	File hometeam_logo = new File("hometeam_" + homeTeam.getId() + ".png");
-	        	File visitorteam_logo = new File("visitorteam_" + visitorTeam.getId() + ".png");
-	        	File competition_logo = new File("competition_" + homeTeam.getId() + ".png");
+	        	String matchImg = null;
+	        	String fixtureImg = null;
+	        	String formationImg = null;
+	        	String hometeam_logo = null;
+	        	String visitorteam_logo = null;
+	        	String competition_logo = null;
 	        	
 	        	if (matchPreview.getMatchImg() != null) {
-	        		FileUtils.writeByteArrayToFile(matchImg, matchPreview.getMatchImg());
+	        		matchImg = "match_" + matchPreview.getId() + ".png";
+	        		matchImg = postImageToBetpreview(loadImgEP, username, password, matchPreview.getMatchImg(), matchImg);
 				}
-	        	if (matchPreview.getFixtureImg() != null) {
-	        		FileUtils.writeByteArrayToFile(fixtureImg, matchPreview.getFixtureImg());
+	        	if (matchPreview.getFixtureImg() != null) {	        		
+	        		fixtureImg = "fixture_" + matchPreview.getId() + ".png";
+	        		fixtureImg = postImageToBetpreview(loadImgEP, username, password, matchPreview.getFixtureImg(), fixtureImg);
 				}
-	        	if (matchPreview.getFormationImg() != null) {
-	        		FileUtils.writeByteArrayToFile(formationImg, matchPreview.getFormationImg());
+	        	if (matchPreview.getFormationImg() != null) {	        		
+	        		formationImg = "formation_" + matchPreview.getId() + ".png";
+	        		formationImg = postImageToBetpreview(loadImgEP, username, password, matchPreview.getFormationImg(), formationImg);
 				}
-	        	if (homeTeam.getTeamLogo() != null) {
-	        		FileUtils.writeByteArrayToFile(hometeam_logo, homeTeam.getTeamLogo());
+	        	if (homeTeam.getTeamLogo() != null) {	        		
+	        		hometeam_logo = "hometeam_" + homeTeam.getId() + ".png";
+	        		hometeam_logo = postImageToBetpreview(loadImgEP, username, password, homeTeam.getTeamLogo(), hometeam_logo);
 				}
-	        	if (visitorTeam.getTeamLogo() != null) {
-	        		FileUtils.writeByteArrayToFile(visitorteam_logo, visitorTeam.getTeamLogo());
+	        	if (visitorTeam.getTeamLogo() != null) {	        		
+	        		visitorteam_logo = "visitorteam_" + visitorTeam.getId() + ".png";
+	        		visitorteam_logo = postImageToBetpreview(loadImgEP,  username, password, visitorTeam.getTeamLogo(), visitorteam_logo);
 				}
-	        	if (competition.getCompetitionLogo() != null) {
-	        		FileUtils.writeByteArrayToFile(competition_logo, competition.getCompetitionLogo());
+	        	if (competition.getCompetitionLogo() != null) {	        		
+	        		competition_logo = "competition_" + homeTeam.getId() + ".png";
+	        		competition_logo = postImageToBetpreview(loadImgEP, username, password, competition.getCompetitionLogo(), competition_logo);
 				}
 	        	List<Paragraphs> paragraphsList = new ArrayList<Paragraphs>();
 	        	paragraphsList = paragraphsService.findAllByMatchPreview(matchPreview);
@@ -361,7 +373,7 @@ public class MatchPreviewResource {
 	        	
 	        	String json = objectMapper.writeValueAsString(betPreviewPost);
 	        	Integer jsonLength = json.length();
-	        	MultiValueMap<String, String> headers = new LinkedMultiValueMap<>() ;        	
+	        	MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();        	
 	        	headers.add("Content-Lenght", jsonLength.toString());
 	        	headers.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(userPass.getBytes()));
 	        	
@@ -370,13 +382,7 @@ public class MatchPreviewResource {
 	        	RestTemplate restTemplate = new RestTemplate();
 	        	HttpEntity<String> request = new HttpEntity<String>(json, headers);	        	 
 	        	String result = restTemplate.postForObject(endpoint, request, String.class);
-				JsonNode root = objectMapper.readTree(result);
-				matchImg.delete();
-				fixtureImg.delete();
-				formationImg.delete();
-				hometeam_logo .delete();
-	        	visitorteam_logo.delete();
-	        	competition_logo.delete();
+				JsonNode root = objectMapper.readTree(result);				
 			} catch (JsonMappingException e) {				
 				e.printStackTrace();
 			} catch (JsonProcessingException e) {				
@@ -388,6 +394,49 @@ public class MatchPreviewResource {
 			}
         }
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, ENTITY_NAME, id.toString())).build();
-    }  
+    }
+    
+    private String postImageToBetpreview(String url, String username, String password, byte[] byteArray, String name) throws ClientProtocolException, IOException {
+    	String userPass = username + ":" + password;
+    	String result = null;
+    	String response = null;
+    	File image = new File(name);
+    	FileUtils.writeByteArrayToFile(image, byteArray);
+    	final String filename = image.getName();
+    	RestTemplate restTemplate = new RestTemplate();
+    	HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(Base64.getEncoder().encodeToString(userPass.getBytes()));
+        headers.setContentDispositionFormData("filename", filename);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);        
+        ByteArrayResource contentAsResource = new ByteArrayResource(generateBytArray(image)){
+            @Override
+            public String getFilename(){
+                return filename;
+            }
+        };        
+        LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+        map.add("file", contentAsResource);       
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new    HttpEntity<LinkedMultiValueMap<String, Object>>(
+                            map, headers);        
+        response = restTemplate.postForObject(url,requestEntity, String.class);
+    	JsonNode root = objectMapper.readTree(response);
+    	result = root.get("source_url").asText();
+    	return result;    	
+    }
+    
+	private byte[] generateBytArray(File file) {
+		byte[] res = new byte[0];
+		try {
+			BufferedImage image = ImageIO.read(file);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(image, "png", baos);
+			res = baos.toByteArray();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return res;
+	}
  
 }
