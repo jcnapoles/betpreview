@@ -294,13 +294,13 @@ public class MatchPreviewResource {
         String password = environment.getProperty("betpreview.password");
         Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOne(id);
         MatchPreview matchPreview = new MatchPreview();
-        if(!matchPreviewOptional.isPresent()) {
+        if(matchPreviewOptional.isPresent()) {
         	try {
 	        	String userPass = username + ":" + password;
 	        	matchPreview = matchPreviewOptional.get();
 	        	Parts parts = new Parts();
 	        	Optional<Parts> partsOptional = partsService.findOneByMatchPreview(matchPreview);
-	        	if (!partsOptional.isPresent()) {
+	        	if (partsOptional.isPresent()) {
 					parts = partsOptional.get();
 				}
 	        	List<Title> titlesList = new ArrayList<Title>();

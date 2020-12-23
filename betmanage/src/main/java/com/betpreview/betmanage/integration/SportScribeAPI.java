@@ -117,7 +117,7 @@ public class SportScribeAPI {
 			Integer sportscribeId = league.getId();
 			Optional<Competition> competitionOptional = competitionService.findOneBySportscribeId(sportscribeId);
 			Competition competition = new Competition();
-			if (!competitionOptional.isPresent()) {				
+			if (competitionOptional.isPresent()) {				
 				competition = competitionOptional.get();
 			}
 			
@@ -136,7 +136,7 @@ public class SportScribeAPI {
 			/*Create or Load Sport*/
 			Optional<Sport> sportOptional = sportService.findOneBySportName(sportName);
 			Sport sport = new Sport();
-			if (!sportOptional.isPresent()) {
+			if (sportOptional.isPresent()) {
 				sport = sportOptional.get();				
 			} 
 			sport.setSportName(sportName);
@@ -146,7 +146,7 @@ public class SportScribeAPI {
 			/*Create or Load Country*/
 			Optional<Country> countryOptional = countryService.findOneByCountryName(league.getCountry());
 			Country country = new Country();
-			if (!countryOptional.isPresent()) {
+			if (countryOptional.isPresent()) {
 				country = countryOptional.get();				
 			} 
 			country.setCountryName(league.getCountry());
@@ -178,7 +178,7 @@ public class SportScribeAPI {
 			Integer sportscribeId = teamSportscribe.getId();
 			Optional<Team> teamOptional = teamService.findOneBySportscribeId(sportscribeId);
 			Team team = new Team();
-			if (!teamOptional.isPresent()) {
+			if (teamOptional.isPresent()) {
 				team = teamOptional.get();
 			}			
 			team.setTeamId(sportscribeId);
@@ -203,7 +203,7 @@ public class SportScribeAPI {
 			/*Create or Load Country*/
 			Optional<Country> countryOptional = countryService.findOneByCountryName(teamSportscribe.getCountry());
 			Country country = new Country();
-			if (!countryOptional.isPresent()) {
+			if (countryOptional.isPresent()) {
 				country = countryOptional.get();				
 			} 
 			country.setCountryName(teamSportscribe.getCountry());
@@ -256,7 +256,7 @@ public class SportScribeAPI {
 		MatchPreview matchPreview = new MatchPreview();
 		Integer fixture_id = preview.getFixture_id();
 		Optional<MatchPreview> matchPreviewOptional = matchPreviewService.findOneByFixtureId(fixture_id);
-		if (!matchPreviewOptional.isPresent()) {
+		if (matchPreviewOptional.isPresent()) {
 			matchPreview = matchPreviewOptional.get();
 		}
 		matchPreview.setBlurbFull(preview.getBlurb_full());
@@ -325,7 +325,7 @@ public class SportScribeAPI {
 		/*Create or Load Country*/
 		Optional<Country> countryOptional = countryService.findOneByCountryName(preview.getCountry());
 		Country country = new Country();
-		if (!countryOptional.isPresent()) {
+		if (countryOptional.isPresent()) {
 			country = countryOptional.get();				
 		} 
 		country.setCountryName(preview.getCountry());
@@ -335,7 +335,7 @@ public class SportScribeAPI {
 		/*Create or Load competition*/
 		Competition competition = new Competition();
 		Optional<Competition> competitionOptional = competitionService.findOneBySportscribeId(preview.getLeague_id());
-		if (!competitionOptional.isPresent()) {
+		if (competitionOptional.isPresent()) {
 			competition = competitionOptional.get();
 		}
 		competition.setCompetitionName(preview.getLeague());
@@ -361,7 +361,7 @@ public class SportScribeAPI {
 		/**Create or Load homeTeam*/
 		Team homeTeam = new Team();
 		Optional<Team> homeTeamOptional = teamService.findOneBySportscribeId(preview.getHometeam_id());
-		if (!homeTeamOptional.isPresent()) {
+		if (homeTeamOptional.isPresent()) {
 			homeTeam = homeTeamOptional.get();
 		}
 		homeTeam.setTeamName(preview.getHometeam_name());		
@@ -371,7 +371,7 @@ public class SportScribeAPI {
 		/**Create or Load visitorTeam*/
 		Team visitorTeam = new Team();
 		Optional<Team> visitorTeamOptional = teamService.findOneBySportscribeId(preview.getVisitorteam_id());
-		if (!visitorTeamOptional.isPresent()) {
+		if (visitorTeamOptional.isPresent()) {
 			visitorTeam = visitorTeamOptional.get();
 		}
 		visitorTeam.setTeamName(preview.getVisitorteam_name());		
@@ -380,7 +380,7 @@ public class SportScribeAPI {
 		/*Create or Load Social*/
 		TeamSocial teamSocial = new TeamSocial();		
 		Optional<TeamSocial> teamSocialOptional = teamSocialService.findOneByMatch(preview.getFixture_id().toString());
-		if (!teamSocialOptional.isPresent()) {
+		if (teamSocialOptional.isPresent()) {
 			teamSocial = teamSocialOptional.get();
 		}
 		if (preview.getSocial() != null) {
@@ -466,7 +466,7 @@ public class SportScribeAPI {
 		}
 		if (teamSocial != null) {
 			teamSocialOptional = teamSocialService.findOneByMatch(preview.getFixture_id().toString());
-			if (!teamSocialOptional.isPresent()) {
+			if (teamSocialOptional.isPresent()) {
 				teamSocial = teamSocialOptional.get();
 			}
 			teamSocial.setMatchPreview(matchPreview);
@@ -480,7 +480,7 @@ public class SportScribeAPI {
 		PartPreview partPreview = preview.getParts();
 		Parts parts = new Parts();
 		Optional<Parts> partsOptional = partsService.findOneByMatchPreview(matchPreview);
-		if (!partsOptional.isPresent()) {
+		if (partsOptional.isPresent()) {
 			parts = partsOptional.get();
 		}
 		
