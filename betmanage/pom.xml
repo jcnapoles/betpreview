@@ -6,7 +6,7 @@
     <groupId>com.betpreview.betmanage</groupId>
     <artifactId>betmanage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Betmanage</name>
 
     <repositories>
@@ -365,12 +365,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
             <scope>test</scope>
-        </dependency>
-		<dependency>
-			<groupId>com.betpreview</groupId>
-			<artifactId>SportScribeWS</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        </dependency>		
         <!-- jhipster-needle-maven-add-dependency -->
         <dependency>
         	<groupId>org.springframework.boot</groupId>
@@ -1038,6 +1033,7 @@
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-undertow</artifactId>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
